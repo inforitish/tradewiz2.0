@@ -205,18 +205,16 @@
     }
     .btn-g:hover { border-color: var(--border2); color: var(--text); transform: translateY(-2px); }
 
-    /* STATS ROW */
-    .stats-row {
-      display: flex; justify-content: center; flex-wrap: wrap; gap: 0;
-      margin-top: 4.5rem; max-width: 720px; width: 100%;
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--r); overflow: hidden;
-      backdrop-filter: blur(6px); animation: fadeUp 0.9s 0.4s ease both;
-    }
-    .sitem { flex: 1; min-width: 140px; padding: 1.6rem 1.5rem; text-align: center; border-right: 1px solid var(--border); }
-    .sitem:last-child { border-right: none; }
-    .snum { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.05em; display: block; color: var(--text); }
-    .slbl { font-size: 0.67rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; display: block; }
+    /* STATS — Liquide style */
+    #stats { padding: 80px 6vw; background: var(--bg2); }
+    .stats-eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber,#F59E0B); text-align: center; margin-bottom: 0.6rem; display: block; }
+    .stats-heading { font-size: clamp(1.1rem,2.2vw,1.4rem); font-weight: 600; color: var(--mid); text-align: center; margin-bottom: 3.5rem; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); max-width: 960px; margin: 0 auto; }
+    .sitem { padding: 2rem 1.5rem; text-align: center; position: relative; }
+    .sitem::after { content:''; position:absolute; right:0; top:20%; height:60%; width:1px; background:var(--border); }
+    .sitem:last-child::after { display:none; }
+    .snum { font-size: clamp(2.6rem,5vw,4rem); font-weight: 900; letter-spacing: -0.05em; display: block; color: var(--text); line-height: 1; }
+    .slbl { font-size: 0.67rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 0.55rem; display: block; }
 
     /* SECTIONS */
     section { position: relative; z-index: 1; padding: 96px 6vw; }
@@ -266,10 +264,11 @@
       transition: transform 0.4s;
     }
     .wt-card:hover { transform: translateY(-4px); }
-    .wt-card-forex    { background: linear-gradient(145deg,#dbeafe 0%,#93c5fd 45%,#3b82f6 100%); box-shadow:0 32px 80px rgba(59,130,246,0.25); }
-    .wt-card-commodity{ background: linear-gradient(145deg,#fef9c3 0%,#fde68a 45%,#f59e0b 100%); box-shadow:0 32px 80px rgba(245,158,11,0.22); }
-    .wt-card-crypto   { background: linear-gradient(145deg,#f5f3ff 0%,#c4b5fd 45%,#8b5cf6 100%); box-shadow:0 32px 80px rgba(139,92,246,0.22); }
-    .wt-card-stocks   { background: linear-gradient(145deg,#dcfce7 0%,#86efac 45%,#22c55e 100%); box-shadow:0 32px 80px rgba(34,197,94,0.22); }
+    @keyframes gradShift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+    .wt-card-forex    { background:linear-gradient(135deg,#bfdbfe,#93c5fd,#3b82f6,#1d4ed8,#93c5fd,#bfdbfe); background-size:300% 300%; animation:gradShift 10s ease infinite; box-shadow:0 32px 80px rgba(59,130,246,0.25); }
+    .wt-card-commodity{ background:linear-gradient(135deg,#fef9c3,#fde68a,#f59e0b,#d97706,#fde68a,#fef9c3); background-size:300% 300%; animation:gradShift 10s 1.5s ease infinite; box-shadow:0 32px 80px rgba(245,158,11,0.22); }
+    .wt-card-crypto   { background:linear-gradient(135deg,#ede9fe,#c4b5fd,#8b5cf6,#6d28d9,#c4b5fd,#ede9fe); background-size:300% 300%; animation:gradShift 10s 3s ease infinite; box-shadow:0 32px 80px rgba(139,92,246,0.22); }
+    .wt-card-stocks   { background:linear-gradient(135deg,#dcfce7,#86efac,#22c55e,#16a34a,#86efac,#dcfce7); background-size:300% 300%; animation:gradShift 10s 4.5s ease infinite; box-shadow:0 32px 80px rgba(34,197,94,0.22); }
     .wt-pill {
       position: absolute; top: 0; left: 50%; transform: translate(-50%,-55%);
       background: rgba(8,12,28,0.92); color: #E5E7EB;
@@ -626,18 +625,21 @@
       #spotlight { padding: 72px 5vw; gap: 1rem; }
       #social-strip { padding: 60px 5vw; }
 
+      .hero-title { font-size: clamp(1.7rem, 8vw, 2.6rem); }
       .hero-btns { flex-direction: column; align-items: stretch; max-width: 300px; margin-left: auto; margin-right: auto; }
       .hero-btns a { text-align: center; justify-content: center; }
       .fci-btns { flex-direction: column; align-items: center; }
+
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .sitem::after { top: auto; bottom: 0; left: 10%; width: 80%; height: 1px; right: auto; }
+      .sitem:nth-child(2)::after { display: none; }
+      .snum { font-size: clamp(2.4rem, 10vw, 3.5rem); }
 
       footer { grid-template-columns: 1fr 1fr; }
     }
 
     @media (max-width: 680px) {
       .feat-grid { grid-template-columns: 1fr; }
-      .stats-row { flex-direction: column; }
-      .sitem { border-right: none; border-bottom: 1px solid var(--border); }
-      .sitem:last-child { border-bottom: none; }
       footer { grid-template-columns: 1fr; }
       .price-grid { max-width: 100%; }
     }
@@ -701,12 +703,6 @@
       <a href="#pricing" class="btn-p">Become a Member <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <a href="#testimonials" class="btn-g">Watch Member Stories</a>
     </div>
-    <div class="stats-row">
-      <div class="sitem"><span class="snum" data-count="20000" data-k>0</span><span class="slbl">Active Traders</span></div>
-      <div class="sitem"><span class="snum" data-count="50000" data-k>0</span><span class="slbl">Trade Ideas Shared</span></div>
-      <div class="sitem"><span class="snum" data-count="200" data-suffix="hr+">0</span><span class="slbl">Webinars</span></div>
-      <div class="sitem"><span class="snum" data-count="4.9" data-suffix="★" data-dec>0</span><span class="slbl">User Rating</span></div>
-    </div>
   </section>
 
   <!-- WE TRADE -->
@@ -721,7 +717,7 @@
         <!-- ── Forex ── -->
         <div class="wt-slide rv" id="wts0">
           <div class="wt-card wt-card-forex">
-            <div class="wt-pill">💱 Forex</div>
+            <div class="wt-pill"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2 4.5h9M9 2.5l2 2-2 2M13 10.5H4M6 8.5l-2 2 2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Forex</div>
             <div class="wt-widget wt-wa" style="left:11%;top:50%;transform:translateY(-50%);width:195px;">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.55rem;">
                 <div class="wt-wlabel" style="margin:0;">EUR/USD · SETUP</div>
@@ -756,7 +752,7 @@
         <!-- ── Commodity ── -->
         <div class="wt-slide rv d1" id="wts1">
           <div class="wt-card wt-card-commodity">
-            <div class="wt-pill">🪙 Commodity</div>
+            <div class="wt-pill"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="2" y="5" width="11" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M5 5V4a1 1 0 011-1h3a1 1 0 011 1v1M5.5 8.5h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg> Commodity</div>
             <div class="wt-widget wt-wa" style="left:11%;top:50%;transform:translateY(-50%);width:195px;">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.55rem;">
                 <div class="wt-wlabel" style="margin:0;">GOLD / XAU · SETUP</div>
@@ -791,7 +787,7 @@
         <!-- ── Crypto ── -->
         <div class="wt-slide rv d2" id="wts2">
           <div class="wt-card wt-card-crypto">
-            <div class="wt-pill">₿ Crypto</div>
+            <div class="wt-pill"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M5.5 2.5h4a2 2 0 010 4H5.5m0-4v4m0 0H10a2 2 0 010 4H5.5m0-4v4m-1-8v9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Crypto</div>
             <div class="wt-widget wt-wa" style="left:11%;top:50%;transform:translateY(-50%);width:195px;">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.55rem;">
                 <div class="wt-wlabel" style="margin:0;">BTC/USDT · LONG</div>
@@ -829,7 +825,7 @@
         <!-- ── Stocks ── -->
         <div class="wt-slide rv d3" id="wts3">
           <div class="wt-card wt-card-stocks">
-            <div class="wt-pill">📈 Stocks</div>
+            <div class="wt-pill"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="2" y="7" width="2.5" height="5.5" rx="0.5" stroke="currentColor" stroke-width="1.5"/><rect x="6.25" y="4.5" width="2.5" height="8" rx="0.5" stroke="currentColor" stroke-width="1.5"/><rect x="10.5" y="2" width="2.5" height="10.5" rx="0.5" stroke="currentColor" stroke-width="1.5"/></svg> Stocks</div>
             <div class="wt-widget wt-wa" style="left:11%;top:50%;transform:translateY(-50%);width:195px;">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.55rem;">
                 <div class="wt-wlabel" style="margin:0;">NIFTY 50 · SWING</div>
@@ -868,6 +864,18 @@
       <button class="wt-dot" data-slide="1"></button>
       <button class="wt-dot" data-slide="2"></button>
       <button class="wt-dot" data-slide="3"></button>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section id="stats">
+    <span class="stats-eyebrow">Track Record</span>
+    <p class="stats-heading">We Take Pride in Our Numbers</p>
+    <div class="stats-grid">
+      <div class="sitem rv"><span class="snum" data-count="20000" data-k>0</span><span class="slbl">Active Traders</span></div>
+      <div class="sitem rv d1"><span class="snum" data-count="50000" data-k>0</span><span class="slbl">Trade Ideas Shared</span></div>
+      <div class="sitem rv d2"><span class="snum" data-count="200" data-suffix="hr+">0</span><span class="slbl">Live Sessions</span></div>
+      <div class="sitem rv d3"><span class="snum" data-count="4.9" data-suffix="★" data-dec>0</span><span class="slbl">User Rating</span></div>
     </div>
   </section>
 
@@ -1059,14 +1067,14 @@
       <p class="ssub">From strategy to mindset — a complete professional system built for serious traders.</p>
     </div>
     <div class="feat-grid">
-      <div class="fcard rv"><div class="fi">📈</div><h3>Proven Trading Strategies</h3><p>Access to the same strategies used to generate asymmetric returns with managed risk.</p></div>
-      <div class="fcard rv d1"><div class="fi">⚡</div><h3>Fast-Moving Identification</h3><p>Spot explosive stocks and perfect entry timing before the market catches on.</p></div>
-      <div class="fcard rv d2"><div class="fi">🎬</div><h3>Video Lessons</h3><p>Step-by-step breakdowns of real trades and live execution walkthroughs.</p></div>
-      <div class="fcard rv"><div class="fi">👁</div><h3>Exclusive Watchlist</h3><p>Curated daily updates to stay ahead of the market before major moves happen.</p></div>
-      <div class="fcard rv d1"><div class="fi">🔎</div><h3>Scanning Techniques</h3><p>Build your personalized watchlist using expert-grade screener filters.</p></div>
-      <div class="fcard rv d2"><div class="fi">🔄</div><h3>Swing Trading</h3><p>Master short-term profits with structured setups while keeping your day job.</p></div>
-      <div class="fcard rv"><div class="fi">💬</div><h3>Live Monthly Q&amp;As</h3><p>Get your questions answered directly in live, interactive mentorship sessions.</p></div>
-      <div class="fcard rv d1"><div class="fi">📐</div><h3>Technical Analysis</h3><p>Spot key setups and read charts with professional-level chart reading skills.</p></div>
+      <div class="fcard rv"><div class="fi"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 14l4-5 3 3 4-6 3 4" stroke="#3B82F6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 6v4M17 6h-4" stroke="#3B82F6" stroke-width="1.8" stroke-linecap="round"/></svg></div><h3>Proven Trading Strategies</h3><p>Access to the same strategies used to generate asymmetric returns with managed risk.</p></div>
+      <div class="fcard rv d1"><div class="fi"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="3" stroke="#3B82F6" stroke-width="1.8"/><path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.93 4.93l1.41 1.41M13.66 13.66l1.41 1.41M4.93 15.07l1.41-1.41M13.66 6.34l1.41-1.41" stroke="#3B82F6" stroke-width="1.8" stroke-linecap="round"/></svg></div><h3>Fast-Moving Identification</h3><p>Spot explosive stocks and perfect entry timing before the market catches on.</p></div>
+      <div class="fcard rv d2"><div class="fi"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="5" width="14" height="10" rx="2" stroke="#3B82F6" stroke-width="1.8"/><path d="M8 9l3 2-3 2V9z" fill="#3B82F6"/></svg></div><h3>Video Lessons</h3><p>Step-by-step breakdowns of real trades and live execution walkthroughs.</p></div>
+      <div class="fcard rv"><div class="fi"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 6h14M3 10h9M3 14h6" stroke="#3B82F6" stroke-width="1.8" stroke-linecap="round"/><circle cx="15" cy="13" r="3" stroke="#3B82F6" stroke-width="1.8"/><path d="M17.5 15.5l1.5 1.5" stroke="#3B82F6" stroke-width="1.8" stroke-linecap="round"/></svg></div><h3>Exclusive Watchlist</h3><p>Curated daily updates to stay ahead of the market before major moves happen.</p></div>
+      <div class="fcard rv d1"><div class="fi"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 4h3v12H4zM8.5 8h3v8h-3zM13 2h3v14h-3z" stroke="#3B82F6" stroke-width="1.8" stroke-linejoin="round"/></svg></div><h3>Scanning Techniques</h3><p>Build your personalized watchlist using expert-grade screener filters.</p></div>
+      <div class="fcard rv d2"><div class="fi"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 17l4-8 4 4 3-5 3 3" stroke="#3B82F6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Swing Trading</h3><p>Master short-term profits with structured setups while keeping your day job.</p></div>
+      <div class="fcard rv"><div class="fi"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 15V9a6 6 0 0112 0v6" stroke="#3B82F6" stroke-width="1.8" stroke-linecap="round"/><rect x="2" y="13" width="4" height="4" rx="1" stroke="#3B82F6" stroke-width="1.8"/><rect x="14" y="13" width="4" height="4" rx="1" stroke="#3B82F6" stroke-width="1.8"/></svg></div><h3>Live Monthly Q&amp;As</h3><p>Get your questions answered directly in live, interactive mentorship sessions.</p></div>
+      <div class="fcard rv d1"><div class="fi"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 3l2 5h5l-4 3 1.5 5L10 13l-4.5 3L7 11 3 8h5z" stroke="#3B82F6" stroke-width="1.8" stroke-linejoin="round"/></svg></div><h3>Technical Analysis</h3><p>Spot key setups and read charts with professional-level chart reading skills.</p></div>
       <div class="fcard rv d2"><div class="fi">🧠</div><h3>Mindset &amp; Discipline</h3><p>Build the psychological resilience needed for consistent trading success.</p></div>
     </div>
   </section>
@@ -1441,8 +1449,8 @@
     }
     const io = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); e.target.querySelectorAll('[data-count]').forEach(animCount); io.unobserve(e.target); } }); }, {threshold:.1});
     document.querySelectorAll('.rv').forEach(el => io.observe(el));
-    const sio = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting){ e.target.querySelectorAll('[data-count]').forEach(animCount); sio.unobserve(e.target); } }); }, {threshold:.5});
-    const sb = document.querySelector('.stats-row'); if(sb) sio.observe(sb);
+    const sio = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting){ e.target.querySelectorAll('[data-count]').forEach(animCount); sio.unobserve(e.target); } }); }, {threshold:.3});
+    const sb = document.querySelector('#stats'); if(sb) sio.observe(sb);
 
     // SPOTLIGHT CHART BARS
     (function() {
