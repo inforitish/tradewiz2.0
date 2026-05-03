@@ -205,6 +205,25 @@
     }
     .btn-g:hover { border-color: var(--border2); color: var(--text); transform: translateY(-2px); }
 
+    /* HERO SCROLL HINT */
+    .hero-scroll-hint {
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      margin-top: 2.5rem; animation: fadeUp 0.9s 0.55s ease both;
+    }
+    .hero-scroll-hint span { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .hero-scroll-mouse {
+      width: 22px; height: 36px; border: 2px solid rgba(255,255,255,0.2);
+      border-radius: 11px; display: flex; justify-content: center; padding-top: 6px;
+    }
+    .hero-scroll-dot {
+      width: 4px; height: 8px; background: var(--blue);
+      border-radius: 2px; animation: scrollDot 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollDot {
+      0%,100% { transform: translateY(0); opacity: 1; }
+      60% { transform: translateY(10px); opacity: 0.2; }
+    }
+
     /* STATS — Liquide style */
     #stats { padding: 80px 6vw; background: var(--bg2); }
     .stats-eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber,#F59E0B); text-align: center; margin-bottom: 0.6rem; display: block; }
@@ -518,20 +537,34 @@
     .ti-sl { font-size: 0.62rem; color: var(--muted); }
 
     /* TESTIMONIALS */
-    #testimonials { background: var(--bg); overflow: hidden; }
-    .tm-wrap { overflow: hidden; -webkit-mask-image: linear-gradient(90deg,transparent,black 8%,black 92%,transparent); mask-image: linear-gradient(90deg,transparent,black 8%,black 92%,transparent); }
-    .tm-track { display: flex; gap: 1.1rem; animation: scroll 55s linear infinite; width: max-content; }
-    .tm-track:hover { animation-play-state: paused; }
-    .tm-track.r2 { animation-direction: reverse; margin-top: 1.1rem; }
-    @keyframes scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-    .tcard { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 1.4rem; width: 290px; flex-shrink: 0; backdrop-filter: blur(6px); transition: border-color 0.25s,transform 0.25s; }
-    .tcard:hover { border-color: var(--border2); transform: translateY(-3px); }
-    .tc-stars { color: #F59E0B; font-size: 0.78rem; letter-spacing: 1px; margin-bottom: 0.7rem; }
-    .tc-txt { font-size: 0.78rem; line-height: 1.72; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 4; line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
-    .tc-auth { margin-top: 1.1rem; display: flex; align-items: center; gap: 0.65rem; }
-    .tc-av { width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; color: #fff; }
-    .tc-name { font-size: 0.78rem; font-weight: 600; }
-    .tc-city { font-size: 0.67rem; color: var(--muted); }
+    #testimonials { background: var(--bg2); padding: 90px 6vw; overflow: hidden; }
+    .tm-slider-outer { position: relative; padding: 0 48px; }
+    .tm-viewport { overflow: hidden; }
+    .tm-track2 { display: flex; gap: 1.5rem; transition: transform 0.48s cubic-bezier(0.25,0,0,1); will-change: transform; }
+    .tm-slide { flex: 0 0 calc(33.333% - 1rem); min-width: 0; }
+    .tcard2 { background: #07111f; border: 1px solid rgba(255,255,255,0.07); border-radius: 18px; padding: 1.85rem 1.75rem; height: 100%; display: flex; flex-direction: column; transition: border-color 0.25s,transform 0.25s; }
+    .tcard2:hover { border-color: rgba(59,130,246,0.25); transform: translateY(-4px); }
+    .tc2-quote { font-size: 2.5rem; line-height: 1; color: rgba(59,130,246,0.35); font-family: Georgia,serif; margin-bottom: 0.5rem; }
+    .tc2-title { font-size: 1rem; font-weight: 700; color: var(--text); line-height: 1.42; margin-bottom: 0.85rem; }
+    .tc2-body { font-size: 0.8rem; color: var(--muted); line-height: 1.75; flex: 1; }
+    .tc2-footer { margin-top: 1.5rem; display: flex; align-items: center; gap: 0.8rem; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,0.05); }
+    .tc2-av { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg,#1e3a8a,#3b82f6); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.82rem; color: #fff; flex-shrink: 0; }
+    .tc2-meta { flex: 1; min-width: 0; }
+    .tc2-name { font-size: 0.82rem; font-weight: 600; color: var(--text); }
+    .tc2-stars { color: #22c55e; font-size: 0.72rem; letter-spacing: 1px; margin-top: 0.15rem; }
+    .tc2-date { font-size: 0.68rem; color: var(--muted); margin-top: 0.15rem; }
+    .tm-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border-radius: 50%; background: var(--card2); border: 1px solid var(--border2); color: var(--text); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; z-index: 2; }
+    .tm-arrow:hover { background: var(--blue); border-color: var(--blue); }
+    .tm-arrow svg { width: 18px; height: 18px; }
+    .tm-arrow.prev { left: 0; }
+    .tm-arrow.next { right: 0; }
+    .tm-arrow:disabled { opacity: 0.3; cursor: default; }
+    .tm-arrow:disabled:hover { background: var(--card2); border-color: var(--border2); }
+    .tm-dots2 { display: flex; justify-content: center; gap: 0.5rem; margin-top: 2.25rem; }
+    .tm-dot2 { width: 8px; height: 8px; border-radius: 50%; background: var(--border2); cursor: pointer; transition: all 0.25s; border: none; padding: 0; }
+    .tm-dot2.active { background: var(--blue); width: 24px; border-radius: 4px; }
+    @media (max-width: 900px) { .tm-slide { flex: 0 0 calc(50% - 0.75rem); } }
+    @media (max-width: 600px) { .tm-slide { flex: 0 0 85%; } .tm-slider-outer { padding: 0 0; } .tm-arrow { display: none; } }
 
     /* SOCIAL STRIP */
     #social-strip { background: var(--bg2); padding: 70px 6vw; }
@@ -625,6 +658,9 @@
       #spotlight { padding: 72px 5vw; gap: 1rem; }
       #social-strip { padding: 60px 5vw; }
 
+      #hero { min-height: auto; padding: 90px 5vw 44px; }
+      .hero-sub { display: none; }
+      .hero-scroll-hint { display: none; }
       .hero-title { font-size: clamp(1.7rem, 8vw, 2.6rem); }
       .hero-btns { flex-direction: column; align-items: stretch; max-width: 300px; margin-left: auto; margin-right: auto; }
       .hero-btns a { text-align: center; justify-content: center; }
@@ -701,7 +737,10 @@
     <p class="hero-sub">Transform your trading journey with India's most powerful community — proven strategies, live mentorship, real results across Forex, Stocks &amp; Crypto.</p>
     <div class="hero-btns">
       <a href="#pricing" class="btn-p">Become a Member <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-      <a href="#testimonials" class="btn-g">Watch Member Stories</a>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll to explore</span>
+      <div class="hero-scroll-mouse"><div class="hero-scroll-dot"></div></div>
     </div>
   </section>
 
@@ -1225,13 +1264,21 @@
   <!-- TESTIMONIALS -->
   <section id="testimonials">
     <div class="sheader c rv"><span class="stag">Success Stories</span>
-      <h2 class="stitle">Real traders, <span class="blue">real results</span></h2>
-      <p class="ssub">See how our community members have transformed their trading journeys across India.</p>
+      <h2 class="stitle">Hear it From Our <span class="blue">Super Traders</span></h2>
+      <p class="ssub">Real results from real members trading Forex, Gold, Crypto and Stocks with TradeWiz.</p>
     </div>
-    <div class="tm-wrap">
-      <div class="tm-track" id="trk1"></div>
-      <div class="tm-track r2" id="trk2"></div>
+    <div class="tm-slider-outer">
+      <button class="tm-arrow prev" id="tmPrev" aria-label="Previous">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="tm-viewport">
+        <div class="tm-track2" id="tmTrack"></div>
+      </div>
+      <button class="tm-arrow next" id="tmNext" aria-label="Next">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
     </div>
+    <div class="tm-dots2" id="tmDots"></div>
   </section>
 
   <!-- SOCIAL STRIP -->
@@ -1511,37 +1558,63 @@
     document.querySelectorAll('.mbtn').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('.mbtn').forEach(x => x.classList.remove('active')); b.classList.add('active'); cM=b.dataset.m; drawPerf(); }));
     document.querySelectorAll('.mobtn').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('.mobtn').forEach(x => x.classList.remove('active')); b.classList.add('active'); cI=+b.dataset.i; drawPerf(); }));
 
-    // TESTIMONIALS
+    // TESTIMONIALS SLIDER
     const TMS = [
-      {name:'Karthik A.',city:'Chennai',text:"Tradewiz's gold trading strategies completely changed the game for me. I now have a clear plan for entries, exits, and risk."},
-      {name:'Poonam T.',city:'Bangalore',text:"The accuracy of the forex setups is simply unmatched. A disciplined low-risk, high-reward system that actually works."},
-      {name:'Rishabh N.',city:'Delhi',text:"Trading live NFP and CPI events used to be terrifying. The live sessions with TradeWiz taught me how to stay calm and trade smart."},
-      {name:'Zoya H.',city:'Hyderabad',text:"The CPI event session alone was worth the entire membership fee. It was like a live masterclass in real-time."},
-      {name:'Nitesh S.',city:'Mumbai',text:"Now I understand how to prepare, set logical targets, and manage my risk like a pro. No more guessing."},
-      {name:'Tanvi V.',city:'Pune',text:"The 3500+ pips monthly potential is real — cumulative result of consistent, well-researched, and logical setups."},
-      {name:'Rajeev M.',city:'Kolkata',text:"Mastering risk management through TradeWiz has fundamentally changed my trading psychology. No more anxiety."},
-      {name:'Sana R.',city:'Ahmedabad',text:"Every trade idea comes with clearly defined entries, stop-losses, and take-profits — and the reasoning behind each level."},
-      {name:'Ankit B.',city:'Gurgaon',text:"I caught 150 pips on a single EURUSD trade thanks to the community's strategies. My first real win in trading!"},
-      {name:'Kritika L.',city:'Lucknow',text:"It truly feels like I'm trading with a smart army behind me. Consistency improved dramatically."},
-      {name:'Ashwin T.',city:'Jaipur',text:"The weekly reviews are deep in analysis yet simple to understand. Now I finally know why I lost trades earlier."},
-      {name:'Naina J.',city:'Indore',text:"I would never have dared to scalp gold before. The strategies and live guidance have been a complete revelation."},
-      {name:'Siddharth K.',city:'Surat',text:"I feel completely in control even when the market is moving fast during major news events."},
-      {name:'Diya P.',city:'Udaipur',text:"This community drills risk-reward into your head. It works — my account is finally in the green."},
-      {name:'Tapan V.',city:'Nashik',text:"The emotional control I've developed through this structured approach is unmatched. Forex is now exciting, not overwhelming."},
-      {name:'Arya K.',city:'Patna',text:"I was in a deep drawdown ready to quit. TradeWiz was my last resort and a complete lifesaver."},
-      {name:'Mehak S.',city:'Noida',text:"Tradewiz was the antidote to random YouTubers — a professional, structured approach to the forex market."},
+      {name:'Karthik A.',city:'Chennai',date:'Apr 2025',title:'Gold strategies that actually work',text:"TradeWiz's gold trading strategies completely changed the game for me. I now have a clear plan for entries, exits, and risk. Every trade setup makes sense."},
+      {name:'Poonam T.',city:'Bangalore',date:'Mar 2025',title:'Unmatched accuracy on forex setups',text:"The accuracy of the forex setups is simply unmatched. A disciplined low-risk, high-reward system that actually delivers consistent results week after week."},
+      {name:'Rishabh N.',city:'Delhi',date:'Apr 2025',title:'NFP events no longer terrify me',text:"Trading live NFP and CPI events used to be terrifying. The live sessions with TradeWiz taught me how to stay calm and trade smart even in volatile conditions."},
+      {name:'Zoya H.',city:'Hyderabad',date:'Feb 2025',title:'The CPI session was a live masterclass',text:"The CPI event session alone was worth the entire membership fee. It was like a live masterclass in real-time trading. I learned more in 2 hours than in months of self-study."},
+      {name:'Nitesh S.',city:'Mumbai',date:'Mar 2025',title:'Finally trading like a pro',text:"Now I understand how to prepare, set logical targets, and manage my risk like a pro. No more guessing. No more random entries. Just a clear, repeatable process."},
+      {name:'Tanvi V.',city:'Pune',date:'Jan 2025',title:'3500+ pips in a month is real',text:"The 3500+ pips monthly potential is real. It's the cumulative result of consistent, well-researched, and logical setups that build on each other over time."},
+      {name:'Rajeev M.',city:'Kolkata',date:'Apr 2025',title:'My trading psychology transformed',text:"Mastering risk management through TradeWiz has fundamentally changed my trading psychology. No more anxiety, no more panic sells. Just structured, calm decision-making."},
+      {name:'Sana R.',city:'Ahmedabad',date:'Feb 2025',title:'Every idea comes with full reasoning',text:"Every trade idea comes with clearly defined entries, stop-losses, and take-profits along with the reasoning behind each level. It's education wrapped in every signal."},
+      {name:'Ankit B.',city:'Gurgaon',date:'Mar 2025',title:'150 pips on my first real win',text:"I caught 150 pips on a single EURUSD trade thanks to the community's strategies. It was my first real win in trading and gave me the confidence to keep going."},
+      {name:'Kritika L.',city:'Lucknow',date:'Jan 2025',title:'Like trading with a smart army',text:"It truly feels like I'm trading with a smart army behind me. My consistency improved dramatically and I'm finally building a real track record."},
+      {name:'Ashwin T.',city:'Jaipur',date:'Apr 2025',title:'Deep analysis, simple to understand',text:"The weekly reviews are deep in analysis yet simple to understand. Now I finally know why I lost trades earlier. The clarity this community provides is unmatched."},
+      {name:'Naina J.',city:'Indore',date:'Feb 2025',title:'Gold scalping is no longer scary',text:"I would never have dared to scalp gold before. The strategies and live guidance have been a complete revelation. I now scalp with confidence and consistency."},
     ];
-    function buildTrack(el, items) {
-      [...items,...items].forEach(t => {
+    (function initTMSlider() {
+      const track = document.getElementById('tmTrack');
+      const dotsEl = document.getElementById('tmDots');
+      const prevBtn = document.getElementById('tmPrev');
+      const nextBtn = document.getElementById('tmNext');
+      TMS.forEach(t => {
         const init = t.name.split(' ').map(n=>n[0]).join('');
-        const c = document.createElement('div'); c.className = 'tcard';
-        c.innerHTML = `<div class="tc-stars">★★★★★</div><p class="tc-txt">${t.text}</p><div class="tc-auth"><div class="tc-av">${init}</div><div><div class="tc-name">${t.name}</div><div class="tc-city">${t.city}</div></div></div>`;
-        el.appendChild(c);
+        const slide = document.createElement('div'); slide.className = 'tm-slide';
+        slide.innerHTML = `<div class="tcard2"><div class="tc2-quote">"</div><div class="tc2-title">${t.title}</div><p class="tc2-body">${t.text}</p><div class="tc2-footer"><div class="tc2-av">${init}</div><div class="tc2-meta"><div class="tc2-name">${t.name} &middot; ${t.city}</div><div class="tc2-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="tc2-date">${t.date}</div></div></div></div>`;
+        track.appendChild(slide);
       });
-    }
-    const h = Math.ceil(TMS.length/2);
-    buildTrack(document.getElementById('trk1'), TMS.slice(0,h));
-    buildTrack(document.getElementById('trk2'), TMS.slice(h));
+      let cur = 0;
+      function getVisible() {
+        const w = track.parentElement.offsetWidth;
+        if(w < 600) return 1;
+        if(w < 900) return 2;
+        return 3;
+      }
+      function maxIndex() { return Math.max(0, TMS.length - getVisible()); }
+      function buildDots() {
+        dotsEl.innerHTML = '';
+        const pages = maxIndex() + 1;
+        for(let i=0;i<pages;i++) {
+          const d = document.createElement('button'); d.className = 'tm-dot2' + (i===cur?' active':'');
+          d.addEventListener('click', ()=>goTo(i)); dotsEl.appendChild(d);
+        }
+      }
+      function goTo(n) {
+        cur = Math.max(0, Math.min(n, maxIndex()));
+        const slideW = track.children[0] ? track.children[0].offsetWidth + 24 : 0;
+        track.style.transform = `translateX(-${cur * slideW}px)`;
+        prevBtn.disabled = cur===0;
+        nextBtn.disabled = cur===maxIndex();
+        dotsEl.querySelectorAll('.tm-dot2').forEach((d,i)=>d.classList.toggle('active',i===cur));
+      }
+      prevBtn.addEventListener('click', ()=>goTo(cur-1));
+      nextBtn.addEventListener('click', ()=>goTo(cur+1));
+      let rx=0; track.parentElement.addEventListener('touchstart',e=>{rx=e.touches[0].clientX;},{passive:true});
+      track.parentElement.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-rx; if(Math.abs(dx)>50)goTo(cur+(dx<0?1:-1));});
+      buildDots(); goTo(0);
+      window.addEventListener('resize',()=>{buildDots();goTo(Math.min(cur,maxIndex()));});
+    })();
 
     // PRICING TOGGLE
     document.getElementById('tQ').addEventListener('click', () => { document.getElementById('tQ').classList.add('active'); document.getElementById('tA').classList.remove('active'); document.querySelectorAll('.pn').forEach(e => e.textContent = parseInt(e.dataset.q).toLocaleString('en-IN')); document.querySelectorAll('.pp').forEach(e => e.textContent = '/ 3 months · billed quarterly'); });
