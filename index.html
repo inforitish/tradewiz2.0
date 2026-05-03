@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TradeWiz — India's #1 Trading Community</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #020617;
+      --bg2: #040d1e;
+      --bg3: #061026;
+      --card: rgba(255, 255, 255, 0.03);
+      --card2: rgba(255, 255, 255, 0.05);
+      --border: rgba(255, 255, 255, 0.06);
+      --border2: rgba(255, 255, 255, 0.1);
+      --blue: #3B82F6;
+      --blue-dim: rgba(59, 130, 246, 0.12);
+      --blue-glow: rgba(59, 130, 246, 0.06);
+      --text: #E5E7EB;
+      --muted: #9CA3AF;
+      --mid: #D1D5DB;
+      --r: 14px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* HERO GRID */
+    .hero-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: linear-gradient(rgba(59,130,246,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.05) 1px,transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%,black 30%,transparent 100%);
+    }
+
+    /* TICKER */
+    .ticker {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      padding: 0.4rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+      z-index: 10;
+    }
+    .ticker-inner {
+      display: inline-block;
+      animation: tick 38s linear infinite;
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+    }
+    @keyframes tick { from { transform: translateX(100vw) } to { transform: translateX(-100%) } }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6vw; height: 66px;
+      background: rgba(2,6,23,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+    nav.scrolled { border-color: var(--border); }
+    .nav-logo {
+      font-size: 1.2rem; font-weight: 800; letter-spacing: -0.04em;
+      text-decoration: none; color: var(--text);
+    }
+    .nav-logo span { color: var(--blue); }
+    .nav-links {
+      display: flex; gap: 2rem; align-items: center; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.83rem; font-weight: 500; color: var(--muted);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--blue) !important; color: #fff !important;
+      padding: 0.48rem 1.25rem; border-radius: 100px;
+      font-weight: 600 !important; font-size: 0.82rem !important;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+    .nav-cta:hover { background: #2563EB !important; transform: translateY(-1px); }
+
+    /* HAMBURGER */
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 6px; background: none; border: none; z-index: 200;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--text); border-radius: 2px;
+      transition: transform 0.32s cubic-bezier(0.16,1,0.3,1), opacity 0.2s;
+      transform-origin: center;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* MOBILE OVERLAY NAV */
+    .mobile-nav {
+      position: fixed; inset: 0; z-index: 150;
+      background: rgba(2,6,23,0.97); backdrop-filter: blur(24px);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.2rem;
+      transform: translateX(100%);
+      transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
+      pointer-events: none;
+    }
+    .mobile-nav.open { transform: translateX(0); pointer-events: all; }
+    .mobile-nav a {
+      font-size: 1.5rem; font-weight: 700; letter-spacing: -0.03em;
+      color: var(--mid); text-decoration: none; padding: 0.75rem 0;
+      opacity: 0; transform: translateX(28px);
+      transition: color 0.2s, opacity 0.4s ease, transform 0.4s ease;
+    }
+    .mobile-nav.open a { opacity: 1; transform: translateX(0); }
+    .mobile-nav.open a:nth-child(1) { transition-delay: 0.06s; }
+    .mobile-nav.open a:nth-child(2) { transition-delay: 0.12s; }
+    .mobile-nav.open a:nth-child(3) { transition-delay: 0.18s; }
+    .mobile-nav.open a:nth-child(4) { transition-delay: 0.24s; }
+    .mobile-nav.open a:nth-child(5) { transition-delay: 0.30s; }
+    .mobile-nav.open a:nth-child(6) { transition-delay: 0.36s; }
+    .mobile-nav a:hover { color: var(--text); }
+    .mobile-nav .m-cta {
+      margin-top: 1.25rem;
+      background: var(--blue) !important; color: #fff !important;
+      padding: 0.85rem 2.5rem; border-radius: 100px;
+      font-size: 1rem !important; font-weight: 600;
+    }
+
+    /* HERO */
+    #hero {
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 120px 6vw 80px;
+      overflow: hidden;
+    }
+    .hero-radial { position: absolute; pointer-events: none; border-radius: 50%; filter: blur(120px); }
+    .hr1 {
+      width: 800px; height: 500px; top: -150px; left: 50%; transform: translateX(-50%);
+      background: radial-gradient(circle,rgba(59,130,246,0.1) 0%,transparent 70%);
+    }
+    .hr2 {
+      width: 500px; height: 400px; bottom: -80px; right: -100px;
+      background: radial-gradient(circle,rgba(99,102,241,0.07) 0%,transparent 70%);
+    }
+    .hero-chip {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--blue-dim); border: 1px solid rgba(59,130,246,0.2);
+      padding: 0.38rem 1.1rem; border-radius: 100px; margin-bottom: 1.75rem;
+      font-size: 0.73rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--blue);
+      animation: fadeUp 0.7s ease both;
+    }
+    .chip-dot { width: 6px; height: 6px; background: var(--blue); border-radius: 50%; animation: blink 2.5s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .hero-title {
+      font-size: clamp(2.8rem,7.5vw,6.2rem);
+      font-weight: 900; letter-spacing: -0.05em; line-height: 1.0;
+      max-width: 1000px; margin-bottom: 1.4rem; color: var(--text);
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+    .hero-title .blue { color: var(--blue); }
+    .hero-sub {
+      font-size: clamp(0.97rem,1.8vw,1.12rem); color: var(--muted);
+      max-width: 520px; line-height: 1.78; font-weight: 400; margin-bottom: 2.5rem;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+    .hero-btns {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+    /* BUTTONS */
+    .btn-p {
+      background: var(--blue); color: #fff;
+      font-family: 'Inter',sans-serif; font-size: 0.9rem; font-weight: 600;
+      padding: 0.85rem 2.2rem; border-radius: 100px; border: none; cursor: pointer;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: background 0.2s,transform 0.2s,box-shadow 0.2s;
+    }
+    .btn-p:hover { background: #2563EB; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59,130,246,0.25); }
+    .btn-g {
+      color: var(--muted); font-family: 'Inter',sans-serif; font-size: 0.9rem; font-weight: 500;
+      padding: 0.85rem 2rem; border-radius: 100px; background: var(--card);
+      border: 1px solid var(--border); backdrop-filter: blur(6px); cursor: pointer;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: all 0.2s;
+    }
+    .btn-g:hover { border-color: var(--border2); color: var(--text); transform: translateY(-2px); }
+
+    /* STATS ROW */
+    .stats-row {
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 0;
+      margin-top: 4.5rem; max-width: 720px; width: 100%;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--r); overflow: hidden;
+      backdrop-filter: blur(6px); animation: fadeUp 0.9s 0.4s ease both;
+    }
+    .sitem { flex: 1; min-width: 140px; padding: 1.6rem 1.5rem; text-align: center; border-right: 1px solid var(--border); }
+    .sitem:last-child { border-right: none; }
+    .snum { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.05em; display: block; color: var(--text); }
+    .slbl { font-size: 0.67rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; display: block; }
+
+    /* SECTIONS */
+    section { position: relative; z-index: 1; padding: 96px 6vw; }
+    .stag { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.75rem; display: block; }
+    .stitle { font-size: clamp(1.8rem,3.8vw,2.8rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.08; color: var(--text); }
+    .stitle .blue { color: var(--blue); }
+    .ssub { color: var(--muted); font-size: 0.96rem; line-height: 1.78; margin-top: 0.8rem; }
+    .sheader { margin-bottom: 3.5rem; }
+    .sheader.c { text-align: center; }
+    .sheader.c .stitle { max-width: 660px; margin: 0 auto; }
+    .sheader.c .ssub { max-width: 480px; margin: 0.8rem auto 0; }
+
+    /* REVEAL */
+    .rv { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease,transform 0.65s ease; }
+    .rv.in { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 0.08s; }
+    .d2 { transition-delay: 0.16s; }
+    .d3 { transition-delay: 0.24s; }
+    .d4 { transition-delay: 0.32s; }
+
+    /* CATCH INST */
+    #catch-inst {
+      padding: 80px 6vw; background: var(--bg2);
+      text-align: center; overflow: hidden;
+    }
+    #catch-inst::before {
+      content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 500px;
+      background: radial-gradient(ellipse,rgba(59,130,246,0.07) 0%,transparent 65%);
+      filter: blur(40px); pointer-events: none;
+    }
+
+    /* WE TRADE */
+    /* ── WE TRADE SLIDER ────────────────────────────── */
+    #we-trade { padding: 70px 0 96px; }
+    .wt-header { padding: 0 6vw; text-align: center; margin-bottom: 3.5rem; }
+    .wt-title { font-size: clamp(2.5rem,6vw,5rem); font-weight: 900; letter-spacing: -0.05em; margin-bottom: 0.75rem; }
+    .wt-sub { color: var(--muted); font-size: 0.96rem; }
+    .wt-outer { overflow: hidden; position: relative; padding: 3rem 0 2rem; cursor: grab; user-select: none; }
+    .wt-outer:active { cursor: grabbing; }
+    .wt-track { display: flex; gap: 2rem; will-change: transform; transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .wt-slide { flex-shrink: 0; width: min(820px,86vw); transition: opacity 0.4s; }
+    .wt-slide:not(.wt-active) { opacity: 0.5; }
+    .wt-card {
+      height: 460px; border-radius: 28px; overflow: visible;
+      position: relative; display: flex; align-items: center; justify-content: center;
+      transition: transform 0.4s;
+    }
+    .wt-card:hover { transform: translateY(-4px); }
+    .wt-card-forex    { background: linear-gradient(145deg,#dbeafe 0%,#93c5fd 45%,#3b82f6 100%); box-shadow:0 32px 80px rgba(59,130,246,0.25); }
+    .wt-card-commodity{ background: linear-gradient(145deg,#fef9c3 0%,#fde68a 45%,#f59e0b 100%); box-shadow:0 32px 80px rgba(245,158,11,0.22); }
+    .wt-card-crypto   { background: linear-gradient(145deg,#f5f3ff 0%,#c4b5fd 45%,#8b5cf6 100%); box-shadow:0 32px 80px rgba(139,92,246,0.22); }
+    .wt-card-stocks   { background: linear-gradient(145deg,#dcfce7 0%,#86efac 45%,#22c55e 100%); box-shadow:0 32px 80px rgba(34,197,94,0.22); }
+    .wt-pill {
+      position: absolute; top: 0; left: 50%; transform: translate(-50%,-55%);
+      background: rgba(8,12,28,0.92); color: #E5E7EB;
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 100px;
+      padding: 0.55rem 1.1rem; font-size: 0.82rem; font-weight: 600;
+      display: flex; align-items: center; gap: 0.45rem;
+      backdrop-filter: blur(16px); z-index: 5; white-space: nowrap;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .wt-widget {
+      position: absolute; z-index: 2;
+      background: rgba(6,10,26,0.9);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px; backdrop-filter: blur(20px);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.45), 0 4px 12px rgba(0,0,0,0.3);
+      padding: 0.9rem 1rem;
+    }
+    .wt-wa { animation: floatUp    6s ease-in-out infinite; }
+    .wt-wb { animation: floatUpAlt 7s 0.8s ease-in-out infinite; }
+    .wt-wc { animation: floatUp    8s 1.6s ease-in-out infinite; }
+    .wt-wlabel { font-size: 0.52rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 0.55rem; }
+    .wt-wval   { font-size: 1.3rem; font-weight: 800; color: #fff; letter-spacing: -0.04em; line-height: 1; }
+    .wt-wsub   { font-size: 0.58rem; color: rgba(255,255,255,0.42); margin-top: 0.3rem; }
+    .wt-wbadge { display: inline-flex; align-items: center; font-size: 0.6rem; font-weight: 700; padding: 3px 8px; border-radius: 100px; }
+    .wt-wbadge.buy  { background: rgba(74,222,128,0.2); border: 1px solid rgba(74,222,128,0.3); color: #4ADE80; }
+    .wt-wbadge.sell { background: rgba(248,113,113,0.2); border: 1px solid rgba(248,113,113,0.3); color: #F87171; }
+    .wt-wbadge.neu  { background: rgba(96,165,250,0.2);  border: 1px solid rgba(96,165,250,0.3);  color: #60A5FA; }
+    .wt-wgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+    .wt-wgrid > div > .wt-wk { font-size: 0.52rem; color: rgba(255,255,255,0.4); }
+    .wt-wgrid > div > .wt-wv { font-size: 0.72rem; font-weight: 600; }
+    .wt-slide-info { padding: 1.75rem 0.5rem 0; text-align: center; }
+    .wt-slide-tag  { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.5rem; }
+    .wt-slide-info h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.45rem; color: var(--text); }
+    .wt-slide-info p  { font-size: 0.83rem; color: var(--muted); max-width: 500px; margin: 0 auto; line-height: 1.7; }
+    .wt-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 2.25rem; }
+    .wt-dot  { width: 8px; height: 8px; border-radius: 100px; background: rgba(255,255,255,0.18); cursor: pointer; transition: all 0.35s; border: none; padding: 0; outline: none; }
+    .wt-dot.active  { background: var(--blue); width: 24px; }
+    .wt-dot:hover:not(.active) { background: rgba(255,255,255,0.35); }
+
+    /* ── SPOTLIGHT (LIQUIDE-STYLE CARDS) ────────────── */
+    #spotlight {
+      padding: 96px 6vw;
+      background: var(--bg);
+      display: flex; flex-direction: column; gap: 1.5rem;
+    }
+    #spotlight > .sheader { margin-bottom: 0.5rem; }
+
+    .liq-card {
+      background: #080f1e;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 24px; overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .liq-card:hover { border-color: rgba(255,255,255,0.13); }
+
+    .liq-card-body { display: grid; grid-template-columns: 1fr 1fr; }
+
+    .liq-card-left {
+      padding: 3rem;
+      display: flex; flex-direction: column; justify-content: center;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      min-height: 360px;
+    }
+
+    .liq-label { display: inline-flex; align-items: center; gap: 0.7rem; margin-bottom: 1.75rem; }
+    .liq-label-icon {
+      width: 40px; height: 40px; border-radius: 11px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.09);
+      display: flex; align-items: center; justify-content: center; font-size: 1.15rem;
+    }
+    .liq-label-text { font-size: 0.71rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #E8A030; }
+
+    .liq-h { font-size: clamp(1.65rem,2.5vw,2.3rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 1rem; color: var(--text); }
+    .liq-h .blue { color: var(--blue); font-weight: 900; }
+    .liq-p { font-size: 0.9rem; color: var(--muted); line-height: 1.78; max-width: 380px; }
+
+    .liq-card-right {
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      padding: 2.5rem 2rem;
+    }
+    .liq-right-label {
+      position: absolute; top: 2rem; right: 2rem;
+      font-size: 0.78rem; color: rgba(255,255,255,0.35); font-weight: 400;
+    }
+
+    /* Per-card glow */
+    .glow-green::after { content:''; position:absolute; bottom:-80px; right:-80px; width:380px; height:380px; background:radial-gradient(circle,rgba(74,222,128,0.11) 0%,transparent 68%); pointer-events:none; }
+    .glow-blue::after  { content:''; position:absolute; bottom:-80px; right:-80px; width:380px; height:380px; background:radial-gradient(circle,rgba(59,130,246,0.14) 0%,transparent 68%); pointer-events:none; }
+    .glow-purple::after{ content:''; position:absolute; bottom:-80px; right:-80px; width:380px; height:380px; background:radial-gradient(circle,rgba(139,92,246,0.13) 0%,transparent 68%); pointer-events:none; }
+    .glow-amber::after { content:''; position:absolute; bottom:-80px; right:-80px; width:380px; height:380px; background:radial-gradient(circle,rgba(245,158,11,0.12) 0%,transparent 68%); pointer-events:none; }
+
+    /* Stats bar */
+    .liq-stats { border-top: 1px solid rgba(255,255,255,0.06); display: grid; grid-template-columns: 1fr 1px 1fr; align-items: center; }
+    .liq-stat { padding: 1.5rem 3rem; text-align: center; }
+    .liq-stat-n { font-size: 1.65rem; font-weight: 800; letter-spacing: -0.05em; color: var(--text); display: block; }
+    .liq-stat-l { font-size: 0.67rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-top: 0.25rem; display: block; }
+    .liq-divider { height: 44px; background: rgba(255,255,255,0.06); }
+
+    /* ── MOCK UI COMPONENTS ──────────────────────────── */
+    @keyframes floatUp    { 0%,100%{transform:translateY(0)}    50%{transform:translateY(-10px)} }
+    @keyframes floatUpAlt { 0%,100%{transform:translateY(-5px)} 50%{transform:translateY(5px)} }
+    @keyframes fadeInRow  { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+    .mock-float     { animation: floatUp    6s ease-in-out infinite; position: relative; z-index: 2; width: 100%; max-width: 290px; }
+    .mock-float-alt { animation: floatUpAlt 7s 0.5s ease-in-out infinite; }
+
+    .mock-white {
+      background: #ffffff; border-radius: 18px;
+      padding: 1.2rem 1.3rem;
+      box-shadow: 0 28px 64px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.25);
+      position: relative;
+    }
+    .mock-hd { font-size: 0.59rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #9CA3AF; margin-bottom: 0.85rem; }
+
+    /* Trade mock */
+    .mock-trade-row { display: flex; align-items: center; justify-content: space-between; padding: 0.45rem 0; border-bottom: 1px solid rgba(0,0,0,0.05); animation: fadeInRow 0.5s ease both; }
+    .mock-trade-row:last-child { border-bottom: none; }
+    .mock-trade-row:nth-child(2){animation-delay:0.08s}.mock-trade-row:nth-child(3){animation-delay:0.16s}.mock-trade-row:nth-child(4){animation-delay:0.24s}.mock-trade-row:nth-child(5){animation-delay:0.32s}
+    .mock-t-left { display: flex; align-items: center; gap: 0.5rem; }
+    .mock-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .mock-t-pair { font-size: 0.75rem; font-weight: 700; color: #111827; line-height: 1.2; }
+    .mock-t-type { font-size: 0.6rem; color: #9CA3AF; }
+    .mock-t-pips { font-size: 0.76rem; font-weight: 700; }
+
+    .mock-new-badge {
+      position: absolute; top: -10px; right: 14px;
+      background: #7C3AED; color: white;
+      font-size: 0.58rem; font-weight: 700; letter-spacing: 0.05em;
+      padding: 3px 8px; border-radius: 100px;
+    }
+
+    /* Chart mock */
+    .mock-bars { display: flex; align-items: flex-end; gap: 3px; height: 72px; margin: 0.75rem 0 0.5rem; }
+    .mock-b { flex: 1; border-radius: 3px 3px 0 0; background: rgba(59,130,246,0.22); transition: height 0.7s cubic-bezier(0.34,1.1,0.64,1); }
+    .mock-b.hi { background: rgba(59,130,246,0.8); }
+    .mock-b-lbls { display: flex; gap: 3px; }
+    .mock-b-lbl { flex: 1; text-align: center; font-size: 0.46rem; color: #9CA3AF; }
+    .mock-stats-row { display: flex; gap: 1.25rem; margin-top: 0.85rem; padding-top: 0.85rem; border-top: 1px solid rgba(0,0,0,0.07); }
+    .mock-s-n { font-size: 1.05rem; font-weight: 800; color: #111827; letter-spacing: -0.03em; display: block; }
+    .mock-s-l { font-size: 0.57rem; color: #9CA3AF; letter-spacing: 0.04em; display: block; }
+
+    .mock-pill {
+      position: absolute; background: white; border-radius: 100px;
+      padding: 0.38rem 0.8rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+      font-size: 0.7rem; font-weight: 700; color: #111827;
+      display: flex; align-items: center; gap: 0.35rem; z-index: 3;
+    }
+    .mock-pill-green { color: #16A34A; top: 18%; right: 5%; animation: floatUpAlt 5s ease-in-out infinite; }
+    .mock-pill-blue  { color: #2563EB; bottom: 22%; right: 5%; animation: floatUp 7s 0.5s ease-in-out infinite; }
+
+    /* Community mock */
+    .mock-ch-row { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.48rem 0; border-bottom: 1px solid rgba(0,0,0,0.05); animation: fadeInRow 0.5s ease both; }
+    .mock-ch-row:last-child { border-bottom: none; }
+    .mock-ch-row:nth-child(2){animation-delay:0.08s}.mock-ch-row:nth-child(3){animation-delay:0.16s}.mock-ch-row:nth-child(4){animation-delay:0.24s}
+    .mock-ch-tag { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.04em; color: #9CA3AF; }
+    .mock-ch-content { font-size: 0.7rem; color: #374151; line-height: 1.4; }
+
+    /* Webinar mock */
+    .mock-webinar-card { background: linear-gradient(135deg,#1a3558,#1e4070); border-radius: 12px; padding: 0.9rem 1rem; margin-bottom: 0.75rem; color: white; }
+    .mock-live { display: flex; align-items: center; gap: 0.4rem; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.08em; margin-bottom: 0.4rem; color: rgba(255,255,255,0.6); }
+    .mock-live-dot { width: 6px; height: 6px; background: #EF4444; border-radius: 50%; animation: blink 1.5s infinite; }
+    .mock-webinar-t { font-size: 0.76rem; font-weight: 700; line-height: 1.3; }
+    .mock-webinar-s { font-size: 0.6rem; opacity: 0.65; margin-top: 0.25rem; }
+    .mock-progress-bar { background: rgba(255,255,255,0.15); border-radius: 2px; height: 3px; margin-top: 0.7rem; }
+    .mock-progress-fill { background: rgba(255,255,255,0.7); width: 62%; height: 100%; border-radius: 2px; }
+    .mock-session-stats { display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; }
+
+    /* HERO PARTICLES */
+    .hero-particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .particle { position: absolute; width: 2px; height: 2px; background: rgba(59,130,246,0.5); border-radius: 50%; animation: particleFloat linear infinite; }
+    @keyframes particleFloat {
+      0%   { transform: translateY(100vh) translateX(0); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 0.4; }
+      100% { transform: translateY(-100px) translateX(var(--drift)); opacity: 0; }
+    }
+
+    /* FEATURES */
+    #features { background: var(--bg2); }
+    .feat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+    .fcard { background: var(--bg2); padding: 1.75rem; transition: background 0.25s; cursor: default; position: relative; }
+    .fcard:hover { background: var(--card); }
+    .fi { width: 42px; height: 42px; border-radius: 10px; background: var(--blue-dim); border: 1px solid rgba(59,130,246,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 1rem; transition: transform 0.25s; }
+    .fcard:hover .fi { transform: translateY(-2px); }
+    .fcard h3 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.45rem; color: var(--text); }
+    .fcard p { font-size: 0.79rem; line-height: 1.68; color: var(--muted); }
+
+    /* SUPERCHARGE */
+    #supercharge { padding: 96px 6vw; background: var(--bg); }
+    .banner-card { background: #080f1e; border: 1px solid rgba(255,255,255,0.07); border-radius: 24px; padding: 6rem 3rem; text-align: center; position: relative; overflow: hidden; transition: border-color 0.3s; }
+    .banner-card:hover { border-color: rgba(255,255,255,0.13); }
+    .banner-card::before { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:700px; height:500px; background:radial-gradient(ellipse,rgba(59,130,246,0.09) 0%,transparent 65%); pointer-events:none; }
+    .banner-card-inner { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; }
+
+    /* POWER CLUB */
+    #power-club { padding: 96px 6vw; background: var(--bg2); }
+    .club-check { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+    .club-check li { display: flex; align-items: flex-start; gap: 0.9rem; }
+    .cc-icon { width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0; margin-top: 2px; background: var(--blue-dim); border: 1px solid rgba(59,130,246,0.2); display: flex; align-items: center; justify-content: center; }
+    .club-check li p { font-size: 0.87rem; color: var(--mid); line-height: 1.6; }
+    .club-check li p strong { color: var(--text); font-weight: 600; }
+
+    /* PERFORMANCE */
+    #performance { padding: 96px 6vw; background: var(--bg); }
+    .liq-card-right .perf-card { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.1); }
+    .sel-label { font-size: 0.67rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; }
+    .mkt-sel { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .mbtn { padding: 0.5rem 1.1rem; border-radius: 100px; background: var(--card); border: 1px solid var(--border); color: var(--muted); font-family: 'Inter',sans-serif; font-size: 0.78rem; font-weight: 500; cursor: pointer; backdrop-filter: blur(6px); transition: all 0.2s; }
+    .mbtn:hover { border-color: var(--border2); color: var(--text); }
+    .mbtn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .mon-sel { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .mobtn { padding: 0.25rem 0.65rem; border-radius: 6px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: 'Inter',sans-serif; font-size: 0.7rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+    .mobtn:hover { border-color: var(--border2); color: var(--text); }
+    .mobtn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .perf-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 1.75rem; backdrop-filter: blur(6px); }
+    .pc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+    .pc-title { font-size: 0.67rem; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); }
+    .pc-badge { background: var(--blue-dim); border: 1px solid rgba(59,130,246,0.2); color: var(--blue); font-size: 0.65rem; font-weight: 600; padding: 3px 10px; border-radius: 100px; }
+    .ch-wrap2 { height: 120px; display: flex; align-items: flex-end; gap: 4px; margin-bottom: 0.4rem; }
+    .ch-bar { flex: 1; display: flex; align-items: flex-end; height: 100%; cursor: pointer; }
+    .ch-inner { width: 100%; border-radius: 3px 3px 0 0; background: rgba(59,130,246,0.2); transition: height 0.5s cubic-bezier(0.34,1.56,0.64,1),background 0.2s; }
+    .ch-bar:hover .ch-inner { background: rgba(59,130,246,0.5); }
+    .ch-lbls { display: flex; gap: 4px; }
+    .ch-lbl { flex: 1; text-align: center; font-size: 0.55rem; color: var(--muted); }
+    .pc-stats { display: flex; gap: 1.5rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .pcs-val { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.04em; color: var(--text); }
+    .pcs-lbl { font-size: 0.63rem; color: var(--muted); margin-top: 2px; }
+
+    /* SUPER TRADER */
+    #super-trader { padding: 96px 6vw; background: var(--bg2); }
+    .st-p { color: var(--muted); font-size: 0.9rem; line-height: 1.78; }
+    .st-ul { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 2.25rem; }
+    .st-ul li { display: flex; align-items: center; gap: 0.8rem; font-size: 0.92rem; font-weight: 500; color: var(--mid); }
+    .st-ico { width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0; background: var(--blue-dim); border: 1px solid rgba(59,130,246,0.15); display: flex; align-items: center; justify-content: center; font-size: 0.88rem; }
+    .st-box { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 1.75rem; backdrop-filter: blur(6px); }
+    .trade-item { display: flex; align-items: center; justify-content: space-between; background: var(--card2); border: 1px solid var(--border); border-radius: 10px; padding: 0.7rem 1rem; margin-bottom: 0.55rem; transition: border-color 0.2s,transform 0.2s; cursor: default; }
+    .trade-item:hover { border-color: var(--border2); transform: translateX(3px); }
+    .trade-item:last-child { margin-bottom: 0; }
+    .ti-left { display: flex; align-items: center; gap: 0.7rem; }
+    .ti-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .ti-pair { font-size: 0.82rem; font-weight: 600; }
+    .ti-type { font-size: 0.63rem; color: var(--muted); }
+    .ti-pips { font-size: 0.85rem; font-weight: 700; color: #4ADE80; }
+    .ti-sl { font-size: 0.62rem; color: var(--muted); }
+
+    /* TESTIMONIALS */
+    #testimonials { background: var(--bg); overflow: hidden; }
+    .tm-wrap { overflow: hidden; -webkit-mask-image: linear-gradient(90deg,transparent,black 8%,black 92%,transparent); mask-image: linear-gradient(90deg,transparent,black 8%,black 92%,transparent); }
+    .tm-track { display: flex; gap: 1.1rem; animation: scroll 55s linear infinite; width: max-content; }
+    .tm-track:hover { animation-play-state: paused; }
+    .tm-track.r2 { animation-direction: reverse; margin-top: 1.1rem; }
+    @keyframes scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .tcard { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 1.4rem; width: 290px; flex-shrink: 0; backdrop-filter: blur(6px); transition: border-color 0.25s,transform 0.25s; }
+    .tcard:hover { border-color: var(--border2); transform: translateY(-3px); }
+    .tc-stars { color: #F59E0B; font-size: 0.78rem; letter-spacing: 1px; margin-bottom: 0.7rem; }
+    .tc-txt { font-size: 0.78rem; line-height: 1.72; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 4; line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+    .tc-auth { margin-top: 1.1rem; display: flex; align-items: center; gap: 0.65rem; }
+    .tc-av { width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; color: #fff; }
+    .tc-name { font-size: 0.78rem; font-weight: 600; }
+    .tc-city { font-size: 0.67rem; color: var(--muted); }
+
+    /* SOCIAL STRIP */
+    #social-strip { background: var(--bg2); padding: 70px 6vw; }
+    .sc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.2rem; max-width: 1000px; margin: 0 auto; }
+    .sccard { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 1.75rem 1.25rem 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.85rem; text-align: center; backdrop-filter: blur(6px); transition: transform 0.25s,border-color 0.25s; }
+    .sccard:hover { transform: translateY(-6px); border-color: var(--border2); }
+    .sc-ico { width: 50px; height: 50px; border-radius: 12px; background: var(--card2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.35rem; }
+    .sccard p { font-size: 0.76rem; color: var(--muted); line-height: 1.6; }
+    .sccard a { display: inline-block; padding: 0.48rem 1.2rem; border-radius: 100px; border: 1px solid var(--border); font-size: 0.75rem; font-weight: 600; color: var(--mid); text-decoration: none; transition: all 0.2s; }
+    .sccard a:hover { border-color: var(--blue); color: var(--blue); }
+
+    /* PRICING */
+    #pricing { background: var(--bg); }
+    .ptog-wrap { display: flex; align-items: center; background: var(--card); border: 1px solid var(--border); border-radius: 100px; padding: 4px; margin: 0 auto 3.5rem; width: fit-content; }
+    .ptog-btn { padding: 0.46rem 1.25rem; border-radius: 100px; border: none; font-family: 'Inter',sans-serif; font-size: 0.8rem; font-weight: 500; color: var(--muted); background: transparent; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 0.5rem; }
+    .ptog-btn.active { background: var(--blue); color: #fff; }
+    .sp { background: rgba(251,191,36,0.15); color: #FBBF24; font-size: 0.62rem; font-weight: 600; padding: 2px 7px; border-radius: 100px; }
+    .price-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+    .pc { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 2.25rem 2rem 2.5rem; position: relative; backdrop-filter: blur(6px); transition: transform 0.25s,box-shadow 0.25s; }
+    .pc:hover { transform: translateY(-5px); box-shadow: 0 20px 48px rgba(0,0,0,0.3); }
+    .pc.pop { border-color: var(--blue); box-shadow: 0 0 0 1px var(--blue); }
+    .pop-lbl { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--blue); color: #fff; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 14px; border-radius: 100px; white-space: nowrap; }
+    .pc-name { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 1.2rem; }
+    .pc-price { font-size: 2.8rem; font-weight: 900; letter-spacing: -0.05em; line-height: 1; }
+    .pc-price sup { font-size: 1.2rem; vertical-align: top; margin-top: 0.6rem; display: inline-block; }
+    .pc-per { font-size: 0.72rem; color: var(--muted); margin-top: 0.4rem; }
+    .pc-div { height: 1px; background: var(--border); margin: 1.75rem 0; }
+    .pc-feats { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 1.85rem; }
+    .pc-feats li { font-size: 0.79rem; color: var(--mid); line-height: 1.5; display: flex; align-items: flex-start; gap: 0.6rem; }
+    .pc-feats li::before { content: ''; width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px; border-radius: 50%; background: var(--blue-dim) url("data:image/svg+xml,%3Csvg width='9' height='7' viewBox='0 0 9 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 3.5L3.2 5.8L8 1' stroke='%233B82F6' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center; border: 1px solid rgba(59,130,246,0.2); }
+    .pc-cta { display: block; text-align: center; padding: 0.85rem; border-radius: 100px; font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+    .pc-cta.ghost { border: 1px solid var(--border); color: var(--text); }
+    .pc-cta.ghost:hover { border-color: var(--blue); color: var(--blue); }
+    .pc-cta.solid { background: var(--blue); color: #fff; }
+    .pc-cta.solid:hover { background: #2563EB; box-shadow: 0 8px 24px rgba(59,130,246,0.25); }
+    .pc-note { font-size: 0.67rem; color: var(--muted); text-align: center; margin-top: 0.8rem; }
+
+    /* FAQ */
+    #faq { background: var(--bg2); }
+    .fq-wrap { max-width: 680px; margin: 0 auto; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; background: var(--card); backdrop-filter: blur(6px); }
+    .fq-item { border-bottom: 1px solid var(--border); }
+    .fq-item:last-child { border-bottom: none; }
+    .fq-q { width: 100%; background: transparent; border: none; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 1.75rem; font-family: 'Inter',sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--text); cursor: pointer; text-align: left; transition: background 0.2s; gap: 1rem; }
+    .fq-q:hover { background: var(--card2); }
+    .fq-q.open { color: var(--blue); }
+    .fq-ico { width: 20px; height: 20px; flex-shrink: 0; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: var(--muted); transition: transform 0.3s,border-color 0.3s; }
+    .fq-q.open .fq-ico { transform: rotate(45deg); border-color: var(--blue); color: var(--blue); }
+    .fq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; font-size: 0.85rem; color: var(--muted); line-height: 1.8; padding: 0 1.75rem; }
+    .fq-a.open { max-height: 300px; padding-bottom: 1.5rem; }
+
+    /* FOOTER CTA */
+    #fcta { text-align: center; padding: 96px 6vw; background: var(--bg); }
+    .fci { max-width: 660px; margin: 0 auto; }
+    .fci-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2.5rem; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 3.5rem 6vw; display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 3rem; background: var(--bg); }
+    .fb .nav-logo { display: block; margin-bottom: 0.85rem; }
+    .fb p { font-size: 0.77rem; color: var(--muted); line-height: 1.75; max-width: 280px; }
+    .fc h4 { font-size: 0.67rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+    .fc ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .fc ul a { font-size: 0.8rem; color: var(--mid); text-decoration: none; transition: color 0.2s; }
+    .fc ul a:hover { color: var(--text); }
+    .fbot { border-top: 1px solid var(--border); padding: 1.4rem 6vw; display: flex; justify-content: space-between; align-items: center; font-size: 0.7rem; color: var(--muted); flex-wrap: wrap; gap: 0.5rem; background: var(--bg); }
+    .fbot a { color: var(--muted); text-decoration: none; }
+    .fbot a:hover { color: var(--text); }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 1000px) {
+      .banner-card { padding: 4rem 2rem; }
+      .wt-card { height: 400px; }
+      .price-grid { grid-template-columns: 1fr; max-width: 420px; }
+      .sc-grid { grid-template-columns: repeat(2,1fr); }
+      footer { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 900px) {
+      .liq-card-body { grid-template-columns: 1fr; }
+      .liq-card-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 2.25rem 2rem; min-height: auto; }
+      .liq-card-right { min-height: 260px; padding: 2rem 1.5rem; }
+      .liq-right-label { display: none; }
+      .liq-stat { padding: 1.3rem 1.5rem; }
+      .mock-pill { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+
+      section { padding: 72px 5vw; }
+      #spotlight { padding: 72px 5vw; gap: 1rem; }
+      #social-strip { padding: 60px 5vw; }
+
+      .hero-btns { flex-direction: column; align-items: stretch; max-width: 300px; margin-left: auto; margin-right: auto; }
+      .hero-btns a { text-align: center; justify-content: center; }
+      .fci-btns { flex-direction: column; align-items: center; }
+
+      footer { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      .feat-grid { grid-template-columns: 1fr; }
+      .stats-row { flex-direction: column; }
+      .sitem { border-right: none; border-bottom: 1px solid var(--border); }
+      .sitem:last-child { border-bottom: none; }
+      footer { grid-template-columns: 1fr; }
+      .price-grid { max-width: 100%; }
+    }
+
+    @media (max-width: 520px) {
+      .wt-card { height: 340px; }
+      .wt-widget { padding: 0.65rem 0.75rem; }
+      .wt-wval { font-size: 1.05rem; }
+      .sc-grid { grid-template-columns: 1fr; }
+      .liq-stat { padding: 1.1rem 1rem; }
+      .liq-stat-n { font-size: 1.3rem; }
+      .mock-float { max-width: 240px; }
+      #spotlight { padding: 56px 4vw; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <span class="ticker-inner">⚠ TradeWiz is an educational community — not a SEBI-registered investment advisor. All content is for educational purposes only. Trading involves substantial risk of loss. Past performance does not guarantee future results. &nbsp;&nbsp;&nbsp;&nbsp; ⚠ TradeWiz is an educational community — not a SEBI-registered investment advisor. All content is for educational purposes only. &nbsp;&nbsp;&nbsp;&nbsp;</span>
+  </div>
+
+  <!-- NAV -->
+  <nav id="mainNav">
+    <a href="#" class="nav-logo">Trade<span>Wiz</span></a>
+    <ul class="nav-links">
+      <li><a href="#we-trade">Markets</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#performance">Performance</a></li>
+      <li><a href="#testimonials">Stories</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="https://superprofile.bio/vig/68fcb21716e1e20013453d97" class="nav-cta">Become a Member</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE OVERLAY NAV -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#we-trade">Markets</a>
+    <a href="#features">Features</a>
+    <a href="#performance">Performance</a>
+    <a href="#testimonials">Stories</a>
+    <a href="#pricing">Pricing</a>
+    <a href="https://superprofile.bio/vig/68fcb21716e1e20013453d97" class="m-cta">Become a Member</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-radial hr1"></div>
+    <div class="hero-radial hr2"></div>
+    <div class="hero-particles" id="heroParticles"></div>
+    <div class="hero-chip"><span class="chip-dot"></span>India's #1 Trading Community</div>
+    <h1 class="hero-title">Join India's <span class="blue">Largest</span><br>Trading Community</h1>
+    <p class="hero-sub">Transform your trading journey with India's most powerful community — proven strategies, live mentorship, real results across Forex, Stocks &amp; Crypto.</p>
+    <div class="hero-btns">
+      <a href="#pricing" class="btn-p">Become a Member <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#testimonials" class="btn-g">Watch Member Stories</a>
+    </div>
+    <div class="stats-row">
+      <div class="sitem"><span class="snum" data-count="20000" data-k>0</span><span class="slbl">Active Traders</span></div>
+      <div class="sitem"><span class="snum" data-count="50000" data-k>0</span><span class="slbl">Trade Ideas Shared</span></div>
+      <div class="sitem"><span class="snum" data-count="200" data-suffix="hr+">0</span><span class="slbl">Webinars</span></div>
+      <div class="sitem"><span class="snum" data-count="4.9" data-suffix="★" data-dec>0</span><span class="slbl">User Rating</span></div>
+    </div>
+  </section>
+
+  <!-- WE TRADE -->
+  <section id="we-trade">
+    <div class="wt-header rv">
+      <h2 class="wt-title">We <span class="blue">Trade</span></h2>
+      <p class="wt-sub">Covering all major global markets — structured setups, risk management, and live community support.</p>
+    </div>
+    <div class="wt-outer" id="wtOuter">
+      <div class="wt-track" id="wtTrack">
+
+        <!-- ── Forex ── -->
+        <div class="wt-slide rv" id="wts0">
+          <div class="wt-card wt-card-forex">
+            <div class="wt-pill">💱 Forex</div>
+            <div class="wt-widget wt-wa" style="left:11%;top:50%;transform:translateY(-50%);width:195px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.55rem;">
+                <div class="wt-wlabel" style="margin:0;">EUR/USD · SETUP</div>
+                <div class="wt-wbadge buy">BUY</div>
+              </div>
+              <div style="font-size:1.35rem;font-weight:800;color:#fff;letter-spacing:-0.04em;margin-bottom:0.65rem;">1.0887</div>
+              <div class="wt-wgrid">
+                <div><div class="wt-wk">Entry</div><div class="wt-wv" style="color:#fff;">1.0885</div></div>
+                <div><div class="wt-wk">Stop Loss</div><div class="wt-wv" style="color:#F87171;">1.0840</div></div>
+                <div><div class="wt-wk">Target</div><div class="wt-wv" style="color:#4ADE80;">1.0960</div></div>
+                <div><div class="wt-wk">Potential</div><div class="wt-wv" style="color:#4ADE80;">+75 pips</div></div>
+              </div>
+            </div>
+            <div class="wt-widget wt-wb" style="right:9%;top:20%;min-width:130px;">
+              <div class="wt-wlabel">This Month</div>
+              <div class="wt-wval" style="color:#4ADE80;">+2,847</div>
+              <div class="wt-wsub">pips captured</div>
+            </div>
+            <div class="wt-widget wt-wc" style="right:11%;bottom:17%;min-width:125px;">
+              <div class="wt-wlabel">Win Rate</div>
+              <div style="display:flex;align-items:baseline;gap:0.3rem;"><div class="wt-wval">83%</div><span style="font-size:0.6rem;color:#4ADE80;">↑</span></div>
+              <div class="wt-wsub">historical accuracy</div>
+            </div>
+          </div>
+          <div class="wt-slide-info">
+            <div class="wt-slide-tag">#Forex</div>
+            <h3>Major &amp; Minor Currency Pairs</h3>
+            <p>Structured entry, SL and TP levels across 20+ pairs — institutional-grade analysis, every trading day.</p>
+          </div>
+        </div>
+
+        <!-- ── Commodity ── -->
+        <div class="wt-slide rv d1" id="wts1">
+          <div class="wt-card wt-card-commodity">
+            <div class="wt-pill">🪙 Commodity</div>
+            <div class="wt-widget wt-wa" style="left:11%;top:50%;transform:translateY(-50%);width:195px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.55rem;">
+                <div class="wt-wlabel" style="margin:0;">GOLD / XAU · SETUP</div>
+                <div class="wt-wbadge buy">BUY</div>
+              </div>
+              <div style="font-size:1.35rem;font-weight:800;color:#fff;letter-spacing:-0.04em;margin-bottom:0.65rem;">$2,318</div>
+              <div class="wt-wgrid">
+                <div><div class="wt-wk">Entry</div><div class="wt-wv" style="color:#fff;">2315</div></div>
+                <div><div class="wt-wk">Stop Loss</div><div class="wt-wv" style="color:#F87171;">2295</div></div>
+                <div><div class="wt-wk">Target</div><div class="wt-wv" style="color:#4ADE80;">2355</div></div>
+                <div><div class="wt-wk">Potential</div><div class="wt-wv" style="color:#4ADE80;">+320 pts</div></div>
+              </div>
+            </div>
+            <div class="wt-widget wt-wb" style="right:9%;top:20%;min-width:130px;">
+              <div class="wt-wlabel">Silver / XAG</div>
+              <div class="wt-wval">$27.40</div>
+              <div style="font-size:0.62rem;font-weight:600;color:#4ADE80;margin-top:0.25rem;">+1.8% today</div>
+            </div>
+            <div class="wt-widget wt-wc" style="right:11%;bottom:17%;min-width:125px;">
+              <div class="wt-wlabel">This Month</div>
+              <div class="wt-wval" style="color:#F59E0B;">+1,240</div>
+              <div class="wt-wsub">points across setups</div>
+            </div>
+          </div>
+          <div class="wt-slide-info">
+            <div class="wt-slide-tag">#Commodity</div>
+            <h3>Gold, Silver &amp; Crude Oil</h3>
+            <p>Institutional-grade setups on precious metals and crude oil — 15+ structured ideas every week.</p>
+          </div>
+        </div>
+
+        <!-- ── Crypto ── -->
+        <div class="wt-slide rv d2" id="wts2">
+          <div class="wt-card wt-card-crypto">
+            <div class="wt-pill">₿ Crypto</div>
+            <div class="wt-widget wt-wa" style="left:11%;top:50%;transform:translateY(-50%);width:195px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.55rem;">
+                <div class="wt-wlabel" style="margin:0;">BTC/USDT · LONG</div>
+                <div class="wt-wbadge buy">LONG</div>
+              </div>
+              <div style="font-size:1.35rem;font-weight:800;color:#fff;letter-spacing:-0.04em;margin-bottom:0.65rem;">$62,400</div>
+              <div class="wt-wgrid">
+                <div><div class="wt-wk">Entry</div><div class="wt-wv" style="color:#fff;">62,200</div></div>
+                <div><div class="wt-wk">Stop Loss</div><div class="wt-wv" style="color:#F87171;">60,800</div></div>
+                <div><div class="wt-wk">Target</div><div class="wt-wv" style="color:#4ADE80;">67,000</div></div>
+                <div><div class="wt-wk">Potential</div><div class="wt-wv" style="color:#4ADE80;">+8.4%</div></div>
+              </div>
+            </div>
+            <div class="wt-widget wt-wb" style="right:9%;top:20%;min-width:130px;">
+              <div class="wt-wlabel">ETH/USDT</div>
+              <div class="wt-wval">$3,280</div>
+              <div style="font-size:0.62rem;font-weight:600;color:#4ADE80;margin-top:0.25rem;">+4.1% today</div>
+            </div>
+            <div class="wt-widget wt-wc" style="right:11%;bottom:17%;min-width:130px;">
+              <div class="wt-wlabel">Market Sentiment</div>
+              <div style="display:flex;align-items:center;gap:0.4rem;margin-top:0.15rem;">
+                <div style="width:7px;height:7px;border-radius:50%;background:#4ADE80;animation:blink 1.5s infinite;flex-shrink:0;"></div>
+                <div style="font-size:0.82rem;font-weight:700;color:#4ADE80;">BULLISH</div>
+              </div>
+              <div class="wt-wsub" style="margin-top:0.3rem;">Weekly watchlist active</div>
+            </div>
+          </div>
+          <div class="wt-slide-info">
+            <div class="wt-slide-tag">#Crypto</div>
+            <h3>Bitcoin, Ethereum &amp; Altcoins</h3>
+            <p>BTC, ETH &amp; altcoin setups with weekly watchlists, market cycles, and on-chain sentiment analysis.</p>
+          </div>
+        </div>
+
+        <!-- ── Stocks ── -->
+        <div class="wt-slide rv d3" id="wts3">
+          <div class="wt-card wt-card-stocks">
+            <div class="wt-pill">📈 Stocks</div>
+            <div class="wt-widget wt-wa" style="left:11%;top:50%;transform:translateY(-50%);width:195px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.55rem;">
+                <div class="wt-wlabel" style="margin:0;">NIFTY 50 · SWING</div>
+                <div class="wt-wbadge buy">BUY</div>
+              </div>
+              <div style="font-size:1.35rem;font-weight:800;color:#fff;letter-spacing:-0.04em;margin-bottom:0.65rem;">22,420</div>
+              <div class="wt-wgrid">
+                <div><div class="wt-wk">Entry</div><div class="wt-wv" style="color:#fff;">22,380</div></div>
+                <div><div class="wt-wk">Stop Loss</div><div class="wt-wv" style="color:#F87171;">22,100</div></div>
+                <div><div class="wt-wk">Target</div><div class="wt-wv" style="color:#4ADE80;">23,100</div></div>
+                <div><div class="wt-wk">Potential</div><div class="wt-wv" style="color:#4ADE80;">+680 pts</div></div>
+              </div>
+            </div>
+            <div class="wt-widget wt-wb" style="right:9%;top:20%;min-width:130px;">
+              <div class="wt-wlabel">RELIANCE NSE</div>
+              <div class="wt-wval">₹2,845</div>
+              <div style="font-size:0.62rem;font-weight:600;color:#4ADE80;margin-top:0.25rem;">+2.3% today</div>
+            </div>
+            <div class="wt-widget wt-wc" style="right:11%;bottom:17%;min-width:125px;">
+              <div class="wt-wlabel">Daily Ideas</div>
+              <div class="wt-wval">8+</div>
+              <div class="wt-wsub">swing setups per day</div>
+            </div>
+          </div>
+          <div class="wt-slide-info">
+            <div class="wt-slide-tag">#Stocks</div>
+            <h3>Indian &amp; Global Equities</h3>
+            <p>Swing, breakout, and positional trade ideas across Indian &amp; global equities — every trading day.</p>
+          </div>
+        </div>
+
+      </div><!-- /wt-track -->
+    </div><!-- /wt-outer -->
+    <div class="wt-dots">
+      <button class="wt-dot active" data-slide="0"></button>
+      <button class="wt-dot" data-slide="1"></button>
+      <button class="wt-dot" data-slide="2"></button>
+      <button class="wt-dot" data-slide="3"></button>
+    </div>
+  </section>
+
+  <!-- CATCH INSTITUTIONAL -->
+  <section id="catch-inst">
+    <div class="rv" style="position:relative;z-index:1;text-align:center;max-width:800px;margin:0 auto;">
+      <span class="stag">Why TradeWiz</span>
+      <h2 style="font-size:clamp(2.5rem,6vw,5rem);font-weight:900;letter-spacing:-0.05em;line-height:1.0;margin-bottom:1.25rem;">Catch Institutional<br><span class="blue">Moves Everyday</span></h2>
+      <p style="color:var(--muted);font-size:clamp(0.95rem,1.8vw,1.1rem);max-width:540px;margin:0 auto 2.5rem;line-height:1.78;">Experience the power of order flow trading with world class trading &amp; investing ecosystem designed to beat the market.</p>
+      <a href="#pricing" class="btn-p" style="display:inline-flex;">Get Started Today</a>
+    </div>
+  </section>
+
+  <!-- SPOTLIGHT — Liquide-style feature cards -->
+  <section id="spotlight">
+    <div class="sheader c rv" style="margin-bottom:3rem;">
+      <span class="stag">Everything You Need</span>
+      <h2 class="stitle">Tools &amp; insights built for<br><span class="blue">serious traders</span></h2>
+    </div>
+
+    <!-- Card 1: Trade Ideas -->
+    <div class="liq-card rv">
+      <div class="liq-card-body">
+        <div class="liq-card-left">
+          <div class="liq-label">
+            <div class="liq-label-icon">📈</div>
+            <span class="liq-label-text">Trade Ideas</span>
+          </div>
+          <h2 class="liq-h">20+ Setups Every Week,<br><span class="blue">Rain or Shine</span></h2>
+          <p class="liq-p">Get complete trade setups with entry, stop-loss and target levels across Forex, Stocks, Crypto &amp; Commodity — backed by institutional analysis every single day.</p>
+        </div>
+        <div class="liq-card-right glow-green">
+          <span class="liq-right-label">Updated daily with live signals</span>
+          <div class="mock-float">
+            <div class="mock-white" style="position:relative;">
+              <div class="mock-new-badge">New</div>
+              <div class="mock-hd">Live Trade Ideas</div>
+              <div class="mock-trade-row">
+                <div class="mock-t-left"><div class="mock-dot" style="background:#4ADE80"></div><div><div class="mock-t-pair">EUR/USD</div><div class="mock-t-type">Forex · BUY</div></div></div>
+                <div class="mock-t-pips" style="color:#16A34A">+145 pips</div>
+              </div>
+              <div class="mock-trade-row">
+                <div class="mock-t-left"><div class="mock-dot" style="background:#F59E0B"></div><div><div class="mock-t-pair">GOLD / XAU</div><div class="mock-t-type">Commodity · BUY</div></div></div>
+                <div class="mock-t-pips" style="color:#D97706">+320 pts</div>
+              </div>
+              <div class="mock-trade-row">
+                <div class="mock-t-left"><div class="mock-dot" style="background:#60A5FA"></div><div><div class="mock-t-pair">BTC/USDT</div><div class="mock-t-type">Crypto · LONG</div></div></div>
+                <div class="mock-t-pips" style="color:#2563EB">+8.4%</div>
+              </div>
+              <div class="mock-trade-row">
+                <div class="mock-t-left"><div class="mock-dot" style="background:#4ADE80"></div><div><div class="mock-t-pair">RELIANCE</div><div class="mock-t-type">Stocks · SWING</div></div></div>
+                <div class="mock-t-pips" style="color:#16A34A">+₹38</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="liq-stats">
+        <div class="liq-stat"><span class="liq-stat-n">50K+</span><span class="liq-stat-l">Trade Ideas Shared</span></div>
+        <div class="liq-divider"></div>
+        <div class="liq-stat"><span class="liq-stat-n">20K+</span><span class="liq-stat-l">Active Traders</span></div>
+      </div>
+    </div>
+
+    <!-- Card 2: Performance -->
+    <div class="liq-card rv d1">
+      <div class="liq-card-body">
+        <div class="liq-card-left">
+          <div class="liq-label">
+            <div class="liq-label-icon">📊</div>
+            <span class="liq-label-text">Performance</span>
+          </div>
+          <h2 class="liq-h">3500+ Pips Potential<br>Every <span class="blue">Single Month</span></h2>
+          <p class="liq-p">Track real, transparent monthly performance data across all markets. No filter, no spin — consistent, well-researched setups with results you can verify yourself.</p>
+        </div>
+        <div class="liq-card-right glow-blue">
+          <span class="liq-right-label">Real monthly performance</span>
+          <div class="mock-float mock-float-alt" style="position:relative;">
+            <div class="mock-white">
+              <div class="mock-hd">Monthly Performance — Forex</div>
+              <div class="mock-bars" id="spotBars"></div>
+              <div class="mock-b-lbls">
+                <span class="mock-b-lbl">J</span><span class="mock-b-lbl">F</span><span class="mock-b-lbl">M</span><span class="mock-b-lbl">A</span><span class="mock-b-lbl">M</span><span class="mock-b-lbl">J</span><span class="mock-b-lbl">J</span><span class="mock-b-lbl">A</span><span class="mock-b-lbl">S</span><span class="mock-b-lbl">O</span><span class="mock-b-lbl">N</span><span class="mock-b-lbl">D</span>
+              </div>
+              <div class="mock-stats-row">
+                <div><span class="mock-s-n">3500</span><span class="mock-s-l">Pips/Month</span></div>
+                <div><span class="mock-s-n">83%</span><span class="mock-s-l">Win Rate</span></div>
+              </div>
+            </div>
+            <div class="mock-pill mock-pill-green">▲ 3500 Pips</div>
+            <div class="mock-pill mock-pill-blue">83% Win Rate</div>
+          </div>
+        </div>
+      </div>
+      <div class="liq-stats">
+        <div class="liq-stat"><span class="liq-stat-n">3500+</span><span class="liq-stat-l">Pips Monthly Potential</span></div>
+        <div class="liq-divider"></div>
+        <div class="liq-stat"><span class="liq-stat-n">83%</span><span class="liq-stat-l">Historical Win Rate</span></div>
+      </div>
+    </div>
+
+    <!-- Card 3: Community -->
+    <div class="liq-card rv d2">
+      <div class="liq-card-body">
+        <div class="liq-card-left">
+          <div class="liq-label">
+            <div class="liq-label-icon">👥</div>
+            <span class="liq-label-text">Community</span>
+          </div>
+          <h2 class="liq-h">Trade Live With<br><span class="blue">20,000+ Traders</span></h2>
+          <p class="liq-p">Experience community-based trading with live voice streams, real-time channels, daily watchlists &amp; direct access to India's most active trading community.</p>
+        </div>
+        <div class="liq-card-right glow-purple">
+          <span class="liq-right-label">Active community channels</span>
+          <div class="mock-float">
+            <div class="mock-white">
+              <div class="mock-hd">Community Channels</div>
+              <div class="mock-ch-row">
+                <div class="mock-ch-tag"># forex-trade-ideas</div>
+                <div class="mock-ch-content">🟢 <strong>EUR/USD BUY</strong> @ 1.0885 · Target 1.0960</div>
+              </div>
+              <div class="mock-ch-row">
+                <div class="mock-ch-tag"># gold-setups</div>
+                <div class="mock-ch-content">🟡 <strong>GOLD BUY</strong> @ 2318 · Target 2355</div>
+              </div>
+              <div class="mock-ch-row">
+                <div class="mock-ch-tag"># crypto-watchlist</div>
+                <div class="mock-ch-content">🔵 <strong>BTC LONG</strong> @ 62,400 · Target 67,000</div>
+              </div>
+              <div class="mock-ch-row">
+                <div class="mock-ch-tag"># swing-trades</div>
+                <div class="mock-ch-content">🟢 <strong>RELIANCE</strong> @ ₹2,810 · Target ₹2,920</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="liq-stats">
+        <div class="liq-stat"><span class="liq-stat-n">20K+</span><span class="liq-stat-l">Active Members</span></div>
+        <div class="liq-divider"></div>
+        <div class="liq-stat"><span class="liq-stat-n">200hr+</span><span class="liq-stat-l">Webinars &amp; Sessions</span></div>
+      </div>
+    </div>
+
+    <!-- Card 4: Education -->
+    <div class="liq-card rv d3">
+      <div class="liq-card-body">
+        <div class="liq-card-left">
+          <div class="liq-label">
+            <div class="liq-label-icon">🎬</div>
+            <span class="liq-label-text">Education</span>
+          </div>
+          <h2 class="liq-h">Research Powered by<br><span class="blue">Institutional Expertise</span></h2>
+          <p class="liq-p">Step-by-step video lessons, live monthly Q&As, and chart analysis walkthroughs with India's most experienced traders — available on demand.</p>
+        </div>
+        <div class="liq-card-right glow-amber">
+          <span class="liq-right-label">Precise buy/sell recommendations</span>
+          <div class="mock-float">
+            <div class="mock-white">
+              <div class="mock-webinar-card">
+                <div class="mock-live"><div class="mock-live-dot"></div>LIVE SESSION</div>
+                <div class="mock-webinar-t">NFP Trading Masterclass<br>with Institutional Flow</div>
+                <div class="mock-webinar-s">Advanced Forex · Expert Level</div>
+                <div class="mock-progress-bar"><div class="mock-progress-fill"></div></div>
+              </div>
+              <div class="mock-session-stats">
+                <div style="font-size:0.65rem;color:#6B7280;font-weight:500;">👁 1,240 watching</div>
+                <div style="font-size:0.65rem;color:#F59E0B;font-weight:700;">⭐ 4.9</div>
+              </div>
+              <div class="mock-hd" style="margin-top:0.75rem;">Upcoming Sessions</div>
+              <div style="font-size:0.67rem;color:#374151;padding:0.3rem 0;border-bottom:1px solid rgba(0,0,0,0.05);">📅 Market Open Analysis · Mon 9AM</div>
+              <div style="font-size:0.67rem;color:#374151;padding:0.3rem 0;">📅 CPI Event Trading · Wed 6PM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="liq-stats">
+        <div class="liq-stat"><span class="liq-stat-n">4.9★</span><span class="liq-stat-l">User Rating</span></div>
+        <div class="liq-divider"></div>
+        <div class="liq-stat"><span class="liq-stat-n">200+</span><span class="liq-stat-l">Educational Sessions</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="sheader c rv"><span class="stag">Trade Like The Institutions</span>
+      <h2 class="stitle">Get ready to level up your <span class="blue">trading game</span></h2>
+      <p class="ssub">From strategy to mindset — a complete professional system built for serious traders.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="fcard rv"><div class="fi">📈</div><h3>Proven Trading Strategies</h3><p>Access to the same strategies used to generate asymmetric returns with managed risk.</p></div>
+      <div class="fcard rv d1"><div class="fi">⚡</div><h3>Fast-Moving Identification</h3><p>Spot explosive stocks and perfect entry timing before the market catches on.</p></div>
+      <div class="fcard rv d2"><div class="fi">🎬</div><h3>Video Lessons</h3><p>Step-by-step breakdowns of real trades and live execution walkthroughs.</p></div>
+      <div class="fcard rv"><div class="fi">👁</div><h3>Exclusive Watchlist</h3><p>Curated daily updates to stay ahead of the market before major moves happen.</p></div>
+      <div class="fcard rv d1"><div class="fi">🔎</div><h3>Scanning Techniques</h3><p>Build your personalized watchlist using expert-grade screener filters.</p></div>
+      <div class="fcard rv d2"><div class="fi">🔄</div><h3>Swing Trading</h3><p>Master short-term profits with structured setups while keeping your day job.</p></div>
+      <div class="fcard rv"><div class="fi">💬</div><h3>Live Monthly Q&amp;As</h3><p>Get your questions answered directly in live, interactive mentorship sessions.</p></div>
+      <div class="fcard rv d1"><div class="fi">📐</div><h3>Technical Analysis</h3><p>Spot key setups and read charts with professional-level chart reading skills.</p></div>
+      <div class="fcard rv d2"><div class="fi">🧠</div><h3>Mindset &amp; Discipline</h3><p>Build the psychological resilience needed for consistent trading success.</p></div>
+    </div>
+  </section>
+
+  <!-- SUPERCHARGE -->
+  <section id="supercharge">
+    <div class="banner-card rv">
+      <div class="banner-card-inner">
+        <span class="stag">Become A Super Trader</span>
+        <h2 style="font-size:clamp(2.6rem,6vw,5rem);font-weight:900;letter-spacing:-0.05em;line-height:1.0;margin:0.75rem 0 1.25rem;"><span class="blue">Supercharge</span><br>Your Trading</h2>
+        <p style="color:var(--muted);font-size:clamp(0.92rem,1.6vw,1.05rem);max-width:560px;margin:0 auto 2.5rem;line-height:1.8;">Experience the world of professional institutional trading at your fingertips, powered by a world-class ecosystem of technology, research and education.</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <a href="#pricing" class="btn-p">Become a Member</a>
+          <a href="#features" class="btn-g">Explore Features</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POWER CLUB -->
+  <section id="power-club">
+    <div class="liq-card rv">
+      <div class="liq-card-body">
+        <div class="liq-card-left">
+          <div class="liq-label">
+            <div class="liq-label-icon">🏛️</div>
+            <span class="liq-label-text">Why Join TradeWiz</span>
+          </div>
+          <h2 class="liq-h">India's Most Powerful <span class="blue">Trading &amp; Investing Club</span></h2>
+          <p class="liq-p" style="margin-bottom:1.75rem;">Connect, collaborate, and grow with 10,000+ traders and investors — all under one roof.</p>
+          <ul class="club-check" style="margin-bottom:2rem;">
+            <li><div class="cc-icon"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Interact &amp; network with <strong>10,000+ traders &amp; investors</strong> across the country.</p></li>
+            <li><div class="cc-icon"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Experience the power of <strong>community based trading</strong>, unlocking new secrets of the markets.</p></li>
+            <li><div class="cc-icon"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Learn from <strong>India's top traders and investors</strong> with years of market experience.</p></li>
+            <li><div class="cc-icon"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Get access to our exclusive <strong>voice and video chat stream</strong> where we trade LIVE everyday.</p></li>
+            <li><div class="cc-icon"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Attend <strong>meetups, conferences and workshops</strong> happening across India.</p></li>
+          </ul>
+          <a href="#pricing" class="btn-p" style="align-self:flex-start;">Join Now</a>
+        </div>
+        <div class="liq-card-right glow-purple">
+          <span class="liq-right-label">Live community channels</span>
+          <div class="mock-float" style="width:100%;max-width:320px;">
+            <div class="mock-white">
+              <div class="mock-hd">Community Channels</div>
+              <div class="mock-ch-row"><div class="mock-ch-tag"># forex-trade-ideas</div><div class="mock-ch-content">🟢 <strong style="color:#111827;">EUR/USD BUY</strong> @ 1.0885 · Target 1.0960 · SL 1.0840</div></div>
+              <div class="mock-ch-row"><div class="mock-ch-tag"># gold-setups</div><div class="mock-ch-content">🟡 <strong style="color:#111827;">GOLD BUY</strong> @ 2318 · Target 2355 · SL 2295</div></div>
+              <div class="mock-ch-row"><div class="mock-ch-tag"># crypto-watchlist</div><div class="mock-ch-content">🔵 <strong style="color:#111827;">BTC LONG</strong> @ 62,400 · Target 67,000 · SL 60,800</div></div>
+              <div class="mock-ch-row"><div class="mock-ch-tag"># swing-trades</div><div class="mock-ch-content">🟢 <strong style="color:#111827;">RELIANCE SWING</strong> @ ₹2,810 · Target ₹2,920 · SL ₹2,760</div></div>
+              <div style="margin-top:0.75rem;padding:0.55rem 0.75rem;background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.15);border-radius:8px;font-size:0.62rem;color:#6B7280;line-height:1.55;">⚠ For educational discussion only. Not investment advice.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="liq-stats">
+        <div class="liq-stat"><span class="liq-stat-n">10K+</span><span class="liq-stat-l">Traders &amp; Investors</span></div>
+        <div class="liq-divider"></div>
+        <div class="liq-stat"><span class="liq-stat-n">200hr+</span><span class="liq-stat-l">Live Sessions</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERFORMANCE -->
+  <section id="performance">
+    <div class="liq-card rv">
+      <div class="liq-card-body">
+        <div class="liq-card-left">
+          <div class="liq-label">
+            <div class="liq-label-icon">📊</div>
+            <span class="liq-label-text">Transparent Results</span>
+          </div>
+          <h2 class="liq-h">Monthly <span class="blue">Performance</span> Reports</h2>
+          <p class="liq-p" style="margin-bottom:2rem;">Real results, no filters. Select your market and month to explore our verified performance data.</p>
+          <p class="sel-label">Step 1 — Select Market</p>
+          <div class="mkt-sel">
+            <button class="mbtn active" data-m="forex">💱 Forex</button>
+            <button class="mbtn" data-m="stocks">📈 Stocks</button>
+            <button class="mbtn" data-m="crypto">₿ Crypto</button>
+            <button class="mbtn" data-m="commodity">🪙 Commodity</button>
+          </div>
+          <p class="sel-label" style="margin-top:1.25rem;">Step 2 — Select Month</p>
+          <div class="mon-sel">
+            <button class="mobtn active" data-i="0">Jan</button><button class="mobtn" data-i="1">Feb</button><button class="mobtn" data-i="2">Mar</button><button class="mobtn" data-i="3">Apr</button><button class="mobtn" data-i="4">May</button><button class="mobtn" data-i="5">Jun</button><button class="mobtn" data-i="6">Jul</button><button class="mobtn" data-i="7">Aug</button><button class="mobtn" data-i="8">Sep</button><button class="mobtn" data-i="9">Oct</button><button class="mobtn" data-i="10">Nov</button><button class="mobtn" data-i="11">Dec</button>
+          </div>
+        </div>
+        <div class="liq-card-right glow-blue">
+          <span class="liq-right-label">Real monthly performance</span>
+          <div class="mock-float-alt" style="position:relative;z-index:2;width:100%;max-width:340px;">
+            <div class="perf-card">
+              <div class="pc-top"><span class="pc-title" id="perfT">JAN 2025 — FOREX</span><span class="pc-badge" id="perfB">3500 Pips</span></div>
+              <div class="ch-wrap2" id="chWrap"></div>
+              <div class="ch-lbls" id="chLbls"></div>
+              <div class="pc-stats" id="pcStats"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="liq-stats">
+        <div class="liq-stat"><span class="liq-stat-n">3500+</span><span class="liq-stat-l">Pips Monthly Potential</span></div>
+        <div class="liq-divider"></div>
+        <div class="liq-stat"><span class="liq-stat-n">83%</span><span class="liq-stat-l">Historical Win Rate</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUPER TRADER -->
+  <section id="super-trader">
+    <div class="liq-card rv">
+      <div class="liq-card-body">
+        <div class="liq-card-left">
+          <div class="liq-label">
+            <div class="liq-label-icon">🚀</div>
+            <span class="liq-label-text">Collaborate &amp; Network</span>
+          </div>
+          <h2 class="liq-h">Join India's Smartest <span class="blue">Traders &amp; Investors</span></h2>
+          <p class="st-p" style="margin-bottom:1.75rem;">We have pioneered community-based trading &amp; investing where you trade, learn, and collaborate with 20,000+ traders across India.</p>
+          <ul class="st-ul" style="margin-bottom:2.25rem;">
+            <li><span class="st-ico">👥</span>Network with the top 1% traders &amp; investors in India</li>
+            <li><span class="st-ico">💡</span>Explore new and innovative trading styles</li>
+            <li><span class="st-ico">📋</span>Access daily watchlist, screeners and scanners</li>
+            <li><span class="st-ico">🏆</span>Interact with industry experts to improve your performance</li>
+          </ul>
+          <a href="#pricing" class="btn-p" style="align-self:flex-start;">Join Now</a>
+        </div>
+        <div class="liq-card-right glow-green">
+          <span class="liq-right-label">Live trade ideas</span>
+          <div class="mock-float" style="width:100%;max-width:320px;">
+            <div class="mock-white" style="position:relative;">
+              <div class="mock-new-badge">LIVE</div>
+              <div class="mock-hd">Trade Ideas · Updated Daily</div>
+              <div class="mock-trade-row"><div class="mock-t-left"><div class="mock-dot" style="background:#4ADE80"></div><div><div class="mock-t-pair">EUR/USD</div><div class="mock-t-type">Forex · BUY</div></div></div><div style="text-align:right"><div class="mock-t-pips" style="color:#16A34A;font-size:0.76rem;font-weight:700;">+145 pips</div><div style="font-size:0.6rem;color:#9CA3AF;">SL: 1.0820</div></div></div>
+              <div class="mock-trade-row"><div class="mock-t-left"><div class="mock-dot" style="background:#F59E0B"></div><div><div class="mock-t-pair">GOLD / XAU</div><div class="mock-t-type">Commodity · BUY</div></div></div><div style="text-align:right"><div class="mock-t-pips" style="color:#D97706;font-size:0.76rem;font-weight:700;">+320 pts</div><div style="font-size:0.6rem;color:#9CA3AF;">SL: 2285</div></div></div>
+              <div class="mock-trade-row"><div class="mock-t-left"><div class="mock-dot" style="background:#60A5FA"></div><div><div class="mock-t-pair">BTC/USDT</div><div class="mock-t-type">Crypto · LONG</div></div></div><div style="text-align:right"><div class="mock-t-pips" style="color:#2563EB;font-size:0.76rem;font-weight:700;">+8.4%</div><div style="font-size:0.6rem;color:#9CA3AF;">SL: 61,200</div></div></div>
+              <div class="mock-trade-row"><div class="mock-t-left"><div class="mock-dot" style="background:#4ADE80"></div><div><div class="mock-t-pair">RELIANCE</div><div class="mock-t-type">Stocks · SWING</div></div></div><div style="text-align:right"><div class="mock-t-pips" style="color:#16A34A;font-size:0.76rem;font-weight:700;">+₹38</div><div style="font-size:0.6rem;color:#9CA3AF;">SL: ₹2,780</div></div></div>
+              <div class="mock-trade-row"><div class="mock-t-left"><div class="mock-dot" style="background:#60A5FA"></div><div><div class="mock-t-pair">GBP/JPY</div><div class="mock-t-type">Forex · SELL</div></div></div><div style="text-align:right"><div class="mock-t-pips" style="color:#2563EB;font-size:0.76rem;font-weight:700;">+210 pips</div><div style="font-size:0.6rem;color:#9CA3AF;">SL: 194.50</div></div></div>
+              <div style="margin-top:0.75rem;padding:0.5rem 0.7rem;background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.15);border-radius:8px;font-size:0.6rem;color:#6B7280;line-height:1.5;">⚠ For educational purposes only. Not investment advice.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="liq-stats">
+        <div class="liq-stat"><span class="liq-stat-n">20K+</span><span class="liq-stat-l">Active Traders</span></div>
+        <div class="liq-divider"></div>
+        <div class="liq-stat"><span class="liq-stat-n">50K+</span><span class="liq-stat-l">Trade Ideas Shared</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="sheader c rv"><span class="stag">Success Stories</span>
+      <h2 class="stitle">Real traders, <span class="blue">real results</span></h2>
+      <p class="ssub">See how our community members have transformed their trading journeys across India.</p>
+    </div>
+    <div class="tm-wrap">
+      <div class="tm-track" id="trk1"></div>
+      <div class="tm-track r2" id="trk2"></div>
+    </div>
+  </section>
+
+  <!-- SOCIAL STRIP -->
+  <section id="social-strip">
+    <div class="sheader c rv" style="margin-bottom:2.5rem;"><span class="stag">Connect With Us</span>
+      <h2 class="stitle">Let's Grow &amp; <span class="blue">Win Together</span></h2>
+    </div>
+    <div class="sc-grid">
+      <div class="sccard rv"><div class="sc-ico">📊</div><p>Download the Exness App using our exclusive link for the best trading conditions!</p><a href="https://wa.me/917011957726">Register for free</a></div>
+      <div class="sccard rv d1"><div class="sc-ico">💬</div><p>Reach out to our dedicated team on WhatsApp for registration and support!</p><a href="https://wa.me/917011957726">Get in touch</a></div>
+      <div class="sccard rv d2"><div class="sc-ico">✈️</div><p>Join our Official Telegram channel and stay updated with daily trade ideas!</p><a href="https://wa.me/917011957726">Join Now</a></div>
+      <div class="sccard rv d3"><div class="sc-ico">📸</div><p>Check out our Instagram page for daily Forex content and market insights!</p><a href="https://wa.me/917011957726">Check out</a></div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="sheader c rv"><span class="stag">Choose Your Plan</span>
+      <h2 class="stitle">Simple, <span class="blue">transparent</span> pricing</h2>
+      <p class="ssub">Join thousands of successful traders with proven strategies tailored to your trading style.</p>
+    </div>
+    <div class="ptog-wrap">
+      <button class="ptog-btn active" id="tQ">Quarterly</button>
+      <button class="ptog-btn" id="tA">Annually <span class="sp">SAVE 40%</span></button>
+    </div>
+    <div class="price-grid">
+      <div class="pc rv">
+        <div class="pc-name">Stocks</div>
+        <div class="pc-price"><sup>₹</sup><span class="pn" data-q="4999" data-a="2999">4,999</span></div>
+        <div class="pc-per"><span class="pp">/ 3 months · billed quarterly</span></div>
+        <div class="pc-div"></div>
+        <ul class="pc-feats">
+          <li>Daily Swing &amp; Breakout Trade Ideas (Equity &amp; Futures)</li>
+          <li>Investment Ideas — Short, Medium &amp; Long-Term</li>
+          <li>Pre-Market Watchlist + Weekly Market Outlook</li>
+          <li>Exclusive Stock Screeners — Advanced Filtering</li>
+          <li>Monthly Webinars &amp; Group Discussions</li>
+          <li>News Events &amp; Economic Calendars</li>
+        </ul>
+        <a href="https://superprofile.bio/vig/68fcb21716e1e20013453d97" class="pc-cta ghost">Become a Member</a>
+        <p class="pc-note">Ideal for traders &amp; investors building consistency</p>
+      </div>
+      <div class="pc pop rv d1">
+        <div class="pop-lbl">Most Popular</div>
+        <div class="pc-name">Forex</div>
+        <div class="pc-price"><sup>₹</sup><span class="pn" data-q="6499" data-a="3899">6,499</span></div>
+        <div class="pc-per"><span class="pp">/ 3 months · billed quarterly</span></div>
+        <div class="pc-div"></div>
+        <ul class="pc-feats">
+          <li>20+ Weekly Setups — Major &amp; Minor Currency Pairs</li>
+          <li>Complete Trade Details — Entry, SL &amp; Target Prices</li>
+          <li>High Win-Rate Strategies up to 83% — Educational</li>
+          <li>Risk Management &amp; Lot Sizing Guidance</li>
+          <li>3500+ Pips Monthly Potential (Tracking &amp; Study)</li>
+          <li>News Trading With the Community</li>
+          <li>Weekly Market Review &amp; Watchlist</li>
+          <li>Monthly Webinars &amp; Group Learning Sessions</li>
+        </ul>
+        <a href="https://superprofile.bio/vig/68fbbaf6d3b21800139d923b" class="pc-cta solid">Become a Member</a>
+        <p class="pc-note">For beginners to intermediate Forex traders</p>
+      </div>
+      <div class="pc rv d2">
+        <div class="pc-name">Crypto</div>
+        <div class="pc-price"><sup>₹</sup><span class="pn" data-q="9999" data-a="5999">9,999</span></div>
+        <div class="pc-per"><span class="pp">/ 3 months · billed quarterly</span></div>
+        <div class="pc-div"></div>
+        <ul class="pc-feats">
+          <li>20+ Crypto Setups Weekly — Scalping, Swing, Reversal</li>
+          <li>Trade Breakdown — Entries, SL, and Target Zones</li>
+          <li>Weekly Watchlists &amp; Market Sentiment Analysis</li>
+          <li>News-Based Sessions with Real-Time Community Chat</li>
+          <li>Monthly Webinars on Strategies &amp; Market Cycles</li>
+          <li>Community Discussions — Q&amp;A and Analysis Review</li>
+        </ul>
+        <a href="https://superprofile.bio/vig/68fcb06ad3b2180013ad5fc0" class="pc-cta ghost">Become a Member</a>
+        <p class="pc-note">For crypto enthusiasts &amp; pattern traders</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="sheader c rv"><span class="stag">FAQ</span>
+      <h2 class="stitle">Frequently asked <span class="blue">questions</span></h2>
+    </div>
+    <div class="fq-wrap">
+      <div class="fq-item"><button class="fq-q">What is TradeWiz?<span class="fq-ico">+</span></button><div class="fq-a">TradeWiz is India's #1 educational trading community with 20,000+ active traders across Stocks, Forex, and Crypto markets. We are not a SEBI-registered investment advisor — all content is purely educational.</div></div>
+      <div class="fq-item"><button class="fq-q">How can I benefit from TradeWiz?<span class="fq-ico">+</span></button><div class="fq-a">You get daily trade ideas, weekly market reviews, monthly webinars, live Q&amp;A sessions, risk management training, and a community of thousands of traders to learn from and collaborate with.</div></div>
+      <div class="fq-item"><button class="fq-q">What kind of content does TradeWiz provide?<span class="fq-ico">+</span></button><div class="fq-a">We provide trade ideas with detailed entry/exit levels, video lessons, chart analysis, scanning techniques, curated watchlists, live monthly Q&amp;As, and transparent monthly performance reports.</div></div>
+      <div class="fq-item"><button class="fq-q">Are there any fees to use TradeWiz?<span class="fq-ico">+</span></button><div class="fq-a">Yes, TradeWiz is a paid membership. Plans start at ₹4,999/quarter for Stocks, ₹6,499/quarter for Forex, and ₹9,999/quarter for Crypto. Annual plans offer up to 40% savings.</div></div>
+      <div class="fq-item"><button class="fq-q">Is TradeWiz registered with SEBI?<span class="fq-ico">+</span></button><div class="fq-a">No. TradeWiz is purely an educational trading community. We do not provide investment advice. All trade ideas are for learning and educational purposes only. Please consult a registered financial advisor before investing.</div></div>
+    </div>
+  </section>
+
+  <!-- FOOTER CTA -->
+  <section id="fcta">
+    <div class="fci rv">
+      <span class="stag" style="display:block">Get Started Today</span>
+      <h2 class="stitle" style="max-width:100%;font-size:clamp(2rem,5vw,4rem);">India's #1 Trading Community<br>Built For Traders, <span class="blue">By Traders</span></h2>
+      <p class="ssub" style="max-width:480px;margin:0.8rem auto 0">Ready to transform your trading journey? Join thousands of successful traders who've elevated their skills and profits.</p>
+      <div class="fci-btns"><a href="#pricing" class="btn-p">Become a Member</a><a href="#testimonials" class="btn-g">Watch Member Stories</a></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="fb"><a href="#" class="nav-logo">Trade<span>Wiz</span></a>
+      <p>An educational trading community. Not a SEBI-registered investment advisor. All content is for educational purposes only.</p>
+      <div style="margin-top:1.2rem;display:flex;gap:0.5rem;">
+        <a href="https://wa.me/917011957726" style="width:30px;height:30px;border-radius:7px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.82rem;text-decoration:none;">💬</a>
+        <a href="#" style="width:30px;height:30px;border-radius:7px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.82rem;text-decoration:none;">✈️</a>
+        <a href="#" style="width:30px;height:30px;border-radius:7px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.82rem;text-decoration:none;">📸</a>
+      </div>
+    </div>
+    <div class="fc"><h4>Quick Links</h4><ul><li><a href="#we-trade">Markets</a></li><li><a href="#features">Features</a></li><li><a href="calculator.html">Calculators</a></li><li><a href="#pricing">Pricing</a></li></ul></div>
+    <div class="fc"><h4>Legal</h4><ul><li><a href="disclaimer.html">Disclaimer</a></li><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="refund.html">Refund Policy</a></li></ul></div>
+    <div class="fc"><h4>Contact</h4><ul><li><a href="tel:+917011957726">+91 70119 57726</a></li><li><a href="https://wa.me/917011957726">WhatsApp Us</a></li><li><a href="mailto:support@tradewiz.in">support@tradewiz.in</a></li><li><a href="#">Mon–Sun · 9AM – 9PM</a></li></ul></div>
+  </footer>
+  <div class="fbot"><span>© 2025 TradeWiz · All rights reserved · Made with ❤ in India</span><span><a href="disclaimer.html">Disclaimer</a> &nbsp;·&nbsp; <a href="terms.html">Terms</a> &nbsp;·&nbsp; <a href="privacy.html">Privacy</a></span></div>
+
+  <script>
+    // NAV SCROLL
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 30));
+
+    // HAMBURGER
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+    });
+    document.querySelectorAll('.mobile-nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileNav.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // HERO PARTICLES
+    (function() {
+      const c = document.getElementById('heroParticles');
+      if (!c) return;
+      for (let i = 0; i < 22; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const s = Math.random() * 2.5 + 1;
+        p.style.cssText = `width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${Math.random()*14+10}s;animation-delay:${Math.random()*-22}s;--drift:${(Math.random()-0.5)*80}px;opacity:${Math.random()*0.4+0.1};`;
+        c.appendChild(p);
+      }
+    })();
+
+    // WE TRADE SLIDER
+    (function() {
+      const outer = document.getElementById('wtOuter');
+      const track = document.getElementById('wtTrack');
+      if (!outer || !track) return;
+      const slides = Array.from(track.querySelectorAll('.wt-slide'));
+      const dotEls = Array.from(document.querySelectorAll('.wt-dot'));
+      const total = slides.length;
+      let cur = 0, startX = 0, isDragging = false, startTX = 0, autoTimer;
+
+      function sw()  { return slides[0].offsetWidth; }
+      function ctr() { return (outer.offsetWidth - sw()) / 2; }
+      function tx(n) { return ctr() - n * (sw() + 32); }
+
+      function goTo(n, instant) {
+        cur = ((n % total) + total) % total;
+        track.style.transition = instant ? 'none' : 'transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94)';
+        track.style.transform = `translateX(${tx(cur)}px)`;
+        slides.forEach((s, i) => s.classList.toggle('wt-active', i === cur));
+        dotEls.forEach((d, i) => d.classList.toggle('active', i === cur));
+      }
+
+      dotEls.forEach((d, i) => d.addEventListener('click', () => { clearInterval(autoTimer); goTo(i); startAuto(); }));
+
+      function startAuto() { autoTimer = setInterval(() => goTo(cur + 1), 4500); }
+
+      outer.addEventListener('mousedown', e => { isDragging = true; startX = e.clientX; startTX = tx(cur); outer.style.cursor = 'grabbing'; e.preventDefault(); });
+      window.addEventListener('mousemove', e => {
+        if (!isDragging) return;
+        track.style.transition = 'none';
+        track.style.transform = `translateX(${startTX + e.clientX - startX}px)`;
+      });
+      window.addEventListener('mouseup', e => {
+        if (!isDragging) return;
+        isDragging = false; outer.style.cursor = 'grab';
+        if (Math.abs(e.clientX - startX) > 60) goTo(cur + (e.clientX < startX ? 1 : -1));
+        else goTo(cur);
+      });
+      outer.addEventListener('touchstart', e => { startX = e.touches[0].clientX; startTX = tx(cur); clearInterval(autoTimer); }, { passive: true });
+      outer.addEventListener('touchmove', e => {
+        track.style.transition = 'none';
+        track.style.transform = `translateX(${startTX + e.touches[0].clientX - startX}px)`;
+      }, { passive: true });
+      outer.addEventListener('touchend', e => {
+        const d = e.changedTouches[0].clientX - startX;
+        if (Math.abs(d) > 60) goTo(cur + (d < 0 ? 1 : -1)); else goTo(cur);
+        startAuto();
+      });
+
+      window.addEventListener('resize', () => goTo(cur, true));
+      goTo(0, true);
+      startAuto();
+    })();
+
+    // COUNTER
+    function animCount(el) {
+      const t = parseFloat(el.dataset.count), suf = el.dataset.suffix || '';
+      const isDec = el.hasAttribute('data-dec'), isK = el.hasAttribute('data-k');
+      const dur = 1800, s = performance.now();
+      (function step(n) { const p = Math.min((n-s)/dur,1), e = 1-Math.pow(1-p,3), v = t*e; el.textContent = isDec ? v.toFixed(1)+suf : isK ? Math.floor(v/1000)+'K+' : Math.floor(v)+suf; if(p<1) requestAnimationFrame(step); })(s);
+    }
+    const io = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); e.target.querySelectorAll('[data-count]').forEach(animCount); io.unobserve(e.target); } }); }, {threshold:.1});
+    document.querySelectorAll('.rv').forEach(el => io.observe(el));
+    const sio = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting){ e.target.querySelectorAll('[data-count]').forEach(animCount); sio.unobserve(e.target); } }); }, {threshold:.5});
+    const sb = document.querySelector('.stats-row'); if(sb) sio.observe(sb);
+
+    // SPOTLIGHT CHART BARS
+    (function() {
+      const vals = [3200,2900,3800,2700,3500,3100,4000,2800,3600,3300,3900,3100];
+      const mx = Math.max(...vals);
+      const container = document.getElementById('spotBars');
+      if (!container) return;
+      vals.forEach((v, i) => {
+        const b = document.createElement('div');
+        b.className = 'mock-b' + (i === 4 ? ' hi' : '');
+        b.style.height = '5%';
+        b.style.transitionDelay = (i * 0.05) + 's';
+        container.appendChild(b);
+      });
+      const spotObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            container.querySelectorAll('.mock-b').forEach((b, i) => {
+              setTimeout(() => { b.style.height = (vals[i] / mx * 100) + '%'; }, i * 55);
+            });
+            spotObs.unobserve(e.target);
+          }
+        });
+      }, {threshold: 0.3});
+      spotObs.observe(container);
+    })();
+
+    // PERFORMANCE CHART
+    const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const PD = {
+      forex: { vals:[3200,2900,3800,2700,3500,3100,4000,2800,3600,3300,3900,3100], wins:[82,78,85,75,83,80,88,76,84,81,86,80], setups:[22,20,24,19,21,23,26,20,23,22,25,21], badge:'Pips' },
+      stocks: { vals:[140,125,160,110,145,132,172,118,155,138,168,130], wins:[75,70,78,68,76,72,80,69,77,73,79,71], setups:[18,16,20,14,17,19,22,15,18,17,21,16], badge:'Ideas' },
+      crypto: { vals:[12,9,15,8,13,11,17,9,14,12,16,10], wins:[72,68,76,65,73,70,78,66,74,71,77,69], setups:[20,18,22,16,19,21,24,17,20,19,23,18], badge:'% Gain' },
+      commodity: { vals:[280,240,320,210,295,265,345,225,305,270,330,255], wins:[79,74,82,71,80,77,84,72,81,78,83,75], setups:[14,12,16,10,13,15,18,11,14,13,17,12], badge:'Points' }
+    };
+    const LABS = { forex:['Pips Potential','Win Rate','Weekly Setups'], stocks:['Ideas Shared','Win Rate','Ideas/Week'], crypto:['Avg % Gain','Win Rate','Weekly Setups'], commodity:['Points Moved','Win Rate','Weekly Setups'] };
+    let cM = 'forex', cI = 0;
+    function drawPerf() {
+      const d = PD[cM], mkt = {forex:'FOREX',stocks:'STOCKS',crypto:'CRYPTO',commodity:'COMMODITY'}[cM];
+      document.getElementById('perfT').textContent = `${MONTHS[cI].toUpperCase()} 2025 — ${mkt}`;
+      document.getElementById('perfB').textContent = `${d.vals[cI]} ${d.badge}`;
+      const cw = document.getElementById('chWrap'), cl = document.getElementById('chLbls');
+      cw.innerHTML = ''; cl.innerHTML = '';
+      const mx = Math.max(...d.vals);
+      d.vals.forEach((v,i) => {
+        const bar = document.createElement('div'); bar.className = 'ch-bar';
+        const inn = document.createElement('div'); inn.className = 'ch-inner';
+        inn.style.height = '5%'; inn.style.background = i===cI ? 'rgba(59,130,246,0.7)' : 'rgba(59,130,246,0.2)';
+        bar.appendChild(inn); cw.appendChild(bar);
+        setTimeout(() => { inn.style.height = (v/mx*100)+'%'; }, 60+i*28);
+        bar.addEventListener('click', () => { document.querySelectorAll('.mobtn').forEach((b,j) => b.classList.toggle('active',j===i)); cI=i; drawPerf(); });
+        const lbl = document.createElement('div'); lbl.className = 'ch-lbl'; lbl.textContent = MONTHS[i].slice(0,1); cl.appendChild(lbl);
+      });
+      const cs = document.getElementById('pcStats');
+      cs.innerHTML = [d.vals[cI],d.wins[cI]+'%',d.setups[cI]].map((v,i) => `<div><div class="pcs-val">${v}</div><div class="pcs-lbl">${LABS[cM][i]}</div></div>`).join('');
+    }
+    drawPerf();
+    document.querySelectorAll('.mbtn').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('.mbtn').forEach(x => x.classList.remove('active')); b.classList.add('active'); cM=b.dataset.m; drawPerf(); }));
+    document.querySelectorAll('.mobtn').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('.mobtn').forEach(x => x.classList.remove('active')); b.classList.add('active'); cI=+b.dataset.i; drawPerf(); }));
+
+    // TESTIMONIALS
+    const TMS = [
+      {name:'Karthik A.',city:'Chennai',text:"Tradewiz's gold trading strategies completely changed the game for me. I now have a clear plan for entries, exits, and risk."},
+      {name:'Poonam T.',city:'Bangalore',text:"The accuracy of the forex setups is simply unmatched. A disciplined low-risk, high-reward system that actually works."},
+      {name:'Rishabh N.',city:'Delhi',text:"Trading live NFP and CPI events used to be terrifying. The live sessions with TradeWiz taught me how to stay calm and trade smart."},
+      {name:'Zoya H.',city:'Hyderabad',text:"The CPI event session alone was worth the entire membership fee. It was like a live masterclass in real-time."},
+      {name:'Nitesh S.',city:'Mumbai',text:"Now I understand how to prepare, set logical targets, and manage my risk like a pro. No more guessing."},
+      {name:'Tanvi V.',city:'Pune',text:"The 3500+ pips monthly potential is real — cumulative result of consistent, well-researched, and logical setups."},
+      {name:'Rajeev M.',city:'Kolkata',text:"Mastering risk management through TradeWiz has fundamentally changed my trading psychology. No more anxiety."},
+      {name:'Sana R.',city:'Ahmedabad',text:"Every trade idea comes with clearly defined entries, stop-losses, and take-profits — and the reasoning behind each level."},
+      {name:'Ankit B.',city:'Gurgaon',text:"I caught 150 pips on a single EURUSD trade thanks to the community's strategies. My first real win in trading!"},
+      {name:'Kritika L.',city:'Lucknow',text:"It truly feels like I'm trading with a smart army behind me. Consistency improved dramatically."},
+      {name:'Ashwin T.',city:'Jaipur',text:"The weekly reviews are deep in analysis yet simple to understand. Now I finally know why I lost trades earlier."},
+      {name:'Naina J.',city:'Indore',text:"I would never have dared to scalp gold before. The strategies and live guidance have been a complete revelation."},
+      {name:'Siddharth K.',city:'Surat',text:"I feel completely in control even when the market is moving fast during major news events."},
+      {name:'Diya P.',city:'Udaipur',text:"This community drills risk-reward into your head. It works — my account is finally in the green."},
+      {name:'Tapan V.',city:'Nashik',text:"The emotional control I've developed through this structured approach is unmatched. Forex is now exciting, not overwhelming."},
+      {name:'Arya K.',city:'Patna',text:"I was in a deep drawdown ready to quit. TradeWiz was my last resort and a complete lifesaver."},
+      {name:'Mehak S.',city:'Noida',text:"Tradewiz was the antidote to random YouTubers — a professional, structured approach to the forex market."},
+    ];
+    function buildTrack(el, items) {
+      [...items,...items].forEach(t => {
+        const init = t.name.split(' ').map(n=>n[0]).join('');
+        const c = document.createElement('div'); c.className = 'tcard';
+        c.innerHTML = `<div class="tc-stars">★★★★★</div><p class="tc-txt">${t.text}</p><div class="tc-auth"><div class="tc-av">${init}</div><div><div class="tc-name">${t.name}</div><div class="tc-city">${t.city}</div></div></div>`;
+        el.appendChild(c);
+      });
+    }
+    const h = Math.ceil(TMS.length/2);
+    buildTrack(document.getElementById('trk1'), TMS.slice(0,h));
+    buildTrack(document.getElementById('trk2'), TMS.slice(h));
+
+    // PRICING TOGGLE
+    document.getElementById('tQ').addEventListener('click', () => { document.getElementById('tQ').classList.add('active'); document.getElementById('tA').classList.remove('active'); document.querySelectorAll('.pn').forEach(e => e.textContent = parseInt(e.dataset.q).toLocaleString('en-IN')); document.querySelectorAll('.pp').forEach(e => e.textContent = '/ 3 months · billed quarterly'); });
+    document.getElementById('tA').addEventListener('click', () => { document.getElementById('tA').classList.add('active'); document.getElementById('tQ').classList.remove('active'); document.querySelectorAll('.pn').forEach(e => e.textContent = parseInt(e.dataset.a).toLocaleString('en-IN')); document.querySelectorAll('.pp').forEach(e => e.textContent = '/ month · billed annually'); });
+
+    // FAQ
+    document.querySelectorAll('.fq-q').forEach(btn => { btn.addEventListener('click', () => { const a = btn.nextElementSibling, open = btn.classList.contains('open'); document.querySelectorAll('.fq-q').forEach(b => { b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); }); if(!open){ btn.classList.add('open'); a.classList.add('open'); } }); });
+  </script>
+</body>
+</html>

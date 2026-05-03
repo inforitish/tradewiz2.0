@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms &amp; Conditions — TradeWiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #020617; --bg2: #040d1e; --card: rgba(255,255,255,0.03); --card2: rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.06); --border2: rgba(255,255,255,0.1);
+      --blue: #3B82F6; --blue-dim: rgba(59,130,246,0.12);
+      --text: #E5E7EB; --muted: #9CA3AF; --mid: #D1D5DB; --r: 14px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+    .ticker { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0.4rem 0; overflow: hidden; white-space: nowrap; position: relative; z-index: 10; }
+    .ticker-inner { display: inline-block; animation: tick 38s linear infinite; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.03em; }
+    @keyframes tick { from{transform:translateX(100vw)} to{transform:translateX(-100%)} }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 6vw; height: 66px; background: rgba(2,6,23,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.04em; text-decoration: none; color: var(--text); }
+    .nav-logo span { color: var(--blue); }
+    .nav-links { display: flex; gap: 2rem; align-items: center; list-style: none; }
+    .nav-links a { font-size: 0.83rem; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { background: var(--blue) !important; color: #fff !important; padding: 0.48rem 1.25rem; border-radius: 100px; font-weight: 600 !important; font-size: 0.82rem !important; transition: background 0.2s, transform 0.2s !important; }
+    .nav-cta:hover { background: #2563EB !important; transform: translateY(-1px); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; z-index: 200; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: transform 0.32s cubic-bezier(0.16,1,0.3,1), opacity 0.2s; transform-origin: center; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-nav { position: fixed; inset: 0; z-index: 150; background: rgba(2,6,23,0.97); backdrop-filter: blur(24px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.2rem; transform: translateX(100%); transition: transform 0.45s cubic-bezier(0.16,1,0.3,1); pointer-events: none; }
+    .mobile-nav.open { transform: translateX(0); pointer-events: all; }
+    .mobile-nav a { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.03em; color: var(--mid); text-decoration: none; padding: 0.75rem 0; opacity: 0; transform: translateX(28px); transition: color 0.2s, opacity 0.4s ease, transform 0.4s ease; }
+    .mobile-nav.open a { opacity: 1; transform: translateX(0); }
+    .mobile-nav.open a:nth-child(1){transition-delay:0.06s}.mobile-nav.open a:nth-child(2){transition-delay:0.12s}.mobile-nav.open a:nth-child(3){transition-delay:0.18s}.mobile-nav.open a:nth-child(4){transition-delay:0.24s}.mobile-nav.open a:nth-child(5){transition-delay:0.30s}.mobile-nav.open a:nth-child(6){transition-delay:0.36s}
+    .mobile-nav a:hover { color: var(--text); }
+    .mobile-nav .m-cta { margin-top: 1.25rem; background: var(--blue) !important; color: #fff !important; padding: 0.85rem 2.5rem; border-radius: 100px; font-size: 1rem !important; font-weight: 600; }
+
+    .legal-hero { padding: 130px 6vw 64px; background: var(--bg2); position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+    .legal-hero::before { content: ''; position: absolute; top: -120px; left: 50%; transform: translateX(-50%); width: 700px; height: 400px; background: radial-gradient(ellipse, rgba(59,130,246,0.07) 0%, transparent 65%); filter: blur(40px); pointer-events: none; }
+    .legal-breadcrumb { font-size: 0.72rem; font-weight: 500; color: var(--muted); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; }
+    .legal-breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .legal-breadcrumb a:hover { color: var(--blue); }
+    .legal-breadcrumb span { color: var(--border2); }
+    .legal-tag { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.75rem; display: block; }
+    .legal-title { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1.08; color: var(--text); margin-bottom: 0.85rem; }
+    .legal-meta { font-size: 0.78rem; color: var(--muted); display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .legal-meta-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--border2); }
+
+    .legal-wrap { max-width: 760px; margin: 0 auto; padding: 72px 6vw 96px; }
+    .legal-section { margin-bottom: 2.5rem; }
+    .legal-intro { font-size: 1rem; color: var(--mid); line-height: 1.9; padding: 1.5rem 1.75rem; background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.12); border-radius: var(--r); margin-bottom: 3rem; }
+    .legal-h2 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.85rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.6rem; }
+    .legal-h2-num { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; color: var(--blue); background: var(--blue-dim); border: 1px solid rgba(59,130,246,0.2); padding: 2px 8px; border-radius: 100px; }
+    .legal-p { font-size: 0.9rem; color: var(--muted); line-height: 1.88; margin-bottom: 0.85rem; }
+    .legal-p strong { color: var(--mid); font-weight: 600; }
+    .legal-ul { list-style: none; margin: 0.5rem 0 1rem; display: flex; flex-direction: column; gap: 0.55rem; }
+    .legal-ul li { font-size: 0.9rem; color: var(--muted); line-height: 1.65; display: flex; align-items: flex-start; gap: 0.75rem; }
+    .legal-ul li::before { content: ''; width: 15px; height: 15px; flex-shrink: 0; margin-top: 3px; border-radius: 50%; background: var(--blue-dim) url("data:image/svg+xml,%3Csvg width='9' height='7' viewBox='0 0 9 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 3.5L3.2 5.8L8 1' stroke='%233B82F6' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center; border: 1px solid rgba(59,130,246,0.2); }
+    .legal-divider { height: 1px; background: var(--border); margin: 3rem 0; }
+    .legal-contact-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); padding: 1.75rem; backdrop-filter: blur(6px); }
+    .legal-contact-card h3 { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; }
+    .legal-contact-row { display: flex; align-items: center; gap: 0.75rem; font-size: 0.85rem; color: var(--mid); padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+    .legal-contact-row:last-child { border-bottom: none; }
+    .legal-contact-row a { color: var(--blue); text-decoration: none; }
+    .legal-contact-row a:hover { text-decoration: underline; }
+
+    footer { border-top: 1px solid var(--border); padding: 3.5rem 6vw; display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 3rem; background: var(--bg); }
+    .fb .nav-logo { display: block; margin-bottom: 0.85rem; }
+    .fb p { font-size: 0.77rem; color: var(--muted); line-height: 1.75; max-width: 280px; }
+    .fc h4 { font-size: 0.67rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+    .fc ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .fc ul a { font-size: 0.8rem; color: var(--mid); text-decoration: none; transition: color 0.2s; }
+    .fc ul a:hover { color: var(--text); }
+    .fbot { border-top: 1px solid var(--border); padding: 1.4rem 6vw; display: flex; justify-content: space-between; align-items: center; font-size: 0.7rem; color: var(--muted); flex-wrap: wrap; gap: 0.5rem; background: var(--bg); }
+    .fbot a { color: var(--muted); text-decoration: none; }
+    .fbot a:hover { color: var(--text); }
+
+    @media (max-width: 768px) { .nav-links{display:none} .nav-hamburger{display:flex} .legal-wrap{padding:56px 5vw 72px} footer{grid-template-columns:1fr 1fr;gap:2rem} }
+    @media (max-width: 540px) { footer{grid-template-columns:1fr} .legal-hero{padding:110px 5vw 48px} }
+  </style>
+</head>
+<body>
+
+  <div class="ticker">
+    <span class="ticker-inner">⚠ TradeWiz is an educational community — not a SEBI-registered investment advisor. All content is for educational purposes only. Trading involves substantial risk of loss. &nbsp;&nbsp;&nbsp;&nbsp; ⚠ TradeWiz is an educational community — not a SEBI-registered investment advisor. All content is for educational purposes only. &nbsp;&nbsp;&nbsp;&nbsp;</span>
+  </div>
+
+  <nav id="mainNav">
+    <a href="index.html" class="nav-logo">Trade<span>Wiz</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html#we-trade">Markets</a></li>
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="index.html#performance">Performance</a></li>
+      <li><a href="index.html#testimonials">Stories</a></li>
+      <li><a href="index.html#pricing">Pricing</a></li>
+      <li><a href="https://superprofile.bio/vig/68fcb21716e1e20013453d97" class="nav-cta">Become a Member</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html#we-trade">Markets</a>
+    <a href="index.html#features">Features</a>
+    <a href="index.html#performance">Performance</a>
+    <a href="index.html#testimonials">Stories</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="https://superprofile.bio/vig/68fcb21716e1e20013453d97" class="m-cta">Become a Member</a>
+  </div>
+
+  <div class="legal-hero">
+    <div style="max-width:760px;margin:0 auto;position:relative;z-index:1;">
+      <div class="legal-breadcrumb">
+        <a href="index.html">Home</a>
+        <span>›</span>
+        <span style="color:var(--mid)">Terms &amp; Conditions</span>
+      </div>
+      <span class="legal-tag">Legal</span>
+      <h1 class="legal-title">Terms &amp; Conditions</h1>
+      <div class="legal-meta">
+        <span>Effective Date: January 1, 2025</span>
+        <div class="legal-meta-dot"></div>
+        <span>TradeWiz Community</span>
+        <div class="legal-meta-dot"></div>
+        <span>Educational Platform</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="legal-wrap">
+
+    <div class="legal-intro">
+      By accessing or participating in TradeWiz — through our website, community groups, or any associated platform — you agree to be bound by these Terms &amp; Conditions. Please read them carefully before proceeding. If you do not agree, please discontinue use of our services.
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-h2"><span class="legal-h2-num">01</span>Nature of Service</div>
+      <p class="legal-p">TradeWiz provides <strong>educational market insights</strong>, general discussions, and learning-oriented trade ideas. We are not a registered investment advisory or research entity of any kind.</p>
+      <p class="legal-p">All content shared on our platforms — including trade ideas, chart analyses, market discussions, and educational material — is intended solely to help members understand market dynamics and develop their analytical skills. Nothing should be construed as personalized investment advice.</p>
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-h2"><span class="legal-h2-num">02</span>No SEBI Registration</div>
+      <p class="legal-p">TradeWiz and its team are <strong>not registered under SEBI</strong> as a Research Analyst, Investment Adviser, Portfolio Manager, or any similar regulatory category. We do not hold any financial services license or registration from any regulatory authority.</p>
+      <p class="legal-p">Members should not rely on content from this platform as professional financial advice and should always consult a SEBI-registered professional before making any financial decision.</p>
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-h2"><span class="legal-h2-num">03</span>User Responsibility</div>
+      <p class="legal-p">By becoming a member of TradeWiz, you explicitly agree and acknowledge that:</p>
+      <ul class="legal-ul">
+        <li>All financial actions and trading decisions are your sole and complete responsibility</li>
+        <li>You must consult a SEBI-registered advisor before making any trading or investment decisions</li>
+        <li>You cannot hold TradeWiz, its founders, team, or affiliates liable for any profits or losses arising from your decisions</li>
+        <li>You understand the risk involved in trading financial markets and accept full personal liability</li>
+        <li>You are of legal age and legally permitted to participate in financial market activities in your jurisdiction</li>
+      </ul>
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-h2"><span class="legal-h2-num">04</span>Community Conduct</div>
+      <p class="legal-p">To maintain a respectful and productive learning environment, all members are strictly prohibited from:</p>
+      <ul class="legal-ul">
+        <li>Self-promotion, advertising personal services, or soliciting other members</li>
+        <li>Sharing misinformation, false market claims, or unverified content</li>
+        <li>Engaging in paid marketing or promoting third-party products without authorization</li>
+        <li>Using offensive, abusive, discriminatory, or harmful language</li>
+        <li>Sharing content that violates intellectual property rights</li>
+        <li>Impersonating any member, expert, or TradeWiz representative</li>
+      </ul>
+      <p class="legal-p">Violations of community conduct standards will result in immediate removal from the community. <strong>No refunds will be issued</strong> for removal due to conduct violations.</p>
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-h2"><span class="legal-h2-num">05</span>No Financial Liability</div>
+      <p class="legal-p">TradeWiz, its founders, team members, and all affiliates are <strong>not liable for any direct, indirect, incidental, or consequential loss</strong> resulting from community participation, use of our platform, reliance on our educational content, or any action or inaction based on information obtained through our services.</p>
+      <p class="legal-p">This limitation of liability applies to all types of damages including financial losses, trading losses, lost profits, loss of data, or any other intangible losses.</p>
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-h2"><span class="legal-h2-num">06</span>Content &amp; Intellectual Property</div>
+      <p class="legal-p">All educational content, trade analysis, strategies, video lessons, written material, and other resources provided by TradeWiz are <strong>protected by copyright</strong> and remain the intellectual property of TradeWiz.</p>
+      <ul class="legal-ul">
+        <li>Redistribution, reselling, or sharing of any content without explicit written permission is strictly forbidden</li>
+        <li>Screenshotting or recording community discussions for external distribution is prohibited</li>
+        <li>Any reproduction of TradeWiz materials for commercial purposes without authorization will be pursued legally</li>
+      </ul>
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-h2"><span class="legal-h2-num">07</span>Amendments to Terms</div>
+      <p class="legal-p">TradeWiz reserves the right to modify, update, or replace these Terms &amp; Conditions at any time without prior notice. Continued use of our services after any changes constitutes your acceptance of the revised terms.</p>
+      <p class="legal-p">We encourage members to review these terms periodically. Material changes will be communicated through our community channels where reasonably practicable.</p>
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-h2"><span class="legal-h2-num">08</span>Governing Law</div>
+      <p class="legal-p">These Terms &amp; Conditions are governed by the laws of India. Any disputes arising under or in connection with these terms shall be subject to the exclusive jurisdiction of the courts located in India.</p>
+    </div>
+
+    <div class="legal-divider"></div>
+
+    <div class="legal-contact-card">
+      <h3>Questions About These Terms?</h3>
+      <div class="legal-contact-row">📞 <a href="tel:+917011957726">+91 70119 57726</a></div>
+      <div class="legal-contact-row">📧 <a href="mailto:officialtradewiz@gmail.com">officialtradewiz@gmail.com</a></div>
+      <div class="legal-contact-row">🕐 Mon–Sun · 9:00 AM to 9:00 PM</div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="fb">
+      <a href="index.html" class="nav-logo">Trade<span>Wiz</span></a>
+      <p>An educational trading community. Not a SEBI-registered investment advisor. All content is for educational purposes only.</p>
+      <div style="margin-top:1.2rem;display:flex;gap:0.5rem;">
+        <a href="https://wa.me/917011957726" style="width:30px;height:30px;border-radius:7px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.82rem;text-decoration:none;">💬</a>
+        <a href="#" style="width:30px;height:30px;border-radius:7px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.82rem;text-decoration:none;">✈️</a>
+        <a href="#" style="width:30px;height:30px;border-radius:7px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.82rem;text-decoration:none;">📸</a>
+      </div>
+    </div>
+    <div class="fc"><h4>Quick Links</h4><ul><li><a href="index.html#we-trade">Markets</a></li><li><a href="index.html#features">Features</a></li><li><a href="index.html#pricing">Pricing</a></li><li><a href="index.html">About Us</a></li></ul></div>
+    <div class="fc"><h4>Legal</h4><ul><li><a href="disclaimer.html">Disclaimer</a></li><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="refund.html">Refund Policy</a></li></ul></div>
+    <div class="fc"><h4>Contact</h4><ul><li><a href="tel:+917011957726">+91 70119 57726</a></li><li><a href="https://wa.me/917011957726">WhatsApp Us</a></li><li><a href="mailto:officialtradewiz@gmail.com">officialtradewiz@gmail.com</a></li><li><a href="#">Mon–Sun · 9AM – 9PM</a></li></ul></div>
+  </footer>
+  <div class="fbot">
+    <span>© 2025 TradeWiz · All rights reserved · Made with ❤ in India</span>
+    <span><a href="disclaimer.html">Disclaimer</a> &nbsp;·&nbsp; <a href="terms.html">Terms</a> &nbsp;·&nbsp; <a href="privacy.html">Privacy</a></span>
+  </div>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileNav.classList.toggle('open'); document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : ''; });
+    document.querySelectorAll('.mobile-nav a').forEach(link => { link.addEventListener('click', () => { hamburger.classList.remove('open'); mobileNav.classList.remove('open'); document.body.style.overflow = ''; }); });
+  </script>
+</body>
+</html>

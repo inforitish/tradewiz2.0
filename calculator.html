@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trading Calculators — TradeWiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #020617; --bg2: #040d1e; --bg3: #061026;
+      --card: rgba(255,255,255,0.03); --card2: rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.06); --border2: rgba(255,255,255,0.1);
+      --blue: #3B82F6; --blue-dim: rgba(59,130,246,0.12);
+      --text: #E5E7EB; --muted: #9CA3AF; --mid: #D1D5DB;
+      --r: 14px;
+      --green: #4ADE80; --red: #F87171; --amber: #F59E0B;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+    /* TICKER */
+    .ticker { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0.4rem 0; overflow: hidden; white-space: nowrap; }
+    .ticker-inner { display: inline-block; animation: tick 38s linear infinite; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.03em; }
+    @keyframes tick { from{transform:translateX(100vw)} to{transform:translateX(-100%)} }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 6vw; height: 66px; background: rgba(2,6,23,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.04em; text-decoration: none; color: var(--text); }
+    .nav-logo span { color: var(--blue); }
+    .nav-links { display: flex; gap: 2rem; align-items: center; list-style: none; }
+    .nav-links a { font-size: 0.83rem; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--text); }
+    .nav-cta { background: var(--blue) !important; color: #fff !important; padding: 0.48rem 1.25rem; border-radius: 100px; font-weight: 600 !important; font-size: 0.82rem !important; transition: background 0.2s !important; }
+    .nav-cta:hover { background: #2563EB !important; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
+    .mobile-nav { display: none; position: fixed; inset: 0; background: rgba(2,6,23,0.98); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 1.3rem; font-weight: 700; color: var(--mid); text-decoration: none; }
+    .mobile-nav .m-cta { background: var(--blue); color: #fff; padding: 0.8rem 2.5rem; border-radius: 100px; margin-top: 0.5rem; }
+
+    /* HERO */
+    .calc-hero { padding: 160px 6vw 80px; text-align: center; position: relative; overflow: hidden; }
+    .calc-hero::before { content:''; position:absolute; top:-120px; left:50%; transform:translateX(-50%); width:800px; height:600px; background:radial-gradient(ellipse,rgba(59,130,246,0.08) 0%,transparent 65%); pointer-events:none; }
+    .calc-hero-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+    .calc-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); display: block; margin-bottom: 1rem; }
+    .calc-title { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; letter-spacing: -0.05em; line-height: 1.0; margin-bottom: 1.25rem; }
+    .calc-title span { color: var(--blue); }
+    .calc-sub { color: var(--muted); font-size: clamp(0.92rem, 1.6vw, 1.05rem); line-height: 1.8; max-width: 540px; margin: 0 auto; }
+
+    /* GRID */
+    .calc-section { padding: 0 6vw 100px; }
+    .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; max-width: 1300px; margin: 0 auto; }
+
+    /* CALCULATOR CARD */
+    .cc { background: var(--card); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; transition: border-color 0.25s, box-shadow 0.25s; }
+    .cc:hover { border-color: var(--border2); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+    .cc-header { padding: 1.75rem 1.5rem 1.5rem; cursor: pointer; display: flex; flex-direction: column; gap: 0; }
+    .cc-icon-wrap { width: 48px; height: 48px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 1.1rem; flex-shrink: 0; }
+    .cc-name { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+    .cc-desc { font-size: 0.77rem; color: var(--muted); line-height: 1.65; }
+    .cc-divider { height: 1px; background: var(--border); margin: 1.25rem 1.5rem 0; }
+    .cc-btn { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; font-size: 0.78rem; font-weight: 600; color: var(--blue); cursor: pointer; background: none; border: none; width: 100%; font-family: 'Inter', sans-serif; transition: color 0.2s; }
+    .cc-btn:hover { color: #93c5fd; }
+    .cc-btn .cc-arrow { transition: transform 0.3s; }
+    .cc-btn.open .cc-arrow { transform: rotate(180deg); }
+
+    /* CALCULATOR BODY */
+    .cc-body { max-height: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    .cc-body.open { max-height: 900px; }
+    .cc-form { padding: 0 1.5rem 1.75rem; border-top: 1px solid var(--border); margin-top: -1px; }
+    .cf-group { margin-bottom: 1rem; }
+    .cf-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; display: block; }
+    .cf-input { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem 0.85rem; font-family: 'Inter', sans-serif; font-size: 0.83rem; color: var(--text); transition: border-color 0.2s; outline: none; }
+    .cf-input:focus { border-color: rgba(59,130,246,0.5); }
+    .cf-select { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem 0.85rem; font-family: 'Inter', sans-serif; font-size: 0.83rem; color: var(--text); cursor: pointer; outline: none; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%239CA3AF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.85rem center; }
+    .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .cf-calc-btn { width: 100%; padding: 0.7rem; background: var(--blue); border: none; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 600; color: #fff; cursor: pointer; margin-top: 0.25rem; transition: background 0.2s; }
+    .cf-calc-btn:hover { background: #2563EB; }
+
+    /* RESULT BOX */
+    .cc-result { background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.12); border-radius: 10px; padding: 1rem 1.1rem; margin-top: 1rem; display: none; }
+    .cc-result.show { display: block; }
+    .cr-label { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+    .cr-rows { display: flex; flex-direction: column; gap: 0.5rem; }
+    .cr-row { display: flex; justify-content: space-between; align-items: center; }
+    .cr-key { font-size: 0.75rem; color: var(--muted); }
+    .cr-val { font-size: 0.82rem; font-weight: 700; color: var(--text); }
+    .cr-val.green { color: var(--green); }
+    .cr-val.red   { color: var(--red); }
+    .cr-val.amber { color: var(--amber); }
+    .cr-big { font-size: 1.5rem; font-weight: 900; letter-spacing: -0.04em; color: var(--text); display: block; margin-bottom: 0.25rem; }
+    .cr-big.green { color: var(--green); }
+    .cr-big.red   { color: var(--red); }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 3.5rem 6vw; display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 3rem; background: var(--bg); }
+    .fb .nav-logo { display: block; margin-bottom: 0.85rem; }
+    .fb p { font-size: 0.77rem; color: var(--muted); line-height: 1.75; max-width: 280px; }
+    .fc h4 { font-size: 0.67rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+    .fc ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .fc ul a { font-size: 0.8rem; color: var(--mid); text-decoration: none; transition: color 0.2s; }
+    .fc ul a:hover { color: var(--text); }
+    .fbot { border-top: 1px solid var(--border); padding: 1.4rem 6vw; display: flex; justify-content: space-between; align-items: center; font-size: 0.7rem; color: var(--muted); flex-wrap: wrap; gap: 0.5rem; background: var(--bg); }
+    .fbot a { color: var(--muted); text-decoration: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) { .calc-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 800px) { .calc-grid { grid-template-columns: repeat(2, 1fr); } footer { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 768px) { .nav-links { display: none; } .nav-hamburger { display: flex; } }
+    @media (max-width: 540px) { .calc-grid { grid-template-columns: 1fr; } footer { grid-template-columns: 1fr; } .cf-row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+
+<body>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <span class="ticker-inner">⚠ TradeWiz is an educational community — not a SEBI-registered investment advisor. All content is for educational purposes only. Trading involves substantial risk of loss. Past performance does not guarantee future results. &nbsp;&nbsp;&nbsp;&nbsp; ⚠ TradeWiz is an educational community — not a SEBI-registered investment advisor. All content is for educational purposes only. &nbsp;&nbsp;&nbsp;&nbsp;</span>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Trade<span>Wiz</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html#we-trade">Markets</a></li>
+      <li><a href="index.html#performance">Performance</a></li>
+      <li><a href="index.html#pricing">Pricing</a></li>
+      <li><a href="calculator.html" class="active">Calculators</a></li>
+      <li><a href="index.html#pricing" class="nav-cta">Become a Member</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html#we-trade">Markets</a>
+    <a href="index.html#performance">Performance</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="calculator.html">Calculators</a>
+    <a href="index.html#pricing" class="m-cta">Become a Member</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="calc-hero">
+    <div class="calc-hero-inner">
+      <span class="calc-tag">Free Tools</span>
+      <h1 class="calc-title">Trading<br><span>Calculators</span></h1>
+      <p class="calc-sub">Precision tools to size your positions, calculate risk, and plan your trades before you enter the market.</p>
+    </div>
+  </section>
+
+  <!-- CALCULATOR GRID -->
+  <div class="calc-section">
+    <div class="calc-grid">
+
+      <!-- 1. Position Size -->
+      <div class="cc" id="cc1">
+        <div class="cc-header">
+          <div class="cc-icon-wrap" style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.2);">📐</div>
+          <div class="cc-name">Position Size</div>
+          <div class="cc-desc">Calculate the ideal lot size based on your account balance and risk tolerance.</div>
+        </div>
+        <div class="cc-divider"></div>
+        <button class="cc-btn" id="ccb1">Calculate <span class="cc-arrow">▼</span></button>
+        <div class="cc-body" id="ccbd1">
+          <div class="cc-form">
+            <div class="cf-row">
+              <div class="cf-group">
+                <label class="cf-label">Account Balance (₹)</label>
+                <input class="cf-input" type="number" id="ps_bal" placeholder="100000" value="100000">
+              </div>
+              <div class="cf-group">
+                <label class="cf-label">Risk per Trade (%)</label>
+                <input class="cf-input" type="number" id="ps_risk" placeholder="2" value="2" step="0.1">
+              </div>
+            </div>
+            <div class="cf-row">
+              <div class="cf-group">
+                <label class="cf-label">Entry Price</label>
+                <input class="cf-input" type="number" id="ps_entry" placeholder="1.0885">
+              </div>
+              <div class="cf-group">
+                <label class="cf-label">Stop Loss Price</label>
+                <input class="cf-input" type="number" id="ps_sl" placeholder="1.0840">
+              </div>
+            </div>
+            <button class="cf-calc-btn" onclick="calcPS()">Calculate Position</button>
+            <div class="cc-result" id="ps_result">
+              <div class="cr-label">Result</div>
+              <div class="cr-rows" id="ps_rows"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Risk/Reward -->
+      <div class="cc" id="cc2">
+        <div class="cc-header">
+          <div class="cc-icon-wrap" style="background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.2);">⚖️</div>
+          <div class="cc-name">Risk / Reward</div>
+          <div class="cc-desc">Measure your trade's R:R ratio before entering to ensure only high-quality setups.</div>
+        </div>
+        <div class="cc-divider"></div>
+        <button class="cc-btn" id="ccb2">Calculate <span class="cc-arrow">▼</span></button>
+        <div class="cc-body" id="ccbd2">
+          <div class="cc-form">
+            <div class="cf-group">
+              <label class="cf-label">Entry Price</label>
+              <input class="cf-input" type="number" id="rr_entry" placeholder="1.0885">
+            </div>
+            <div class="cf-row">
+              <div class="cf-group">
+                <label class="cf-label">Stop Loss</label>
+                <input class="cf-input" type="number" id="rr_sl" placeholder="1.0840">
+              </div>
+              <div class="cf-group">
+                <label class="cf-label">Take Profit</label>
+                <input class="cf-input" type="number" id="rr_tp" placeholder="1.0960">
+              </div>
+            </div>
+            <button class="cf-calc-btn" onclick="calcRR()">Calculate R:R</button>
+            <div class="cc-result" id="rr_result">
+              <div class="cr-label">Result</div>
+              <div class="cr-rows" id="rr_rows"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Profit & Loss -->
+      <div class="cc" id="cc3">
+        <div class="cc-header">
+          <div class="cc-icon-wrap" style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);">📊</div>
+          <div class="cc-name">Profit &amp; Loss</div>
+          <div class="cc-desc">Calculate the exact profit or loss on any trade before or after execution.</div>
+        </div>
+        <div class="cc-divider"></div>
+        <button class="cc-btn" id="ccb3">Calculate <span class="cc-arrow">▼</span></button>
+        <div class="cc-body" id="ccbd3">
+          <div class="cc-form">
+            <div class="cf-group">
+              <label class="cf-label">Trade Type</label>
+              <select class="cf-select" id="pl_type">
+                <option value="buy">Buy (Long)</option>
+                <option value="sell">Sell (Short)</option>
+              </select>
+            </div>
+            <div class="cf-row">
+              <div class="cf-group">
+                <label class="cf-label">Entry Price (₹)</label>
+                <input class="cf-input" type="number" id="pl_entry" placeholder="2800">
+              </div>
+              <div class="cf-group">
+                <label class="cf-label">Exit Price (₹)</label>
+                <input class="cf-input" type="number" id="pl_exit" placeholder="2920">
+              </div>
+            </div>
+            <div class="cf-group">
+              <label class="cf-label">Quantity / Lots</label>
+              <input class="cf-input" type="number" id="pl_qty" placeholder="100">
+            </div>
+            <button class="cf-calc-btn" onclick="calcPL()">Calculate P&amp;L</button>
+            <div class="cc-result" id="pl_result">
+              <div class="cr-label">Result</div>
+              <div class="cr-rows" id="pl_rows"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Brokerage -->
+      <div class="cc" id="cc4">
+        <div class="cc-header">
+          <div class="cc-icon-wrap" style="background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);">💸</div>
+          <div class="cc-name">Brokerage Calculator</div>
+          <div class="cc-desc">Calculate total trading costs including brokerage, STT, exchange and GST charges.</div>
+        </div>
+        <div class="cc-divider"></div>
+        <button class="cc-btn" id="ccb4">Calculate <span class="cc-arrow">▼</span></button>
+        <div class="cc-body" id="ccbd4">
+          <div class="cc-form">
+            <div class="cf-group">
+              <label class="cf-label">Segment</label>
+              <select class="cf-select" id="bro_seg">
+                <option value="eq_del">Equity Delivery</option>
+                <option value="eq_int">Equity Intraday</option>
+                <option value="fut">Futures</option>
+                <option value="opt">Options</option>
+              </select>
+            </div>
+            <div class="cf-row">
+              <div class="cf-group">
+                <label class="cf-label">Buy Price (₹)</label>
+                <input class="cf-input" type="number" id="bro_buy" placeholder="500">
+              </div>
+              <div class="cf-group">
+                <label class="cf-label">Sell Price (₹)</label>
+                <input class="cf-input" type="number" id="bro_sell" placeholder="520">
+              </div>
+            </div>
+            <div class="cf-group">
+              <label class="cf-label">Quantity</label>
+              <input class="cf-input" type="number" id="bro_qty" placeholder="100">
+            </div>
+            <button class="cf-calc-btn" onclick="calcBro()">Calculate Charges</button>
+            <div class="cc-result" id="bro_result">
+              <div class="cr-label">Result</div>
+              <div class="cr-rows" id="bro_rows"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. SIP Returns -->
+      <div class="cc" id="cc5">
+        <div class="cc-header">
+          <div class="cc-icon-wrap" style="background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.2);">📈</div>
+          <div class="cc-name">SIP Returns</div>
+          <div class="cc-desc">Project your wealth over time with regular monthly investment through SIP.</div>
+        </div>
+        <div class="cc-divider"></div>
+        <button class="cc-btn" id="ccb5">Calculate <span class="cc-arrow">▼</span></button>
+        <div class="cc-body" id="ccbd5">
+          <div class="cc-form">
+            <div class="cf-group">
+              <label class="cf-label">Monthly Investment (₹)</label>
+              <input class="cf-input" type="number" id="sip_amt" placeholder="10000" value="10000">
+            </div>
+            <div class="cf-row">
+              <div class="cf-group">
+                <label class="cf-label">Expected Return (%)</label>
+                <input class="cf-input" type="number" id="sip_rate" placeholder="12" value="12" step="0.5">
+              </div>
+              <div class="cf-group">
+                <label class="cf-label">Duration (Years)</label>
+                <input class="cf-input" type="number" id="sip_yrs" placeholder="5" value="5">
+              </div>
+            </div>
+            <button class="cf-calc-btn" onclick="calcSIP()">Calculate Returns</button>
+            <div class="cc-result" id="sip_result">
+              <div class="cr-label">Result</div>
+              <div class="cr-rows" id="sip_rows"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Compound Returns -->
+      <div class="cc" id="cc6">
+        <div class="cc-header">
+          <div class="cc-icon-wrap" style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);">🚀</div>
+          <div class="cc-name">Compound Returns</div>
+          <div class="cc-desc">See how compounding grows your capital over time at a fixed annual rate.</div>
+        </div>
+        <div class="cc-divider"></div>
+        <button class="cc-btn" id="ccb6">Calculate <span class="cc-arrow">▼</span></button>
+        <div class="cc-body" id="ccbd6">
+          <div class="cc-form">
+            <div class="cf-group">
+              <label class="cf-label">Principal Amount (₹)</label>
+              <input class="cf-input" type="number" id="cmp_p" placeholder="100000" value="100000">
+            </div>
+            <div class="cf-row">
+              <div class="cf-group">
+                <label class="cf-label">Annual Return (%)</label>
+                <input class="cf-input" type="number" id="cmp_r" placeholder="15" value="15" step="0.5">
+              </div>
+              <div class="cf-group">
+                <label class="cf-label">Years</label>
+                <input class="cf-input" type="number" id="cmp_y" placeholder="10" value="10">
+              </div>
+            </div>
+            <div class="cf-group">
+              <label class="cf-label">Compounding Frequency</label>
+              <select class="cf-select" id="cmp_freq">
+                <option value="12">Monthly</option>
+                <option value="4">Quarterly</option>
+                <option value="1" selected>Annually</option>
+              </select>
+            </div>
+            <button class="cf-calc-btn" onclick="calcCmp()">Calculate Growth</button>
+            <div class="cc-result" id="cmp_result">
+              <div class="cr-label">Result</div>
+              <div class="cr-rows" id="cmp_rows"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Pip Value -->
+      <div class="cc" id="cc7">
+        <div class="cc-header">
+          <div class="cc-icon-wrap" style="background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.2);">💱</div>
+          <div class="cc-name">Pip Value</div>
+          <div class="cc-desc">Find the exact monetary value of a single pip move for any Forex pair and lot size.</div>
+        </div>
+        <div class="cc-divider"></div>
+        <button class="cc-btn" id="ccb7">Calculate <span class="cc-arrow">▼</span></button>
+        <div class="cc-body" id="ccbd7">
+          <div class="cc-form">
+            <div class="cf-group">
+              <label class="cf-label">Currency Pair</label>
+              <select class="cf-select" id="pip_pair">
+                <option value="EURUSD">EUR/USD</option>
+                <option value="GBPUSD">GBP/USD</option>
+                <option value="AUDUSD">AUD/USD</option>
+                <option value="USDJPY">USD/JPY</option>
+                <option value="USDCAD">USD/CAD</option>
+                <option value="XAUUSD">XAU/USD (Gold)</option>
+              </select>
+            </div>
+            <div class="cf-row">
+              <div class="cf-group">
+                <label class="cf-label">Lot Size</label>
+                <select class="cf-select" id="pip_lot">
+                  <option value="100000">Standard (1.0)</option>
+                  <option value="10000">Mini (0.1)</option>
+                  <option value="1000">Micro (0.01)</option>
+                </select>
+              </div>
+              <div class="cf-group">
+                <label class="cf-label">USD/INR Rate</label>
+                <input class="cf-input" type="number" id="pip_inr" placeholder="83.5" value="83.5">
+              </div>
+            </div>
+            <button class="cf-calc-btn" onclick="calcPip()">Calculate Pip Value</button>
+            <div class="cc-result" id="pip_result">
+              <div class="cr-label">Result</div>
+              <div class="cr-rows" id="pip_rows"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. Margin Calculator -->
+      <div class="cc" id="cc8">
+        <div class="cc-header">
+          <div class="cc-icon-wrap" style="background:rgba(251,146,60,0.1);border:1px solid rgba(251,146,60,0.2);">🏦</div>
+          <div class="cc-name">Margin Calculator</div>
+          <div class="cc-desc">Estimate the margin required to hold a futures or leveraged position overnight.</div>
+        </div>
+        <div class="cc-divider"></div>
+        <button class="cc-btn" id="ccb8">Calculate <span class="cc-arrow">▼</span></button>
+        <div class="cc-body" id="ccbd8">
+          <div class="cc-form">
+            <div class="cf-group">
+              <label class="cf-label">Instrument</label>
+              <select class="cf-select" id="mg_inst" onchange="updateLotSize()">
+                <option value="nifty" data-lot="50">NIFTY 50 Futures</option>
+                <option value="banknifty" data-lot="15">BANK NIFTY Futures</option>
+                <option value="stocks" data-lot="1">Individual Stocks</option>
+              </select>
+            </div>
+            <div class="cf-row">
+              <div class="cf-group">
+                <label class="cf-label">Current Price (₹)</label>
+                <input class="cf-input" type="number" id="mg_price" placeholder="22420">
+              </div>
+              <div class="cf-group">
+                <label class="cf-label">Lot Size</label>
+                <input class="cf-input" type="number" id="mg_lot" placeholder="50" value="50">
+              </div>
+            </div>
+            <div class="cf-group">
+              <label class="cf-label">Number of Lots</label>
+              <input class="cf-input" type="number" id="mg_n" placeholder="1" value="1">
+            </div>
+            <button class="cf-calc-btn" onclick="calcMg()">Calculate Margin</button>
+            <div class="cc-result" id="mg_result">
+              <div class="cr-label">Result</div>
+              <div class="cr-rows" id="mg_rows"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /calc-grid -->
+  </div><!-- /calc-section -->
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="fb">
+      <a href="index.html" class="nav-logo">Trade<span>Wiz</span></a>
+      <p>An educational trading community. Not a SEBI-registered investment advisor. All content is for educational purposes only.</p>
+    </div>
+    <div class="fc"><h4>Quick Links</h4><ul><li><a href="index.html#we-trade">Markets</a></li><li><a href="index.html#features">Features</a></li><li><a href="calculator.html">Calculators</a></li><li><a href="index.html#pricing">Pricing</a></li></ul></div>
+    <div class="fc"><h4>Legal</h4><ul><li><a href="disclaimer.html">Disclaimer</a></li><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="refund.html">Refund Policy</a></li></ul></div>
+    <div class="fc"><h4>Contact</h4><ul><li><a href="tel:+917011957726">+91 70119 57726</a></li><li><a href="https://wa.me/917011957726">WhatsApp Us</a></li><li><a href="mailto:support@tradewiz.in">support@tradewiz.in</a></li></ul></div>
+  </footer>
+  <div class="fbot"><span>© 2025 TradeWiz · All rights reserved · Made with ❤ in India</span><span><a href="disclaimer.html">Disclaimer</a> &nbsp;·&nbsp; <a href="terms.html">Terms</a> &nbsp;·&nbsp; <a href="privacy.html">Privacy</a></span></div>
+
+  <script>
+    // NAV
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+    });
+    document.querySelectorAll('.mobile-nav a').forEach(a => a.addEventListener('click', () => {
+      hamburger.classList.remove('open'); mobileNav.classList.remove('open'); document.body.style.overflow = '';
+    }));
+
+    // ACCORDION
+    document.querySelectorAll('.cc-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.id.replace('ccb', '');
+        const body = document.getElementById('ccbd' + id);
+        const isOpen = body.classList.contains('open');
+        document.querySelectorAll('.cc-body').forEach(b => b.classList.remove('open'));
+        document.querySelectorAll('.cc-btn').forEach(b => b.classList.remove('open'));
+        if (!isOpen) { body.classList.add('open'); btn.classList.add('open'); }
+      });
+    });
+
+    // HELPERS
+    const fmt = n => new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 }).format(n);
+    const fmtC = n => '₹' + fmt(n);
+    function row(k, v, cls='') { return `<div class="cr-row"><span class="cr-key">${k}</span><span class="cr-val ${cls}">${v}</span></div>`; }
+    function showResult(id, rows, colorClass='') {
+      const el = document.getElementById(id + '_result');
+      const rowEl = document.getElementById(id + '_rows');
+      el.classList.add('show');
+      rowEl.innerHTML = rows;
+    }
+
+    // 1. POSITION SIZE
+    function calcPS() {
+      const bal = +document.getElementById('ps_bal').value;
+      const risk = +document.getElementById('ps_risk').value / 100;
+      const entry = +document.getElementById('ps_entry').value;
+      const sl = +document.getElementById('ps_sl').value;
+      if (!bal || !risk || !entry || !sl) { alert('Please fill all fields.'); return; }
+      const riskAmt = bal * risk;
+      const slDist = Math.abs(entry - sl);
+      const units = slDist > 0 ? Math.floor(riskAmt / slDist) : 0;
+      showResult('ps', [
+        row('Risk Amount', fmtC(riskAmt), 'red'),
+        row('SL Distance', fmt(slDist) + ' pts/pips'),
+        row('Position Size', fmt(units) + ' units', 'green'),
+        row('Position Value', fmtC(units * entry))
+      ].join(''));
+    }
+
+    // 2. RISK / REWARD
+    function calcRR() {
+      const entry = +document.getElementById('rr_entry').value;
+      const sl    = +document.getElementById('rr_sl').value;
+      const tp    = +document.getElementById('rr_tp').value;
+      if (!entry || !sl || !tp) { alert('Please fill all fields.'); return; }
+      const risk = Math.abs(entry - sl);
+      const rew  = Math.abs(tp - entry);
+      const rr   = rew / risk;
+      showResult('rr', [
+        row('Risk (pts)', fmt(risk), 'red'),
+        row('Reward (pts)', fmt(rew), 'green'),
+        row('R:R Ratio', '1 : ' + rr.toFixed(2), rr >= 2 ? 'green' : rr >= 1 ? 'amber' : 'red'),
+        row('Risk %', ((risk/entry)*100).toFixed(2) + '%'),
+        row('Reward %', ((rew/entry)*100).toFixed(2) + '%', 'green')
+      ].join(''));
+    }
+
+    // 3. PROFIT & LOSS
+    function calcPL() {
+      const type  = document.getElementById('pl_type').value;
+      const entry = +document.getElementById('pl_entry').value;
+      const exit  = +document.getElementById('pl_exit').value;
+      const qty   = +document.getElementById('pl_qty').value;
+      if (!entry || !exit || !qty) { alert('Please fill all fields.'); return; }
+      const diff = type === 'buy' ? exit - entry : entry - exit;
+      const pnl  = diff * qty;
+      const pct  = (diff / entry) * 100;
+      const cls  = pnl >= 0 ? 'green' : 'red';
+      showResult('pl', [
+        row('Gross P&amp;L', (pnl >= 0 ? '+' : '') + fmtC(pnl), cls),
+        row('Return %', (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%', cls),
+        row('Invested', fmtC(entry * qty)),
+        row('Exit Value', fmtC(exit * qty))
+      ].join(''));
+    }
+
+    // 4. BROKERAGE
+    function calcBro() {
+      const seg  = document.getElementById('bro_seg').value;
+      const buy  = +document.getElementById('bro_buy').value;
+      const sell = +document.getElementById('bro_sell').value;
+      const qty  = +document.getElementById('bro_qty').value;
+      if (!buy || !sell || !qty) { alert('Please fill all fields.'); return; }
+      const bv = buy * qty, sv = sell * qty, turnover = bv + sv;
+      const broRates = { eq_del: 0, eq_int: 0.0003, fut: 0.0002, opt: 40 };
+      const sttRates = { eq_del: 0.001, eq_int: 0.00025, fut: 0.0001, opt: 0.0005 };
+      const bro = seg === 'opt' ? Math.min(20, 40) * 2 : Math.min(turnover * broRates[seg], 40);
+      const stt = (seg === 'eq_del' ? bv + sv : sv) * sttRates[seg];
+      const exc = turnover * 0.0000345;
+      const sebi = turnover * 0.000001;
+      const gst = (bro + exc + sebi) * 0.18;
+      const stamp = bv * 0.00015;
+      const total = bro + stt + exc + sebi + gst + stamp;
+      const breakeven = total / qty;
+      showResult('bro', [
+        row('Brokerage', '₹' + bro.toFixed(2)),
+        row('STT', '₹' + stt.toFixed(2)),
+        row('Exchange Charges', '₹' + exc.toFixed(2)),
+        row('SEBI Charges', '₹' + sebi.toFixed(4)),
+        row('GST (18%)', '₹' + gst.toFixed(2)),
+        row('Stamp Duty', '₹' + stamp.toFixed(2)),
+        row('Total Charges', fmtC(total), 'red'),
+        row('Breakeven (pts)', breakeven.toFixed(4), 'amber')
+      ].join(''));
+    }
+
+    // 5. SIP
+    function calcSIP() {
+      const amt  = +document.getElementById('sip_amt').value;
+      const rate = +document.getElementById('sip_rate').value / 100 / 12;
+      const n    = +document.getElementById('sip_yrs').value * 12;
+      if (!amt || !rate || !n) { alert('Please fill all fields.'); return; }
+      const fv = amt * ((Math.pow(1 + rate, n) - 1) / rate) * (1 + rate);
+      const invested = amt * n;
+      const returns  = fv - invested;
+      showResult('sip', [
+        row('Total Invested', fmtC(invested)),
+        row('Estimated Returns', fmtC(returns), 'green'),
+        row('Total Value', fmtC(fv), 'green'),
+        row('Wealth Gain', ((returns / invested) * 100).toFixed(1) + '%', 'green')
+      ].join(''));
+    }
+
+    // 6. COMPOUND
+    function calcCmp() {
+      const p    = +document.getElementById('cmp_p').value;
+      const r    = +document.getElementById('cmp_r').value / 100;
+      const t    = +document.getElementById('cmp_y').value;
+      const n    = +document.getElementById('cmp_freq').value;
+      if (!p || !r || !t) { alert('Please fill all fields.'); return; }
+      const fv   = p * Math.pow(1 + r/n, n*t);
+      const gain = fv - p;
+      showResult('cmp', [
+        row('Principal', fmtC(p)),
+        row('Total Returns', fmtC(gain), 'green'),
+        row('Final Value', fmtC(fv), 'green'),
+        row('Growth', ((gain / p) * 100).toFixed(1) + '%', 'green'),
+        row('CAGR', (r * 100).toFixed(1) + '% p.a.')
+      ].join(''));
+    }
+
+    // 7. PIP VALUE
+    function calcPip() {
+      const pair = document.getElementById('pip_pair').value;
+      const lot  = +document.getElementById('pip_lot').value;
+      const inr  = +document.getElementById('pip_inr').value;
+      const pipSizes = { EURUSD: 0.0001, GBPUSD: 0.0001, AUDUSD: 0.0001, USDJPY: 0.01, USDCAD: 0.0001, XAUUSD: 0.01 };
+      const ps   = pipSizes[pair];
+      const pipUSD = pair === 'USDJPY' ? (ps / 1) * lot / 100 :
+                     pair === 'USDCAD' ? (ps / 1.37) * lot :
+                     pair === 'XAUUSD' ? ps * lot :
+                     ps * lot;
+      const pipINR = pipUSD * inr;
+      const lotLabel = lot >= 100000 ? 'Standard (1.0)' : lot >= 10000 ? 'Mini (0.10)' : 'Micro (0.01)';
+      showResult('pip', [
+        row('Pair', pair),
+        row('Lot Size', lotLabel),
+        row('Pip Size', ps.toString()),
+        row('Pip Value (USD)', '$' + pipUSD.toFixed(2), 'green'),
+        row('Pip Value (INR)', fmtC(pipINR), 'green')
+      ].join(''));
+    }
+
+    // 8. MARGIN
+    function updateLotSize() {
+      const sel = document.getElementById('mg_inst');
+      const opt = sel.options[sel.selectedIndex];
+      document.getElementById('mg_lot').value = opt.dataset.lot;
+    }
+    function calcMg() {
+      const inst  = document.getElementById('mg_inst').value;
+      const price = +document.getElementById('mg_price').value;
+      const lot   = +document.getElementById('mg_lot').value;
+      const n     = +document.getElementById('mg_n').value;
+      if (!price || !lot || !n) { alert('Please fill all fields.'); return; }
+      const notional = price * lot * n;
+      const spanPct  = { nifty: 0.10, banknifty: 0.12, stocks: 0.15 }[inst];
+      const expPct   = { nifty: 0.03, banknifty: 0.04, stocks: 0.05 }[inst];
+      const span     = notional * spanPct;
+      const exp      = notional * expPct;
+      const total    = span + exp;
+      showResult('mg', [
+        row('Notional Value', fmtC(notional)),
+        row('SPAN Margin (~' + (spanPct*100) + '%)', fmtC(span)),
+        row('Exposure Margin (~' + (expPct*100) + '%)', fmtC(exp)),
+        row('Total Margin', fmtC(total), 'amber'),
+        row('Leverage', (notional / total).toFixed(1) + 'x')
+      ].join(''));
+    }
+  </script>
+
+</body>
+</html>
