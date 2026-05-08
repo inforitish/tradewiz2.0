@@ -1,0 +1,193 @@
+Year,Market,Month,Value,WinRate,Setups,Badge
+2023,forex,Jan,2682,75,16,Pips
+2023,forex,Feb,3198,74,18,Pips
+2023,forex,Mar,3058,79,20,Pips
+2023,forex,Apr,3015,80,21,Pips
+2023,forex,May,2893,76,23,Pips
+2023,forex,Jun,2961,75,19,Pips
+2023,forex,Jul,2960,81,23,Pips
+2023,forex,Aug,2589,77,18,Pips
+2023,forex,Sep,3093,82,21,Pips
+2023,forex,Oct,2976,81,17,Pips
+2023,forex,Nov,2780,80,19,Pips
+2023,forex,Dec,2809,81,19,Pips
+2023,stocks,Jan,137,73,17,Ideas
+2023,stocks,Feb,119,67,16,Ideas
+2023,stocks,Mar,134,73,18,Ideas
+2023,stocks,Apr,140,71,18,Ideas
+2023,stocks,May,129,70,19,Ideas
+2023,stocks,Jun,111,69,18,Ideas
+2023,stocks,Jul,146,69,17,Ideas
+2023,stocks,Aug,126,68,15,Ideas
+2023,stocks,Sep,123,68,14,Ideas
+2023,stocks,Oct,124,66,20,Ideas
+2023,stocks,Nov,120,72,20,Ideas
+2023,stocks,Dec,139,74,19,Ideas
+2023,crypto,Jan,12,68,17,% Gain
+2023,crypto,Feb,13,67,16,% Gain
+2023,crypto,Mar,13,66,21,% Gain
+2023,crypto,Apr,13,63,15,% Gain
+2023,crypto,May,13,65,18,% Gain
+2023,crypto,Jun,12,73,22,% Gain
+2023,crypto,Jul,11,73,19,% Gain
+2023,crypto,Aug,10,70,21,% Gain
+2023,crypto,Sep,11,72,17,% Gain
+2023,crypto,Oct,10,72,19,% Gain
+2023,crypto,Nov,13,72,19,% Gain
+2023,crypto,Dec,13,63,20,% Gain
+2023,commodity,Jan,232,72,12,Points
+2023,commodity,Feb,248,75,15,Points
+2023,commodity,Mar,297,78,11,Points
+2023,commodity,Apr,291,71,14,Points
+2023,commodity,May,288,74,15,Points
+2023,commodity,Jun,310,74,15,Points
+2023,commodity,Jul,305,73,13,Points
+2023,commodity,Aug,266,78,15,Points
+2023,commodity,Sep,254,77,15,Points
+2023,commodity,Oct,237,74,12,Points
+2023,commodity,Nov,231,70,11,Points
+2023,commodity,Dec,252,75,16,Points
+2024,forex,Jan,3163,75,20,Pips
+2024,forex,Feb,2952,78,19,Pips
+2024,forex,Mar,2915,75,22,Pips
+2024,forex,Apr,2879,74,19,Pips
+2024,forex,May,3582,74,21,Pips
+2024,forex,Jun,3399,78,16,Pips
+2024,forex,Jul,2905,72,20,Pips
+2024,forex,Aug,2689,76,17,Pips
+2024,forex,Sep,3211,76,19,Pips
+2024,forex,Oct,3131,76,22,Pips
+2024,forex,Nov,3133,79,19,Pips
+2024,forex,Dec,3340,79,16,Pips
+2024,stocks,Jan,141,67,16,Ideas
+2024,stocks,Feb,148,74,18,Ideas
+2024,stocks,Mar,150,72,15,Ideas
+2024,stocks,Apr,123,70,20,Ideas
+2024,stocks,May,136,70,20,Ideas
+2024,stocks,Jun,144,74,16,Ideas
+2024,stocks,Jul,134,72,19,Ideas
+2024,stocks,Aug,156,67,14,Ideas
+2024,stocks,Sep,155,69,15,Ideas
+2024,stocks,Oct,139,75,18,Ideas
+2024,stocks,Nov,141,66,17,Ideas
+2024,stocks,Dec,133,75,13,Ideas
+2024,crypto,Jan,12,71,22,% Gain
+2024,crypto,Feb,12,63,18,% Gain
+2024,crypto,Mar,10,67,15,% Gain
+2024,crypto,Apr,11,63,16,% Gain
+2024,crypto,May,12,68,17,% Gain
+2024,crypto,Jun,11,67,17,% Gain
+2024,crypto,Jul,13,65,19,% Gain
+2024,crypto,Aug,10,65,17,% Gain
+2024,crypto,Sep,12,72,20,% Gain
+2024,crypto,Oct,12,72,19,% Gain
+2024,crypto,Nov,11,68,17,% Gain
+2024,crypto,Dec,12,71,21,% Gain
+2024,commodity,Jan,310,74,14,Points
+2024,commodity,Feb,261,81,14,Points
+2024,commodity,Mar,305,72,16,Points
+2024,commodity,Apr,320,76,16,Points
+2024,commodity,May,300,80,15,Points
+2024,commodity,Jun,252,81,12,Points
+2024,commodity,Jul,314,71,16,Points
+2024,commodity,Aug,309,74,12,Points
+2024,commodity,Sep,294,73,12,Points
+2024,commodity,Oct,307,71,16,Points
+2024,commodity,Nov,251,76,14,Points
+2024,commodity,Dec,255,71,13,Points
+2025,forex,Jan,3200,82,22,Pips
+2025,forex,Feb,2900,78,20,Pips
+2025,forex,Mar,3800,85,24,Pips
+2025,forex,Apr,2700,75,19,Pips
+2025,forex,May,3500,83,21,Pips
+2025,forex,Jun,3100,80,23,Pips
+2025,forex,Jul,4000,88,26,Pips
+2025,forex,Aug,2800,76,20,Pips
+2025,forex,Sep,3600,84,23,Pips
+2025,forex,Oct,3300,81,22,Pips
+2025,forex,Nov,3900,86,25,Pips
+2025,forex,Dec,3100,80,21,Pips
+2025,stocks,Jan,140,75,18,Ideas
+2025,stocks,Feb,125,70,16,Ideas
+2025,stocks,Mar,160,78,20,Ideas
+2025,stocks,Apr,110,68,14,Ideas
+2025,stocks,May,145,76,17,Ideas
+2025,stocks,Jun,132,72,19,Ideas
+2025,stocks,Jul,172,80,22,Ideas
+2025,stocks,Aug,118,69,15,Ideas
+2025,stocks,Sep,155,77,18,Ideas
+2025,stocks,Oct,138,73,17,Ideas
+2025,stocks,Nov,168,79,21,Ideas
+2025,stocks,Dec,130,71,16,Ideas
+2025,crypto,Jan,12,72,20,% Gain
+2025,crypto,Feb,9,68,18,% Gain
+2025,crypto,Mar,15,76,22,% Gain
+2025,crypto,Apr,8,65,16,% Gain
+2025,crypto,May,13,73,19,% Gain
+2025,crypto,Jun,11,70,21,% Gain
+2025,crypto,Jul,17,78,24,% Gain
+2025,crypto,Aug,9,66,17,% Gain
+2025,crypto,Sep,14,74,20,% Gain
+2025,crypto,Oct,12,71,19,% Gain
+2025,crypto,Nov,16,77,23,% Gain
+2025,crypto,Dec,10,69,18,% Gain
+2025,commodity,Jan,280,79,14,Points
+2025,commodity,Feb,240,74,12,Points
+2025,commodity,Mar,320,82,16,Points
+2025,commodity,Apr,210,71,10,Points
+2025,commodity,May,295,80,13,Points
+2025,commodity,Jun,265,77,15,Points
+2025,commodity,Jul,345,84,18,Points
+2025,commodity,Aug,225,72,11,Points
+2025,commodity,Sep,305,81,14,Points
+2025,commodity,Oct,270,78,13,Points
+2025,commodity,Nov,330,83,17,Points
+2025,commodity,Dec,255,75,12,Points
+2026,forex,Jan,3615,83,17,Pips
+2026,forex,Feb,3367,78,22,Pips
+2026,forex,Mar,3110,74,18,Pips
+2026,forex,Apr,3621,76,19,Pips
+2026,forex,May,3751,72,16,Pips
+2026,forex,Jun,3550,74,21,Pips
+2026,forex,Jul,3147,74,19,Pips
+2026,forex,Aug,3546,80,18,Pips
+2026,forex,Sep,3864,82,18,Pips
+2026,forex,Oct,3649,83,19,Pips
+2026,forex,Nov,2995,75,18,Pips
+2026,forex,Dec,2941,75,18,Pips
+2026,stocks,Jan,142,68,18,Ideas
+2026,stocks,Feb,166,73,16,Ideas
+2026,stocks,Mar,151,71,20,Ideas
+2026,stocks,Apr,136,65,14,Ideas
+2026,stocks,May,131,69,20,Ideas
+2026,stocks,Jun,171,69,20,Ideas
+2026,stocks,Jul,127,71,19,Ideas
+2026,stocks,Aug,131,68,17,Ideas
+2026,stocks,Sep,156,73,17,Ideas
+2026,stocks,Oct,138,73,19,Ideas
+2026,stocks,Nov,154,66,13,Ideas
+2026,stocks,Dec,138,65,18,Ideas
+2026,crypto,Jan,13,67,19,% Gain
+2026,crypto,Feb,12,72,17,% Gain
+2026,crypto,Mar,13,64,18,% Gain
+2026,crypto,Apr,11,64,18,% Gain
+2026,crypto,May,13,65,15,% Gain
+2026,crypto,Jun,15,65,18,% Gain
+2026,crypto,Jul,15,72,20,% Gain
+2026,crypto,Aug,14,67,20,% Gain
+2026,crypto,Sep,13,68,21,% Gain
+2026,crypto,Oct,13,67,20,% Gain
+2026,crypto,Nov,14,70,18,% Gain
+2026,crypto,Dec,14,72,15,% Gain
+2026,commodity,Jan,327,72,13,Points
+2026,commodity,Feb,295,79,14,Points
+2026,commodity,Mar,352,76,16,Points
+2026,commodity,Apr,349,80,15,Points
+2026,commodity,May,348,75,11,Points
+2026,commodity,Jun,328,78,12,Points
+2026,commodity,Jul,310,78,11,Points
+2026,commodity,Aug,313,73,15,Points
+2026,commodity,Sep,350,77,13,Points
+2026,commodity,Oct,308,73,14,Points
+2026,commodity,Nov,316,72,13,Points
+2026,commodity,Dec,342,70,11,Points
