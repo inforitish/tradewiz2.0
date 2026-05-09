@@ -3713,6 +3713,170 @@
     </div>
   </section>
 
+  <!-- PERFORMANCE SUMMARY CARD -->
+  <section id="perf-summary" style="padding: 1.5rem 6vw; background: var(--bg);">
+    <div class="liq-card rv" style="overflow:visible;">
+      <div style="padding: 2.5rem 2.5rem 2rem; display:flex; flex-direction:column; gap:1.5rem;">
+
+        <!-- Header -->
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;">
+          <div>
+            <div class="liq-label" style="margin-bottom:0.6rem;">
+              <div class="liq-label-icon">🏆</div>
+              <span class="liq-label-text">Since Inception · 2023–2026</span>
+            </div>
+            <h2 class="liq-h" style="margin:0;">Our Overall <span class="blue">Track Record</span></h2>
+          </div>
+          <div style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);border-radius:100px;padding:0.45rem 1.1rem;display:flex;align-items:center;gap:0.5rem;">
+            <span style="width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;animation:waPulse 2s ease-in-out infinite;"></span>
+            <span style="font-size:0.75rem;font-weight:600;color:#E5E7EB;">Verified Performance</span>
+          </div>
+        </div>
+
+        <!-- Animated Counter Stats -->
+        <div class="ps-grid">
+          <div class="ps-stat">
+            <span class="ps-num" data-target="42000">0</span><span class="ps-unit">+</span>
+            <span class="ps-label">Total Pips Generated</span>
+          </div>
+          <div class="ps-stat">
+            <span class="ps-num" data-target="83">0</span><span class="ps-unit">%</span>
+            <span class="ps-label">Historical Win Rate</span>
+          </div>
+          <div class="ps-stat">
+            <span class="ps-num" data-target="36">0</span><span class="ps-unit"></span>
+            <span class="ps-label">Months of Data</span>
+          </div>
+          <div class="ps-stat">
+            <span class="ps-num" data-target="4200">0</span><span class="ps-unit"></span>
+            <span class="ps-label">Best Month (Pips)</span>
+          </div>
+        </div>
+
+        <!-- Win / Loss Bar -->
+        <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.85rem;">
+            <span style="font-size:0.78rem;font-weight:600;color:var(--mid);">Win / Loss Breakdown</span>
+            <div style="display:flex;gap:1rem;">
+              <span style="font-size:0.72rem;color:#4ADE80;font-weight:600;">● Winning 83%</span>
+              <span style="font-size:0.72rem;color:#F87171;font-weight:600;">● Losing 17%</span>
+            </div>
+          </div>
+          <div style="height:10px;border-radius:100px;background:rgba(248,113,113,0.25);overflow:hidden;">
+            <div class="ps-bar" style="height:100%;width:0%;border-radius:100px;background:linear-gradient(90deg,#4ADE80,#22c55e);transition:width 1.5s cubic-bezier(0.25,0.46,0.45,0.94);"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:0.5rem;">
+            <span style="font-size:0.68rem;color:var(--muted);">0%</span>
+            <span style="font-size:0.68rem;color:var(--muted);">100%</span>
+          </div>
+        </div>
+
+        <!-- Best Trade + Disclaimer row -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <!-- Best Trade -->
+          <div style="background:linear-gradient(135deg,rgba(59,130,246,0.1),rgba(59,130,246,0.03));border:1px solid rgba(59,130,246,0.2);border-radius:12px;padding:1.25rem 1.5rem;">
+            <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:0.6rem;">🏅 Best Trade</div>
+            <div style="font-size:1.6rem;font-weight:900;letter-spacing:-0.04em;color:#fff;line-height:1;">+847 Pips</div>
+            <div style="font-size:0.75rem;color:var(--muted);margin-top:0.4rem;">XAUUSD · March 2024 · 3 days</div>
+          </div>
+          <!-- Consistency -->
+          <div style="background:linear-gradient(135deg,rgba(74,222,128,0.08),rgba(74,222,128,0.02));border:1px solid rgba(74,222,128,0.2);border-radius:12px;padding:1.25rem 1.5rem;">
+            <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4ADE80;margin-bottom:0.6rem;">📅 Consistency</div>
+            <div style="font-size:1.6rem;font-weight:900;letter-spacing:-0.04em;color:#fff;line-height:1;">28 / 36</div>
+            <div style="font-size:0.75rem;color:var(--muted);margin-top:0.4rem;">Profitable months out of 36 tracked</div>
+          </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <p style="font-size:0.68rem;color:var(--muted);text-align:center;line-height:1.6;border-top:1px solid var(--border);padding-top:1rem;">
+          ⚠ Past performance is not indicative of future results. All figures are for educational purposes only. TradeWiz is not a SEBI-registered investment advisor.
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .ps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .ps-stat {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.3rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .ps-stat:hover {
+      border-color: rgba(59,130,246,0.35);
+      box-shadow: 0 0 16px rgba(59,130,246,0.1);
+    }
+    .ps-num {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      color: #fff;
+      line-height: 1;
+    }
+    .ps-unit {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--blue);
+      line-height: 1;
+      margin-left: 2px;
+    }
+    .ps-label {
+      font-size: 0.68rem;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 0.2rem;
+    }
+    @media (max-width: 700px) {
+      .ps-grid { grid-template-columns: repeat(2, 1fr); }
+      #perf-summary > div > div > div:last-of-type { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <script>
+    // Animated counters + bar on scroll
+    (function () {
+      const counters = document.querySelectorAll('.ps-num');
+      const bar = document.querySelector('.ps-bar');
+      let fired = false;
+
+      function animateCounters() {
+        if (fired) return;
+        fired = true;
+        counters.forEach(el => {
+          const target = +el.dataset.target;
+          const duration = 1800;
+          const step = target / (duration / 16);
+          let current = 0;
+          const timer = setInterval(() => {
+            current = Math.min(current + step, target);
+            el.textContent = Math.floor(current).toLocaleString('en-IN');
+            if (current >= target) clearInterval(timer);
+          }, 16);
+        });
+        if (bar) setTimeout(() => { bar.style.width = '83%'; }, 200);
+      }
+
+      const section = document.getElementById('perf-summary');
+      if (section && 'IntersectionObserver' in window) {
+        new IntersectionObserver(entries => {
+          if (entries[0].isIntersecting) animateCounters();
+        }, { threshold: 0.3 }).observe(section);
+      }
+    })();
+  </script>
+
   <!-- SUPER TRADER -->
   <section id="super-trader">
     <div class="liq-card rv">
