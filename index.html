@@ -4670,10 +4670,13 @@
         };
 
         try {
+          const formData = new FormData();
+          formData.append('name', payload.name);
+          formData.append('email', payload.email);
+          formData.append('phone', payload.phone);
           await fetch(SHEET_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
+            body: formData,
             mode: 'no-cors'
           });
         } catch (_) { /* no-cors won't throw, network errors are silent */ }
