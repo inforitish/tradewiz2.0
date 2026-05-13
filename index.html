@@ -4423,6 +4423,269 @@
     </button>
   </div>
 
+  <!-- LEAD POPUP -->
+  <style>
+    #tw-popup-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    #tw-popup-overlay.active {
+      display: flex;
+    }
+    #tw-popup {
+      background: #fff;
+      border-radius: 20px;
+      padding: 36px 32px 32px;
+      width: 100%;
+      max-width: 480px;
+      position: relative;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+      animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.88) translateY(20px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    #tw-popup-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      color: #9CA3AF;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+      transition: color 0.2s;
+    }
+    #tw-popup-close:hover { color: #374151; }
+    #tw-popup-logo {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    #tw-popup-logo span {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: #01041A;
+    }
+    #tw-popup-logo span em {
+      font-style: normal;
+      color: #3B82F6;
+    }
+    #tw-popup h2 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #111827;
+      line-height: 1.4;
+      margin-bottom: 6px;
+    }
+    #tw-popup h2 span { color: #3B82F6; }
+    #tw-popup-sub {
+      text-align: center;
+      font-size: 0.82rem;
+      color: #6B7280;
+      margin-bottom: 22px;
+    }
+    .tw-field {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid #E5E7EB;
+      border-radius: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem;
+      color: #111827;
+      background: #fff;
+      outline: none;
+      margin-bottom: 12px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .tw-field::placeholder { color: #9CA3AF; }
+    .tw-field:focus {
+      border-color: #3B82F6;
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+    }
+    .tw-field.error {
+      border-color: #EF4444;
+      box-shadow: 0 0 0 3px rgba(239,68,68,0.1);
+    }
+    .tw-error-msg {
+      display: none;
+      font-size: 0.75rem;
+      color: #EF4444;
+      margin-top: -8px;
+      margin-bottom: 10px;
+      padding-left: 4px;
+    }
+    .tw-error-msg.visible { display: block; }
+    #tw-popup-submit {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      margin-top: 4px;
+    }
+    #tw-popup-submit:hover { opacity: 0.92; transform: translateY(-1px); }
+    #tw-popup-submit:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+    #tw-popup-success {
+      display: none;
+      text-align: center;
+      padding: 20px 0 8px;
+    }
+    #tw-popup-success .success-icon {
+      font-size: 2.8rem;
+      margin-bottom: 12px;
+    }
+    #tw-popup-success h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+    #tw-popup-success p {
+      font-size: 0.88rem;
+      color: #6B7280;
+    }
+    @media (max-width: 480px) {
+      #tw-popup { padding: 28px 20px 24px; }
+      #tw-popup h2 { font-size: 1.1rem; }
+    }
+  </style>
+
+  <div id="tw-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="tw-popup-title">
+    <div id="tw-popup">
+      <button id="tw-popup-close" aria-label="Close">&times;</button>
+      <div id="tw-popup-logo">
+        <span>Trade<em>Wiz</em></span>
+      </div>
+      <h2 id="tw-popup-title">Get <span>1 Month Free Access</span><br>+ Exclusive Discount Code</h2>
+      <p id="tw-popup-sub">On First Come First Serve Basis</p>
+
+      <div id="tw-popup-form">
+        <input class="tw-field" id="tw-name" type="text" placeholder="Full Name" autocomplete="name" />
+        <div class="tw-error-msg" id="tw-name-err">Please enter your name.</div>
+
+        <input class="tw-field" id="tw-email" type="email" placeholder="Email Address" autocomplete="email" />
+        <div class="tw-error-msg" id="tw-email-err">Please enter a valid email address.</div>
+
+        <input class="tw-field" id="tw-phone" type="tel" placeholder="Mobile Number (10 digits)" autocomplete="tel" maxlength="10" />
+        <div class="tw-error-msg" id="tw-phone-err">Enter a valid 10-digit Indian mobile number.</div>
+
+        <button id="tw-popup-submit">Submit</button>
+      </div>
+
+      <div id="tw-popup-success">
+        <div class="success-icon">🎉</div>
+        <h3>You're on the list!</h3>
+        <p>We'll reach out shortly with your discount code and free access details.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      // ── REPLACE THIS WITH YOUR GOOGLE APPS SCRIPT WEB APP URL ──
+      const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyEWsK4ofQdhdYebXWEj8ix1syvenYQWsyOB9EQ2JmEMzi4SVYCDnA-WXeIW_R9qyR8/exec';
+
+      const overlay = document.getElementById('tw-popup-overlay');
+      const closeBtn = document.getElementById('tw-popup-close');
+      const submitBtn = document.getElementById('tw-popup-submit');
+      const form = document.getElementById('tw-popup-form');
+      const successBox = document.getElementById('tw-popup-success');
+
+      const nameEl  = document.getElementById('tw-name');
+      const emailEl = document.getElementById('tw-email');
+      const phoneEl = document.getElementById('tw-phone');
+      const nameErr  = document.getElementById('tw-name-err');
+      const emailErr = document.getElementById('tw-email-err');
+      const phoneErr = document.getElementById('tw-phone-err');
+
+      // Show popup after 4 seconds (only once per session)
+      if (!sessionStorage.getItem('tw_popup_seen')) {
+        setTimeout(() => overlay.classList.add('active'), 4000);
+      }
+
+      function closePopup() {
+        overlay.classList.remove('active');
+        sessionStorage.setItem('tw_popup_seen', '1');
+      }
+
+      closeBtn.addEventListener('click', closePopup);
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) closePopup(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePopup(); });
+
+      // Only allow digits in phone field
+      phoneEl.addEventListener('input', () => {
+        phoneEl.value = phoneEl.value.replace(/\D/g, '').slice(0, 10);
+      });
+
+      function validate() {
+        let ok = true;
+        const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRx = /^[6-9]\d{9}$/;
+
+        [nameEl, nameErr].forEach(el => el.classList.remove('error', 'visible'));
+        [emailEl, emailErr].forEach(el => el.classList.remove('error', 'visible'));
+        [phoneEl, phoneErr].forEach(el => el.classList.remove('error', 'visible'));
+
+        if (!nameEl.value.trim()) {
+          nameEl.classList.add('error'); nameErr.classList.add('visible'); ok = false;
+        }
+        if (!emailRx.test(emailEl.value.trim())) {
+          emailEl.classList.add('error'); emailErr.classList.add('visible'); ok = false;
+        }
+        if (!phoneRx.test(phoneEl.value.trim())) {
+          phoneEl.classList.add('error'); phoneErr.classList.add('visible'); ok = false;
+        }
+        return ok;
+      }
+
+      submitBtn.addEventListener('click', async () => {
+        if (!validate()) return;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting…';
+
+        const payload = {
+          name: nameEl.value.trim(),
+          email: emailEl.value.trim(),
+          phone: phoneEl.value.trim()
+        };
+
+        try {
+          await fetch(SHEET_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            mode: 'no-cors'
+          });
+        } catch (_) { /* no-cors won't throw, network errors are silent */ }
+
+        form.style.display = 'none';
+        successBox.style.display = 'block';
+        sessionStorage.setItem('tw_popup_seen', '1');
+        setTimeout(closePopup, 3500);
+      });
+    })();
+  </script>
+
   <script>
     const waBtn = document.getElementById('waBtn');
     const waLabel = document.getElementById('waLabel');
