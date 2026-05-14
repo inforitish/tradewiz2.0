@@ -4549,6 +4549,8 @@
       transition: border-color 0.2s, box-shadow 0.2s;
     }
     .tw-field::placeholder { color: #9CA3AF; }
+    select.tw-field { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+    select.tw-field:invalid, select.tw-field option[value=""] { color: #9CA3AF; }
     .tw-field:focus {
       border-color: #3B82F6;
       box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
@@ -4626,6 +4628,14 @@
         <input class="tw-field" id="tw-phone" type="tel" placeholder="Mobile Number (10 digits)" autocomplete="tel" maxlength="10" />
         <div class="tw-error-msg" id="tw-phone-err">Enter a valid 10-digit Indian mobile number.</div>
 
+        <select class="tw-field" id="tw-market">
+          <option value="" disabled selected>Which market are you trading?</option>
+          <option value="Stocks">📈 Stocks (NSE / BSE)</option>
+          <option value="Forex">💹 Forex (EURUSD / XAUUSD)</option>
+          <option value="Crypto">🚀 Crypto (BTC / ETH)</option>
+        </select>
+        <div class="tw-error-msg" id="tw-market-err">Please select your market.</div>
+
         <button id="tw-popup-submit">Submit</button>
       </div>
 
@@ -4648,12 +4658,14 @@
       const form = document.getElementById('tw-popup-form');
       const successBox = document.getElementById('tw-popup-success');
 
-      const nameEl  = document.getElementById('tw-name');
-      const emailEl = document.getElementById('tw-email');
-      const phoneEl = document.getElementById('tw-phone');
-      const nameErr  = document.getElementById('tw-name-err');
-      const emailErr = document.getElementById('tw-email-err');
-      const phoneErr = document.getElementById('tw-phone-err');
+      const nameEl   = document.getElementById('tw-name');
+      const emailEl  = document.getElementById('tw-email');
+      const phoneEl  = document.getElementById('tw-phone');
+      const marketEl = document.getElementById('tw-market');
+      const nameErr   = document.getElementById('tw-name-err');
+      const emailErr  = document.getElementById('tw-email-err');
+      const phoneErr  = document.getElementById('tw-phone-err');
+      const marketErr = document.getElementById('tw-market-err');
 
       // Show popup after 4 seconds (only once per session)
       if (!sessionStorage.getItem('tw_popup_seen')) {
@@ -4682,6 +4694,7 @@
         [nameEl, nameErr].forEach(el => el.classList.remove('error', 'visible'));
         [emailEl, emailErr].forEach(el => el.classList.remove('error', 'visible'));
         [phoneEl, phoneErr].forEach(el => el.classList.remove('error', 'visible'));
+        [marketEl, marketErr].forEach(el => el.classList.remove('error', 'visible'));
 
         if (!nameEl.value.trim()) {
           nameEl.classList.add('error'); nameErr.classList.add('visible'); ok = false;
@@ -4691,6 +4704,9 @@
         }
         if (!phoneRx.test(phoneEl.value.trim())) {
           phoneEl.classList.add('error'); phoneErr.classList.add('visible'); ok = false;
+        }
+        if (!marketEl.value) {
+          marketEl.classList.add('error'); marketErr.classList.add('visible'); ok = false;
         }
         return ok;
       }
@@ -4703,7 +4719,8 @@
         const payload = {
           name: nameEl.value.trim(),
           email: emailEl.value.trim(),
-          phone: phoneEl.value.trim()
+          phone: phoneEl.value.trim(),
+          market: marketEl.value
         };
 
         try {
@@ -4712,6 +4729,7 @@
           formData.append('name', payload.name);
           formData.append('email', payload.email);
           formData.append('phone', payload.phone);
+          formData.append('market', payload.market);
           await fetch(SHEET_URL, {
             method: 'POST',
             body: formData,
