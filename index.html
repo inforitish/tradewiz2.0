@@ -4550,7 +4550,8 @@
     }
     .tw-field::placeholder { color: #9CA3AF; }
     select.tw-field { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
-    select.tw-field:invalid, select.tw-field option[value=""] { color: #9CA3AF; }
+    select.tw-field option { font-weight: 700; color: #111827; }
+    select.tw-field option[value=""] { font-weight: 400; color: #9CA3AF; }
     .tw-field:focus {
       border-color: #3B82F6;
       box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
@@ -4630,9 +4631,9 @@
 
         <select class="tw-field" id="tw-market">
           <option value="" disabled selected>Which market are you trading?</option>
-          <option value="Stocks">📈 Stocks (NSE / BSE)</option>
-          <option value="Forex">💹 Forex (EURUSD / XAUUSD)</option>
-          <option value="Crypto">🚀 Crypto (BTC / ETH)</option>
+          <option value="Stocks">Stocks — NSE / BSE</option>
+          <option value="Forex">Forex — EURUSD / XAUUSD</option>
+          <option value="Crypto">Crypto — BTC / ETH</option>
         </select>
         <div class="tw-error-msg" id="tw-market-err">Please select your market.</div>
 
