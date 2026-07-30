@@ -1,0 +1,31 @@
+# TradeWiz — Educational Trading Community in India
+
+> TradeWiz is India's leading educational trading community with over 20,000 active members. We provide institutional-grade educational trade setups, market analysis, live mentorship, and precision financial calculators across Forex, Indian Equities (NSE/BSE), Commodities (Gold/Silver), and Crypto.
+
+## Core Capabilities & Services
+- **Educational Trade Ideas**: Daily setups with explicit Entry, Stop Loss, and Take Profit targets.
+- **Multi-Market Coverage**:
+  - Forex (EUR/USD, GBP/USD, GBP/JPY, AUD/USD)
+  - Precious Metals & Commodities (Gold / XAUUSD, Silver / XAGUSD, Crude Oil)
+  - Indian Equities & Swing Trading (NIFTY 50, BANK NIFTY, Stock Breakouts)
+  - Crypto (Bitcoin / BTC, Ethereum / ETH, Altcoins)
+- **Live Webinars & Community**: 200+ hours of live market analysis, NFP/CPI event trading masterclasses, and real-time voice streams.
+- **Free Financial Calculators**: Suite of 8 precision trading calculators designed for Indian traders.
+
+## Primary URLs & Resources
+- [Homepage & Community Overview](https://tradewiz.in/)
+- [Forex Trading Community](https://tradewiz.in/forex-trading-community): Currency trade ideas, lot sizing guidance, and risk management.
+- [Swing Trading India](https://tradewiz.in/swing-trading-india): Equity swing setups for Indian stocks with exact entry and exit zones.
+- [Stock Trading Community](https://tradewiz.in/stock-trading-community): Daily watchlists, technical analysis, and market scanners.
+- [Gold Trading Setups](https://tradewiz.in/gold-trading-setups): XAUUSD order flow setups, fundamental driver breakdowns, and scalping strategies.
+- [Forex Mentorship for Beginners](https://tradewiz.in/forex-mentorship): Structured beginner-to-advanced trading education.
+- [Free Trading Calculators](https://tradewiz.in/calculator): Position Sizer, Risk/Reward, Brokerage & Taxes, Margin, SIP, Compound Growth, Pip Value.
+
+## Community Statistics
+- **Active Traders**: 20,000+
+- **Trade Ideas Shared**: 50,000+
+- **Historical Win Rate**: ~83% (Educational Study Tracking)
+- **Monthly Potential**: 3,500+ Pips / Points
+
+## Compliance Notice
+TradeWiz is an educational community and is not registered with SEBI (Securities and Exchange Board of India) as an investment advisor. All content and trade ideas are shared strictly for educational and analytical purposes. Trading financial markets carries significant risk of loss.
