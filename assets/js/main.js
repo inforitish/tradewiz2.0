@@ -360,6 +360,7 @@
           });
         } catch (_) { /* no-cors won't throw, network errors are silent */ }
 
+        if (typeof gtag === 'function') { gtag('event', 'generate_lead', { event_category: 'engagement', event_label: payload.market }); }
         form.style.display = 'none';
         successBox.style.display = 'block';
         sessionStorage.setItem('tw_popup_seen', '1');
@@ -381,6 +382,7 @@
 
     waBtn.addEventListener('click', () => {
       if (waOpen) {
+        if (typeof gtag === 'function') { gtag('event', 'contact_whatsapp', { event_category: 'contact' }); }
         window.open('https://wa.me/917011957726', '_blank');
       } else {
         waLabel.classList.add('visible');
