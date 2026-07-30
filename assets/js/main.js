@@ -268,7 +268,7 @@
 
     // FAQ
     document.querySelectorAll('.fq-q').forEach(btn => { btn.addEventListener('click', () => { const a = btn.nextElementSibling, open = btn.classList.contains('open'); document.querySelectorAll('.fq-q').forEach(b => { b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); }); if (!open) { btn.classList.add('open'); a.classList.add('open'); } }); });
-  </script>
+  
 
 // Lead Generation Modal & Webhook Integration
     (function () {
@@ -393,4 +393,4 @@
       waLabel.classList.remove('visible');
       waOpen = false;
     });
-  </script>
+  
