@@ -113,7 +113,7 @@ PAGES = [
         "filename": "forex-mentorship.html",
         "slug": "forex-mentorship",
         "title": "TradeWiz | Forex Mentorship for Beginners in India",
-        "description": "Start your forex trading journey. Get expert forex mentorship for beginners in India, complete with live sessions, risk management training, and a supportive community.",
+        "description": "Start your forex trading journey. Get expert forex mentorship for beginners in India with live sessions, risk management training, and support.",
         "h1": 'Expert <span class="blue">Forex Mentorship</span><br>For Beginners',
         "sub": "Step-by-step beginner-to-pro mentorship covering chart analysis, risk control, lot sizing, and trader psychology.",
         "faq_schema": '''  <!-- Topic-Specific FAQ Schema -->
