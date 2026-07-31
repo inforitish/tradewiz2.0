@@ -18,13 +18,14 @@
 - [Swing Trading India](https://tradewiz.in/swing-trading-india): Equity swing setups for Indian stocks with exact entry and exit zones.
 - [Stock Trading Community](https://tradewiz.in/stock-trading-community): Daily watchlists, technical analysis, and market scanners.
 - [Gold Trading Setups](https://tradewiz.in/gold-trading-setups): XAUUSD order flow setups, fundamental driver breakdowns, and scalping strategies.
+- [Crypto Trading Community](https://tradewiz.in/crypto-trading-community): BTC, ETH, and altcoin market cycle watchlists and pattern analysis.
 - [Forex Mentorship for Beginners](https://tradewiz.in/forex-mentorship): Structured beginner-to-advanced trading education.
 - [Free Trading Calculators](https://tradewiz.in/calculator): Position Sizer, Risk/Reward, Brokerage & Taxes, Margin, SIP, Compound Growth, Pip Value.
 
 ## Community Statistics
 - **Active Traders**: 20,000+
 - **Trade Ideas Shared**: 50,000+
-- **Historical Win Rate**: ~83% (Educational Study Tracking)
+- **Educational Track Record**: ~83% (Study Tracking)
 - **Monthly Potential**: 3,500+ Pips / Points
 
 ## Compliance Notice

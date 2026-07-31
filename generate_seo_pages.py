@@ -4,6 +4,36 @@ import re
 # The pages to generate with full SEO, Canonical, OpenGraph, and Topic-Specific JSON-LD Schema
 PAGES = [
     {
+        "filename": "crypto-trading-community.html",
+        "slug": "crypto-trading-community",
+        "title": "TradeWiz | Top Crypto Trading Community in India",
+        "description": "Join India's top crypto trading community. Get daily BTC and altcoin watchlists, market cycle breakdowns, scalping setups, and expert crypto mentorship.",
+        "h1": 'Join India\'s Top <span class="blue">Crypto Trading</span><br>Community',
+        "sub": "Trade Bitcoin, Ethereum, and altcoins with market cycle watchlists, on-chain sentiment analysis, and risk management.",
+        "faq_schema": '''  <!-- Topic-Specific FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "What crypto setups does TradeWiz provide?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "TradeWiz provides 20+ weekly crypto setups covering BTC, ETH, and high-momentum altcoins with scalping, swing, and reversal analysis."
+      }
+    }, {
+      "@type": "Question",
+      "name": "Is TradeWiz suitable for crypto pattern trading and market cycles?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! TradeWiz provides on-chain market sentiment breakdowns, weekly cycle watchlists, and live monthly masterclasses."
+      }
+    }]
+  }
+  </script>'''
+    },
+    {
         "filename": "forex-trading-community.html",
         "slug": "forex-trading-community",
         "title": "TradeWiz | Best Forex Trading Community in India",
