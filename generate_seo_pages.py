@@ -170,8 +170,31 @@ def main():
         # Replace H1
         html = h1_pattern.sub(f'<h1 class="hero-title">{page["h1"]}</h1>', html)
 
-        # Inject topic-specific schema into head
-        html = html.replace('</head>', f'{page["faq_schema"]}\n</head>')
+        # Replace hreflang and canonical
+        html = re.sub(r'<link rel="alternate" hreflang="en-IN" href=".*?">', f'<link rel="alternate" hreflang="en-IN" href="{url}">', html)
+        html = re.sub(r'<link rel="alternate" hreflang="x-default" href=".*?">', f'<link rel="alternate" hreflang="x-default" href="{url}">', html)
+
+        breadcrumb_schema = f'''  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json">
+  {{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://tradewiz.in/"
+    }},{{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{page['slug'].replace('-', ' ').title()}",
+      "item": "{url}"
+    }}]
+  }}
+  </script>'''
+
+        # Inject topic-specific schema & breadcrumb into head
+        html = html.replace('</head>', f'{page["faq_schema"]}\n{breadcrumb_schema}\n</head>')
 
         with open(page["filename"], "w", encoding="utf-8") as f:
             f.write(html)
