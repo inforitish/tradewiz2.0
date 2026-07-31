@@ -13,14 +13,14 @@
 - **Free Financial Calculators**: Suite of 8 precision trading calculators designed for Indian traders.
 
 ## Primary URLs & Resources
-- [Homepage & Community Overview](https://tradewiz.in/)
-- [Forex Trading Community](https://tradewiz.in/forex-trading-community): Currency trade ideas, lot sizing guidance, and risk management.
-- [Swing Trading India](https://tradewiz.in/swing-trading-india): Equity swing setups for Indian stocks with exact entry and exit zones.
-- [Stock Trading Community](https://tradewiz.in/stock-trading-community): Daily watchlists, technical analysis, and market scanners.
-- [Gold Trading Setups](https://tradewiz.in/gold-trading-setups): XAUUSD order flow setups, fundamental driver breakdowns, and scalping strategies.
-- [Crypto Trading Community](https://tradewiz.in/crypto-trading-community): BTC, ETH, and altcoin market cycle watchlists and pattern analysis.
-- [Forex Mentorship for Beginners](https://tradewiz.in/forex-mentorship): Structured beginner-to-advanced trading education.
-- [Free Trading Calculators](https://tradewiz.in/calculator): Position Sizer, Risk/Reward, Brokerage & Taxes, Margin, SIP, Compound Growth, Pip Value.
+- [Homepage & Community Overview](https://www.tradewiz.in/)
+- [Forex Trading Community](https://www.tradewiz.in/forex-trading-community): Currency trade ideas, lot sizing guidance, and risk management.
+- [Swing Trading India](https://www.tradewiz.in/swing-trading-india): Equity swing setups for Indian stocks with exact entry and exit zones.
+- [Stock Trading Community](https://www.tradewiz.in/stock-trading-community): Daily watchlists, technical analysis, and market scanners.
+- [Gold Trading Setups](https://www.tradewiz.in/gold-trading-setups): XAUUSD order flow setups, fundamental driver breakdowns, and scalping strategies.
+- [Crypto Trading Community](https://www.tradewiz.in/crypto-trading-community): BTC, ETH, and altcoin market cycle watchlists and pattern analysis.
+- [Forex Mentorship for Beginners](https://www.tradewiz.in/forex-mentorship): Structured beginner-to-advanced trading education.
+- [Free Trading Calculators](https://www.tradewiz.in/calculator): Position Sizer, Risk/Reward, Brokerage & Taxes, Margin, SIP, Compound Growth, Pip Value.
 
 ## Community Statistics
 - **Active Traders**: 20,000+

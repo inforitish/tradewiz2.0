@@ -17,4 +17,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://tradewiz.in/sitemap.xml
+Sitemap: https://www.tradewiz.in/sitemap.xml

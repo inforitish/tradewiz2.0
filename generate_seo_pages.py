@@ -185,7 +185,7 @@ def main():
 
     for page in PAGES:
         html = template
-        url = f"https://tradewiz.in/{page['slug']}"
+        url = f"https://www.tradewiz.in/{page['slug']}"
         
         # Replace metadata, Canonical, and OpenGraph URLs
         html = title_pattern.sub(f'<title>{page["title"]}</title>', html)
@@ -213,7 +213,7 @@ def main():
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://tradewiz.in/"
+      "item": "https://www.tradewiz.in/"
     }},{{
       "@type": "ListItem",
       "position": 2,

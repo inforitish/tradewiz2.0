@@ -1,13 +1,13 @@
 # TradeWiz 2.0 — Comprehensive System Documentation & Entity Guide
 
-Welcome to the full documentation index for TradeWiz (https://tradewiz.in), India's premier educational trading community and financial calculator ecosystem.
+Welcome to the full documentation index for TradeWiz (https://www.tradewiz.in), India's premier educational trading community and financial calculator ecosystem.
 
 ---
 
 ## 1. Entity Overview & Brand Identity
 
 - **Brand Name**: TradeWiz
-- **Domain**: https://tradewiz.in
+- **Domain**: https://www.tradewiz.in
 - **Target Audience**: Retail traders and investors in India trading Forex, Indian Equities (NSE/BSE), Commodities (Gold/Silver), and Cryptocurrency.
 - **Member Base**: 20,000+ active traders
 - **Educational Track Record**: 50,000+ trade setups shared, ~83% historical educational win rate.
@@ -66,17 +66,17 @@ TradeWiz provides 8 free client-side financial calculators tailored for Indian m
 
 ## 4. Primary Page Hierarchy & Site Index
 
-- `https://tradewiz.in/` — Official Homepage, features overview, live performance graphs, pricing, reviews, and lead capture.
-- `https://tradewiz.in/forex-trading-community` — Specialized portal for Forex traders in India.
-- `https://tradewiz.in/swing-trading-india` — Specialized portal for swing trading Indian equities and commodities.
-- `https://tradewiz.in/stock-trading-community` — Specialized portal for Indian stock market investors and day traders.
-- `https://tradewiz.in/gold-trading-setups` — Specialized portal for Gold (XAUUSD) order flow analysis and setups.
-- `https://tradewiz.in/forex-mentorship` — Beginner-to-advanced mentorship curriculum for forex trading.
-- `https://tradewiz.in/calculator` — Interactive 8-in-1 financial calculator suite.
-- `https://tradewiz.in/disclaimer` — Detailed SEBI educational legal disclaimer.
-- `https://tradewiz.in/terms` — Community terms and conditions.
-- `https://tradewiz.in/privacy` — Privacy policy.
-- `https://tradewiz.in/refund` — Membership refund policy.
+- `https://www.tradewiz.in/` — Official Homepage, features overview, live performance graphs, pricing, reviews, and lead capture.
+- `https://www.tradewiz.in/forex-trading-community` — Specialized portal for Forex traders in India.
+- `https://www.tradewiz.in/swing-trading-india` — Specialized portal for swing trading Indian equities and commodities.
+- `https://www.tradewiz.in/stock-trading-community` — Specialized portal for Indian stock market investors and day traders.
+- `https://www.tradewiz.in/gold-trading-setups` — Specialized portal for Gold (XAUUSD) order flow analysis and setups.
+- `https://www.tradewiz.in/forex-mentorship` — Beginner-to-advanced mentorship curriculum for forex trading.
+- `https://www.tradewiz.in/calculator` — Interactive 8-in-1 financial calculator suite.
+- `https://www.tradewiz.in/disclaimer` — Detailed SEBI educational legal disclaimer.
+- `https://www.tradewiz.in/terms` — Community terms and conditions.
+- `https://www.tradewiz.in/privacy` — Privacy policy.
+- `https://www.tradewiz.in/refund` — Membership refund policy.
 
 ---
 
