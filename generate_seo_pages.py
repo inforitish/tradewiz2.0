@@ -6,7 +6,7 @@ PAGES = [
     {
         "filename": "crypto-trading-community.html",
         "slug": "crypto-trading-community",
-        "title": "TradeWiz | Top Crypto Trading Community in India",
+        "title": "TradeWiz | Best Crypto Trading Community in India",
         "description": "Join India's top crypto trading community. Get daily BTC and altcoin watchlists, market cycle breakdowns, scalping setups, and expert crypto mentorship.",
         "h1": 'Join India\'s Top <span class="blue">Crypto Trading</span><br>Community',
         "sub": "Trade Bitcoin, Ethereum, and altcoins with market cycle watchlists, on-chain sentiment analysis, and risk management.",
@@ -96,7 +96,7 @@ PAGES = [
     {
         "filename": "stock-trading-community.html",
         "slug": "stock-trading-community",
-        "title": "TradeWiz | Top Stock Trading Community India",
+        "title": "TradeWiz | Best Stocks Trading Community in India",
         "description": "Learn stock trading with India's top stock trading community. Access daily equity watchlists, market analysis, and live mentorship.",
         "h1": 'Join India\'s Top <span class="blue">Stock Trading</span><br>Community',
         "sub": "Get pre-market watchlists, stock screeners, technical analysis breakdowns, and live market commentary.",
