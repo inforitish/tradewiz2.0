@@ -44,7 +44,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/main.min.css">
   
   <!-- WebSite Schema with Sitelinks Searchbox -->
   <script type="application/ld+json">
@@ -522,10 +522,10 @@
       </div><!-- /wt-track -->
     </div><!-- /wt-outer -->
     <div class="wt-dots">
-      <button class="wt-dot active" data-slide="0"></button>
-      <button class="wt-dot" data-slide="1"></button>
-      <button class="wt-dot" data-slide="2"></button>
-      <button class="wt-dot" data-slide="3"></button>
+      <button aria-label="Interactive action button" class="wt-dot active" data-slide="0"></button>
+      <button aria-label="Go to slide 2" class="wt-dot"></button>
+      <button aria-label="Go to slide 3" class="wt-dot"></button>
+      <button aria-label="Go to slide 4" class="wt-dot"></button>
     </div>
   </section>
 
@@ -1373,7 +1373,7 @@
   <div class="wa-wrap" id="waWrap">
     <div class="wa-label-wrap" id="waLabel">
       <a href="https://wa.me/917011957726" target="_blank" rel="noopener" class="wa-label">Chat With Us</a>
-      <button class="wa-close" id="waClose" aria-label="Close">✕</button>
+      <button class="wa-close" id="waClose" aria-label="Close" aria-label="Close dialog">✕</button>
     </div>
     <button class="wa-btn" id="waBtn" aria-label="Chat on WhatsApp">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -1424,7 +1424,7 @@
 
 
 
-  <script src="/assets/js/main.js" defer></script>
+  <script src="/assets/js/main.min.js" defer></script>
 
 </body>
 
