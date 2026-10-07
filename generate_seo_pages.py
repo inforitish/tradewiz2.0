@@ -352,7 +352,20 @@ PAGES = [
     </div>
   </section>
 ''',
-        "faq_schema": '''  <!-- Topic-Specific FAQ Schema -->
+        "faq_schema": '''  <!-- Topic-Specific FAQ & Course Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "TradeWiz Forex Trading Mentorship Program",
+    "description": "Comprehensive step-by-step forex mentorship program covering market foundations, institutional order flow, risk management, and trader psychology.",
+    "provider": {
+      "@type": "Organization",
+      "name": "TradeWiz",
+      "sameAs": "https://www.tradewiz.in"
+    }
+  }
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
